@@ -1,17 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './Routes';
-import { createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import GlobalStyle from './styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
+import Routes from './Routes';
 import theme from './styles/theme';
-
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-
-	// 전역스타일
-
-`;
 
 ReactDOM.render(
   <React.StrictMode>
