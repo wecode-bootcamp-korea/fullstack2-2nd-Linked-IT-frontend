@@ -1,4 +1,4 @@
-# LinkedIt Front-end Repository
+# LinkedIT Front-end Repository
 
 ### 👨‍👩‍👧‍👦 Team Front-end
 
