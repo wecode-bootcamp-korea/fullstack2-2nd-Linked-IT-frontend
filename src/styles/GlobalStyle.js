@@ -2,10 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
-  ${reset}
+    ${reset}
 
-	// 전역스타일
-
+    *{
+        box-sizing: border-box;
+    }
 `;
 
 export default GlobalStyle;
