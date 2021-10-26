@@ -30,9 +30,9 @@ export default function JobPosting(props) {
       <div>
         <StyledUl>
           {date && <li>{date}</li>}
-          {applicant && <li className="applicant">지원자 {applicant}명</li>}
+          {applicant && <li className="applicant">지 원 자 {applicant}명</li>}
           {easy && <li className="easy"></li>}
-          {easy && <li>간편지원</li>}
+          {easy && <li>간편 지원</li>}
         </StyledUl>
       </div>
     </StyledJobPosting>

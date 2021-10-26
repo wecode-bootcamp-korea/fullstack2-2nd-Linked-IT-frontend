@@ -18,7 +18,7 @@ export default function Jobs() {
 const StyledJobs = styled.div`
   display: flex;
   width: 1128px;
-  margin: 0 auto;
+  margin: 10 auto;
 `;
 
 const JobLPostingList = styled.section`
