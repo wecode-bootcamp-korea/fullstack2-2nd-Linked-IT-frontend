@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export default function FloatingFooter() {
   return (
-    <Container>
+    <Aside>
       <Banner>
         <img src="/images/MemberBanner.png" alt="MemberBanner" />
       </Banner>
@@ -22,20 +21,21 @@ export default function FloatingFooter() {
         <img src="/images/LinkedItLogo.png" alt="LinkedItLogo" />
         <span> LinkedIT with Wecode</span>
       </Footer>
-    </Container>
+    </Aside>
   );
 }
 
-const Container = styled.div`
-  padding: 5px 5px;
-  border-radius: 5px;
-  width: 300px;
+const Aside = styled.div`
+  width: 320px;
   text-align: center;
-  background-color: ${({ theme }) => theme.white};
 `;
 
 const Banner = styled.div`
-  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid ${({ theme }) => theme.colors.borderGrey};
+  border-radius: 12px;
+  background-color: ${({ theme }) => theme.colors.white};
+
   img {
     width: 300px;
   }
@@ -43,21 +43,21 @@ const Banner = styled.div`
 
 const Links = styled.div`
   padding: 20px;
-  width: 260px;
   text-align: center;
 
   span {
     display: inline-block;
     padding: 0 10px;
     line-height: 28px;
-    color: ${({ theme }) => theme.deepGrey};
+    color: ${({ theme }) => theme.colors.darkGrey};
     font-size: 14px;
   }
 `;
 
 const Footer = styled.div`
-  width: 300px;
+  padding-bottom: 20px;
   text-align: center;
+
   img {
     vertical-align: middle;
     width: 70px;
