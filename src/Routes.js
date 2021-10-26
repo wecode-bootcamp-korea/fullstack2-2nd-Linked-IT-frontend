@@ -5,7 +5,7 @@ import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
 import Feed from './pages/Feed/Feed';
 import Jobs from './pages/Jobs/Jobs';
-import Profile from './pages/Jobs/Jobs';
+import Profile from './pages/Profile/Profile';
 
 function Routes() {
   return (
