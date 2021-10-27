@@ -1,17 +1,31 @@
 const theme = {
-  background: '#FFFEFC',
-  white: '#FFFFFF',
-  vermilion: '#ff7425',
-  orange: '#FF9900',
-  opacityOrange: 'rgba(242,153,74,0.5)',
-  yellow: '#FFD66C',
-  grey: 'rgba(196,196,196,0.3)',
-  middleGrey: 'rgba(65,65,65,0.4)',
-  deepGrey: '#828282',
-  lightOrange: 'rgba(255,195,170,0.3)',
-  fontColor: '#2D2B2B',
-  fontTitle: "'Alata', sans-serif;",
-  fontContent: "'Noto Sans KR', sans-serif;",
+  colors: {
+    //white계
+    white: '#ffffff',
+    bgcBeige: '#f3f2ef',
+
+    //black계
+    black: '#000000',
+    btnHoverBlack: '#191919',
+
+    //grey계
+    fontGrey: '#666666',
+    borderGrey: '#ebebeb',
+    backgroundGrey: '#F3F2EE',
+    darkGrey: '#5E5E5E',
+    btnGray: '#666666',
+
+    //red계
+    alarmRed: '#d11e2c',
+
+    //green계
+    btnGreen: '#057642',
+
+    //blue계
+    mainBlue: '#0b66c2',
+    lightBlue: '#E4F1FE',
+    navy: '#004182',
+  },
 };
 
 export default theme;
