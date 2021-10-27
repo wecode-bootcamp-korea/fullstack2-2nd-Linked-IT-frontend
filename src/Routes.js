@@ -7,7 +7,7 @@ import Feed from './pages/Feed/Feed';
 import Jobs from './pages/Jobs/Jobs';
 import Profile from './pages/Profile/Profile';
 
-function Routes() {
+export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
@@ -21,5 +21,3 @@ function Routes() {
     </BrowserRouter>
   );
 }
-
-export default Routes;
