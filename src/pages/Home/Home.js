@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <div>페이지 초기화</div>
-      <Footer popup={true} />
+      <Footer popup={false} />
     </>
   );
 }

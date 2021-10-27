@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import footerData from './footerData';
 
 export default function Footer(props) {
+  const [isFooterPopuped] = useState(props.popup);
+  const [isFooterOpened, setIsFooterOpened] = useState(true);
+
   return (
     <>
-      <StyledFooter popup={props.popup}>
-        <ExitButton popup={props.popup}>
+      <StyledFooter popup={isFooterPopuped} close={isFooterOpened}>
+        <ExitButton
+          popup={isFooterPopuped}
+          onClick={() => setIsFooterOpened(!isFooterOpened)}
+        >
           <i className="fal fa-times"></i>
         </ExitButton>
         <GridContainer>
@@ -72,13 +78,13 @@ export default function Footer(props) {
           <CopyRightNotice>WeCoder's LinkedIT Project © 2021년</CopyRightNotice>
         </GridContainer>
       </StyledFooter>
-      <PopupBlocker popup={props.popup} />
+      <PopupBlocker popup={isFooterPopuped} />
     </>
   );
 }
 
 const StyledFooter = styled.footer`
-  position: fixed;
+  position: ${props => (props.popup ? 'fixed' : 'static')};
   bottom: 0;
   z-index: ${props => (props.popup ? 10000 : 'auto')};
 
@@ -96,6 +102,8 @@ const StyledFooter = styled.footer`
   color: ${props => props.theme.colors.fontGrey};
   font-size: 1rem;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui;
+
+  display: ${props => (props.close ? 'block' : 'none')};
 `;
 
 const ExitButton = styled.button`
