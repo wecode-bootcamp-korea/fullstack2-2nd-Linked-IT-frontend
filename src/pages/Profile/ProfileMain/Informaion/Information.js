@@ -109,7 +109,7 @@ const PlusBtnWrapper = styled.div`
 
 const CareerInfo = styled.div`
   position: relative;
-  max-width: 780px;
+  max-width: 750px;
   margin: 0 auto 0 auto;
   padding: 25px 25px 0 25px;
   background-color: white;
@@ -119,7 +119,7 @@ const CareerInfo = styled.div`
 
 const EduecationInfo = styled.div`
   position: relative;
-  max-width: 780px;
+  max-width: 750px;
   margin: 0 auto 0 auto;
   padding: 25px 25px 0 25px;
   background-color: white;

@@ -10,7 +10,7 @@ export default function Card(props) {
   const handleDelete = id => {
     setCardHidden(true);
     setTimeout(() => {
-      deleteCard(card.id);
+      deleteCard(id);
     }, 600);
   };
 
