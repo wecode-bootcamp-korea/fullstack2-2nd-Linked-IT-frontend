@@ -4,7 +4,7 @@ const theme = {
 
     //white계
     white: '#ffffff',
-    bgcBeige: '#f3f2ef',
+    bgcBeige: '#f3f2ee',
 
     //black계
     black: '#000000',
@@ -28,15 +28,21 @@ const theme = {
     alarmRed: '#d11e2c',
 
     //green계
+    fontGreen: '#057642',
     btnGreen: '#057642',
     btnDarkGreen: '#046238',
 
     //blue계
 <<<<<<< HEAD
+<<<<<<< HEAD
     btnLightBlue: '#E4F1FE',
 =======
     btnLightBlue: '#e4F1fe',
 >>>>>>> 4e160dc (Modify: 팀원들의 합의 하에 이뤄진 theme.js 수정본 반영)
+=======
+    bgcLightBlue: '#e4f1fe',
+    btnLightBlue: '#e4f1fe',
+>>>>>>> 054f42c (Modify: 팀원들의 합의 하에 이뤄진 theme.js 수정본 최신화)
     btnNavy: '#004182',
   },
 };
