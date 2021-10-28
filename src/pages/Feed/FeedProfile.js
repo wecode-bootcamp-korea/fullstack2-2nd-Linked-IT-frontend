@@ -1,18 +1,30 @@
 import styled from 'styled-components';
+import isKorean from './../../utils/LanguageUtil';
 
 export default function FeedProfile(props) {
-  const { name, workPlace, firstConnection, profileImage, backgroundImage } =
-    props.profileData;
+  const {
+    firstName,
+    lastName,
+    userProfileUrl,
+    backgroundImage,
+    headline,
+    firstConnection,
+  } = props.myProfileData;
+
   return (
     <Aside>
       <BackgroundImage>
         <img src={backgroundImage} alt="backgroundImage" />
       </BackgroundImage>
       <ProfileImage>
-        <img src={profileImage} alt="profileImage" />
+        <img src={userProfileUrl} alt="profileImage" />
       </ProfileImage>
-      <Name>{name}</Name>
-      <WorkPlace>{workPlace}</WorkPlace>
+      <Name>
+        {isKorean(firstName)
+          ? `${lastName}${firstName}`
+          : `${firstName} ${lastName}`}
+      </Name>
+      <WorkPlace>{headline}</WorkPlace>
       <Count>
         <Title>1촌(명)</Title>
         <Value>{firstConnection}</Value>
@@ -23,7 +35,8 @@ export default function FeedProfile(props) {
 
 const Aside = styled.div`
   display: inline-block;
-  position: relative;
+  position: sticky;
+  top: 50px;
   width: 220px;
   border: 1px solid ${({ theme }) => theme.colors.borderGrey};
   border-radius: 12px;
@@ -45,8 +58,8 @@ const ProfileImage = styled.div`
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 50px;
     width: 74px;
+    border-radius: 50px;
   }
 `;
 
@@ -81,5 +94,5 @@ const Title = styled.span`
 const Value = styled.span`
   position: absolute;
   right: 18px;
-  color: ${({ theme }) => theme.colors.mainBlue};
+  color: ${({ theme }) => theme.colors.btnNavy};
 `;
