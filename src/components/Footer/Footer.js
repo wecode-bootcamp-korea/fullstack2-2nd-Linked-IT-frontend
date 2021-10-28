@@ -84,7 +84,7 @@ export default function Footer(props) {
 }
 
 const StyledFooter = styled.footer`
-  position: ${props => (props.default ? 'static' : 'fixed')};
+  position: ${props => (props.default ? 'fixed' : 'fixed')};
   bottom: 0;
   z-index: ${props => (props.default ? 'auto' : 10000)};
 
@@ -92,8 +92,8 @@ const StyledFooter = styled.footer`
   height: ${props => (props.default ? '266px' : '282px')};
   margin: 0 auto;
   border-radius: ${props => (props.default ? 0 : '8px')};
-  padding: 16px 24px;
-  padding-bottom: ${props => (props.default ? 0 : '16px')};
+  padding: 1em 1.5em;
+  padding-bottom: ${props => (props.default ? 0 : '1em')};
 
   background-color: ${props =>
     props.default ? props => props.theme.colors.bgcBeige : 'white'};
@@ -117,7 +117,7 @@ const ExitButton = styled.button`
   background-color: ${props =>
     props.default ? props => props.theme.colors.bgcBeige : 'white'};
   color: gray;
-  font-size: 1.6em;
+  font-size: 1.6rem;
 
   &:hover {
     background-color: lightgray;
@@ -128,7 +128,7 @@ const ExitButton = styled.button`
 const FooterGridContainer = styled.section`
   width: 1128px;
   max-width: 100%;
-  margin: 24px auto;
+  margin: 1.5em auto;
 
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -154,7 +154,7 @@ const FooterLinks = styled.nav`
 
   a {
     color: ${props => props.theme.colors.fontGrey};
-    font-size: 0.8125em;
+    font-size: 0.8125rem;
     font-weight: 600;
 
     &:hover {
@@ -163,7 +163,7 @@ const FooterLinks = styled.nav`
     }
 
     .far {
-      margin-left: 6px;
+      margin-left: 0.4615em;
 
       &.inactive {
         display: none;
@@ -188,18 +188,18 @@ const GoToHelpCenter = styled.article`
 
     width: 24px;
     height: 24px;
-    margin-right: 6px;
+    margin-right: 0.2885em;
 
-    font-size: 1.3em;
+    font-size: 1.3rem;
   }
 
   p {
-    font-size: 0.8125em;
+    font-size: 0.8125rem;
     line-height: 1.35em;
 
     a {
       color: ${props => props.theme.colors.fontGrey};
-      font-size: 1.15em;
+      font-size: 0.9375rem;
       font-weight: 600;
 
       &:hover {
@@ -223,21 +223,21 @@ const GoToMySettings = styled.article`
   .fas {
     width: 24px;
     height: 24px;
-    margin-right: 6px;
+    margin-right: 0.2885em;
 
-    font-size: 1.3em;
+    font-size: 1.3rem;
   }
 
   p {
     position: relative;
     top: -2px;
 
-    font-size: 0.8125em;
+    font-size: 0.8125rem;
     line-height: 1.35em;
 
     a {
       color: ${props => props.theme.colors.fontGrey};
-      font-size: 1.15em;
+      font-size: 0.9375rem;
       font-weight: 600;
 
       &:hover {
@@ -258,8 +258,8 @@ const SelectLanguage = styled.aside`
   flex-direction: column;
 
   label {
-    margin-bottom: 5px;
-    font-size: 0.8125em;
+    margin-bottom: 0.3846em;
+    font-size: 0.8125rem;
   }
 
   select {
@@ -267,10 +267,10 @@ const SelectLanguage = styled.aside`
     height: 32px;
     border: 1px solid rgba(0, 0, 0, 0.6);
     border-radius: 4px;
-    padding: 0 32px 0 8px;
+    padding: 0 2.4em 0 0.6em;
 
     -webkit-appearance: none;
-    background: url('/images/arrow.png') no-repeat 95% 50%;
+    background: url('/images/arrow.png') no-repeat 98% 50%;
 
     background-color: white;
     color: ${props => props.theme.colors.fontGrey};
@@ -283,8 +283,8 @@ const SelectLanguage = styled.aside`
 `;
 
 const CopyRightNotice = styled.p`
-  padding-top: 13px;
-  font-size: 0.8125em;
+  padding-top: 1em;
+  font-size: 0.8125rem;
 
   grid-column: 1/4;
   grid-row: 7/8;
