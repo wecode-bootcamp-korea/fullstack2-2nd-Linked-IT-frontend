@@ -13,7 +13,7 @@ export default function Footer(props) {
           <ExitButton default={isDefault} onClick={() => toggleFooter()}>
             <i className="fal fa-times"></i>
           </ExitButton>
-          <GridContainer>
+          <FooterGridContainer>
             <FooterLogo alt="LinkedIT Logo Image" src="/images/logo_full.png" />
             <FooterLinks>
               {footerData.links.map(data => {
@@ -75,7 +75,7 @@ export default function Footer(props) {
             <CopyRightNotice>
               WeCoder's LinkedIT Project © 2021년
             </CopyRightNotice>
-          </GridContainer>
+          </FooterGridContainer>
         </StyledFooter>
       )}
       {!isDefault && !isHidden && <PopupBlocker />}
@@ -125,7 +125,7 @@ const ExitButton = styled.button`
   }
 `;
 
-const GridContainer = styled.section`
+const FooterGridContainer = styled.section`
   width: 1128px;
   max-width: 100%;
   margin: 24px auto;
