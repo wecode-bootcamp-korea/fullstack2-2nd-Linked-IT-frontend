@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import footerData from './footerData';
 
 export default function Footer(props) {
@@ -9,8 +9,12 @@ export default function Footer(props) {
   return (
     <>
       {!isHidden && (
-        <StyledFooter default={isDefault}>
-          <ExitButton default={isDefault} onClick={() => toggleFooter()}>
+        <StyledFooter className={isDefault ? '' : 'popup'} default={isDefault}>
+          <ExitButton
+            className={isDefault ? '' : 'popup'}
+            default={isDefault}
+            onClick={() => toggleFooter()}
+          >
             <i className="fal fa-times"></i>
           </ExitButton>
           <FooterGridContainer>
@@ -78,28 +82,52 @@ export default function Footer(props) {
           </FooterGridContainer>
         </StyledFooter>
       )}
-      {!isDefault && !isHidden && <PopupBlocker />}
+      {!isDefault && !isHidden && (
+        <PopupBlocker
+          className={isDefault ? '' : 'popup'}
+          onClick={() => toggleFooter()}
+        />
+      )}
     </>
   );
 }
 
+const slideUp = keyframes`
+  from {
+    transform: translateY(300px);
+  }
+  to {
+    transform: translateY(0);
+  }
+`;
+
 const StyledFooter = styled.footer`
-  position: ${props => (props.default ? 'static' : 'fixed')};
-  bottom: 0;
-  z-index: ${props => (props.default ? 'auto' : 10000)};
-
   width: 100%;
-  height: ${props => (props.default ? '266px' : '282px')};
+  height: 266px;
   margin: 0 auto;
-  border-radius: ${props => (props.default ? 0 : '8px')};
   padding: 1em 1.5em;
-  padding-bottom: ${props => (props.default ? 0 : '1em')};
 
-  background-color: ${props =>
-    props.default ? props => props.theme.colors.bgcBeige : 'white'};
+  background-color: ${props => props.theme.colors.bgcBeige};
   color: ${props => props.theme.colors.fontGrey};
   font-size: 1rem;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui;
+
+  &.popup {
+    position: fixed;
+    bottom: 0;
+    z-index: 10000;
+
+    height: 282px;
+    border-radius: 8px;
+    padding-bottom: 1em;
+
+    background-color: white;
+
+    animation-name: ${slideUp};
+    animation-duration: 0.4s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+  }
 `;
 
 const ExitButton = styled.button`
@@ -107,17 +135,21 @@ const ExitButton = styled.button`
   top: 12px;
   right: 8px;
 
-  display: ${props => (props.default ? 'none' : 'block')};
+  display: none;
 
   width: 40px;
   height: 40px;
   border: 0;
   border-radius: 50%;
 
-  background-color: ${props =>
-    props.default ? props => props.theme.colors.bgcBeige : 'white'};
+  background-color: ${props => props.theme.colors.bgcBeige};
   color: gray;
   font-size: 1.6rem;
+
+  &.popup {
+    display: block;
+    background-color: white;
+  }
 
   &:hover {
     background-color: lightgray;
@@ -294,11 +326,14 @@ const PopupBlocker = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: ${props => (props.default ? 'auto' : 5000)};
 
   width: 100vw;
   height: 100vh;
 
-  background-color: ${props =>
-    props.default ? 'transparent' : 'rgba(0, 0, 0, 0.6)'};
+  background-color: transparent;
+
+  &.popup {
+    z-index: 5000;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
 `;
