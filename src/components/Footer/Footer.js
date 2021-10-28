@@ -126,22 +126,22 @@ const ExitButton = styled.button`
 `;
 
 const FooterGridContainer = styled.section`
-  width: 1128px;
-  max-width: 100%;
-  margin: 1.5em auto;
-
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 35px repeat(6, 28px);
+
+  width: 1128px;
+  max-width: 100%;
+  margin: 1.5em auto;
 `;
 
 const FooterLogo = styled.img`
+  grid-column: 1/7;
+  grid-row: 1/2;
+
   width: 84px;
   max-width: 100%;
   height: 21px;
-
-  grid-column: 1/7;
-  grid-row: 1/2;
 `;
 
 const FooterLinks = styled.nav`
@@ -249,13 +249,13 @@ const GoToMySettings = styled.article`
 `;
 
 const SelectLanguage = styled.aside`
-  margin-left: auto;
-
   grid-column: 5/7;
   grid-row: 2/5;
 
   display: flex;
   flex-direction: column;
+
+  margin-left: auto;
 
   label {
     margin-bottom: 0.3846em;
@@ -283,11 +283,11 @@ const SelectLanguage = styled.aside`
 `;
 
 const CopyRightNotice = styled.p`
-  padding-top: 1em;
-  font-size: 0.8125rem;
-
   grid-column: 1/4;
   grid-row: 7/8;
+
+  padding-top: 1em;
+  font-size: 0.8125rem;
 `;
 
 const PopupBlocker = styled.div`
