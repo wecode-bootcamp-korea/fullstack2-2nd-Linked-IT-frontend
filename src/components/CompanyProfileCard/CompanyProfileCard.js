@@ -3,16 +3,15 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import { addComma } from '../../utils/NumberUtil';
 
-export default function JobPostingCard(props) {
+export default function CompanyProfileCard(props) {
   const {
     profileImgUrl,
-    jobPostingTitle,
     companyName,
+    companyCategory,
     companyLocation,
-    workType,
-    createdAt,
-    applicantCount,
-    isEasy,
+    followerCount,
+    companySummary,
+    jobPostingCount,
     clicked,
     showBtn,
     showBorder,
@@ -27,26 +26,29 @@ export default function JobPostingCard(props) {
       </ImgWrapper>
       <TextWrapper showBorder={showBorder}>
         <FirstLine>
-          <Link to="/">{jobPostingTitle}</Link>
+          <Link to="/">{companyName}</Link>
         </FirstLine>
-        <SecondLine>{companyName}</SecondLine>
-        <ThirdLine>
-          {companyLocation} {workType ? `(${workType})` : ``}
-        </ThirdLine>
-        <FourthLine>
-          {createdAt && <li>{createdAt}</li>}
-          {applicantCount > 0 && (
-            <li className="applicantCount">
-              지원자 {addComma(applicantCount)}명
-            </li>
-          )}
-          {isEasy && <li className="isEasy" />}
-          {isEasy && <li>간편지원</li>}
-        </FourthLine>
+        {companyLocation && (
+          <SecondLine>
+            {companyCategory}
+            &nbsp;&#183;&nbsp;
+            {companyLocation}
+          </SecondLine>
+        )}
+        {followerCount > 0 && (
+          <ThirdLine>팔로워 {addComma(followerCount)}명</ThirdLine>
+        )}
+        <FourthLine>{companySummary}</FourthLine>
+        {jobPostingCount > 0 && (
+          <FourthLine>
+            <span></span>
+            채용공고 {addComma(jobPostingCount)}
+          </FourthLine>
+        )}
       </TextWrapper>
       {showBtn && (
         <ButtonWrapper>
-          <BtnSave text="저장" />
+          <BtnSave isFollowing={true} text="팔로우" />
         </ButtonWrapper>
       )}
     </FlexDiv>
@@ -85,31 +87,25 @@ const SecondLine = styled.p`
 `;
 
 const ThirdLine = styled.p`
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: ${({ theme }) => theme.colors.fontGrey};
   font-size: 14px;
 `;
 
-const FourthLine = styled.ul`
+const FourthLine = styled.p`
   display: flex;
-  padding-bottom: 15px;
+  align-items: center;
+  padding-bottom: 10px;
   color: ${({ theme }) => theme.colors.fontGrey};
   font-size: 13px;
 
-  li {
-    &.applicantCount {
-      margin-left: 10px;
-      color: ${({ theme }) => theme.colors.fontGreen};
-      font-weight: 600;
-    }
-
-    &.isEasy {
-      width: 11px;
-      height: 11px;
-      margin: 0 3px 0 10px;
-      background: url('/images/logo_squared.png') no-repeat;
-      background-size: contain;
-    }
+  span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    background: url('/images/briefcaseIcon2.svg') no-repeat;
+    background-size: contain;
   }
 `;
 
