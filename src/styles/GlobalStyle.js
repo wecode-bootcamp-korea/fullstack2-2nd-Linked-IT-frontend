@@ -9,9 +9,6 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
-  a:visited {
-    color: black;
-  }
 `;
 
 export default GlobalStyle;

@@ -1,7 +1,6 @@
-// import React from 'react';
 import styled from 'styled-components';
 import UserCard from '../../components/UserCard/UserCard';
-import profileData from '../../components/UserCard/testDate';
+import profileData from '../../components/UserCard/testData';
 
 function Profile() {
   return (

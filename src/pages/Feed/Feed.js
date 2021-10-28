@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 import FeedProfile from './FeedProfile';
-import FloatingFooter from '../../components/Footer/FloatingFooter';
+import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import profileData from './data/Profile';
 
 export default function Feed() {
