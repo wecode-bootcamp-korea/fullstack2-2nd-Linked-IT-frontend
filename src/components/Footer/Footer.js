@@ -78,7 +78,7 @@ export default function Footer(props) {
           <CopyRightNotice>WeCoder's LinkedIT Project © 2021년</CopyRightNotice>
         </GridContainer>
       </StyledFooter>
-      <PopupBlocker popup={isFooterPopuped} />
+      <PopupBlocker popup={isFooterPopuped} close={isFooterOpened} />
     </>
   );
 }
@@ -306,6 +306,6 @@ const PopupBlocker = styled.div`
   height: 100vh;
 
   background-color: ${props => (props.popup ? 'black' : 'transparent')};
-  display: ${props => (props.popup ? 'block' : 'none')};
+  display: ${props => (props.close ? 'block' : 'none')};
   opacity: ${props => (props.popup ? 0.6 : 0)};
 `;
