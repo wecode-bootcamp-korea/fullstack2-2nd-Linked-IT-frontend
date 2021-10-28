@@ -5,14 +5,17 @@ import { addComma } from '../../utils/NumberUtil';
 
 export default function JobPostingCard(props) {
   const {
+    jobPostingId,
     profileImgUrl,
     jobPostingTitle,
+    companyId,
     companyName,
     companyLocation,
     workType,
     createdAt,
     applicantCount,
-    isEasy,
+    isEasyApply,
+    isMain,
     clicked,
     showBtn,
     showBorder,
@@ -21,13 +24,17 @@ export default function JobPostingCard(props) {
   return (
     <FlexDiv clicked={clicked}>
       <ImgWrapper>
-        <Link to="/">
+        <Link to={`company/${companyId}`}>
           <img alt="profileImg" src={profileImgUrl} />
         </Link>
       </ImgWrapper>
       <TextWrapper showBorder={showBorder}>
         <FirstLine>
-          <Link to="/">{jobPostingTitle}</Link>
+          {isMain ? (
+            <Link to={`jobs/${jobPostingId}`}>{jobPostingTitle}</Link>
+          ) : (
+            jobPostingTitle
+          )}
         </FirstLine>
         <SecondLine>{companyName}</SecondLine>
         <ThirdLine>
@@ -40,12 +47,12 @@ export default function JobPostingCard(props) {
               지원자 {addComma(applicantCount)}명
             </li>
           )}
-          {isEasy && <li className="isEasy" />}
-          {isEasy && <li>간편지원</li>}
+          {isEasyApply && <li className="isEasyApply" />}
+          {isEasyApply && <li>간편지원</li>}
         </FourthLine>
       </TextWrapper>
       {showBtn && (
-        <ButtonWrapper>
+        <ButtonWrapper showBorder={showBorder}>
           <BtnSave text="저장" />
         </ButtonWrapper>
       )}
@@ -103,7 +110,7 @@ const FourthLine = styled.ul`
       font-weight: 600;
     }
 
-    &.isEasy {
+    &.isEasyApply {
       width: 11px;
       height: 11px;
       margin: 0 3px 0 10px;
@@ -114,8 +121,9 @@ const FourthLine = styled.ul`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 10px 10px 0 10px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
+  padding: 10px 10px 0;
+  border-bottom: ${({ showBorder }) => (showBorder ? '1px' : '0')} solid
+    ${({ theme }) => theme.colors.borderGrey};
   white-space: nowrap;
 `;
 
