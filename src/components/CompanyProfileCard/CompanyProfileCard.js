@@ -5,13 +5,16 @@ import { addComma } from '../../utils/NumberUtil';
 
 export default function CompanyProfileCard(props) {
   const {
+    companyId,
     profileImgUrl,
     companyName,
     companyCategory,
     companyLocation,
     followerCount,
-    companySummary,
+    companyIntroduction,
     jobPostingCount,
+    showIntro,
+    showPostingCount,
     clicked,
     showBtn,
     showBorder,
@@ -20,13 +23,13 @@ export default function CompanyProfileCard(props) {
   return (
     <FlexDiv clicked={clicked}>
       <ImgWrapper>
-        <Link to="/">
+        <Link to={`/company/${companyId}`}>
           <img alt="profileImg" src={profileImgUrl} />
         </Link>
       </ImgWrapper>
       <TextWrapper showBorder={showBorder}>
         <FirstLine>
-          <Link to="/">{companyName}</Link>
+          <Link to={`/company/${companyId}`}>{companyName}</Link>
         </FirstLine>
         {companyLocation && (
           <SecondLine>
@@ -38,16 +41,16 @@ export default function CompanyProfileCard(props) {
         {followerCount > 0 && (
           <ThirdLine>팔로워 {addComma(followerCount)}명</ThirdLine>
         )}
-        <FourthLine>{companySummary}</FourthLine>
-        {jobPostingCount > 0 && (
-          <FourthLine>
-            <span></span>
+        {showIntro && <FourthLine>{companyIntroduction}</FourthLine>}
+        {showPostingCount && jobPostingCount > 0 && (
+          <FourthLine to={`/jobs?companyName=${companyName}`}>
+            <span />
             채용공고 {addComma(jobPostingCount)}
           </FourthLine>
         )}
       </TextWrapper>
       {showBtn && (
-        <ButtonWrapper>
+        <ButtonWrapper showBorder={showBorder}>
           <BtnSave isFollowing={true} text="팔로우" />
         </ButtonWrapper>
       )}
@@ -92,7 +95,7 @@ const ThirdLine = styled.p`
   font-size: 14px;
 `;
 
-const FourthLine = styled.p`
+const FourthLine = styled(Link)`
   display: flex;
   align-items: center;
   padding-bottom: 10px;
@@ -110,8 +113,9 @@ const FourthLine = styled.p`
 `;
 
 const ButtonWrapper = styled.div`
-  margin: 10px 10px 0 10px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
+  padding: 10px 10px 0;
+  border-bottom: ${({ showBorder }) => (showBorder ? '1px' : '0')} solid
+    ${({ theme }) => theme.colors.borderGrey};
   white-space: nowrap;
 `;
 
