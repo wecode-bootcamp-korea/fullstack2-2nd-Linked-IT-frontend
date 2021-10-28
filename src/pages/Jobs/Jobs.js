@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import JobPosting from './JobPosting';
-import jobsMockData from './data/JobsMockData';
+import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
+import jobsMockData from './data/JobPostingListData';
 
 export default function Jobs() {
   return (
     <StyledJobs>
       <JobLPostingList>
         {jobsMockData.map((post, idx) => {
-          return <JobPosting key={idx} {...post} />;
+          return <JobPostingCard key={idx} {...post} />;
         })}
       </JobLPostingList>
       <JobLPostingDetail></JobLPostingDetail>
