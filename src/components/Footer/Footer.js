@@ -4,106 +4,102 @@ import styled from 'styled-components';
 import footerData from './footerData';
 
 export default function Footer(props) {
-  const [isFooterPopuped] = useState(props.popup);
-  const [isFooterOpened, setIsFooterOpened] = useState(true);
+  const { isDefault, isHidden, toggleFooter } = props;
 
   return (
     <>
-      <StyledFooter popup={isFooterPopuped} close={isFooterOpened}>
-        <ExitButton
-          popup={isFooterPopuped}
-          onClick={() => setIsFooterOpened(!isFooterOpened)}
-        >
-          <i className="fal fa-times"></i>
-        </ExitButton>
-        <GridContainer>
-          <FooterLogo alt="LinkedIT Logo Image" src="/images/logo_full.png" />
-          <FooterLinks>
-            {footerData.links.map(data => {
-              return (
-                <Link key={data.id} to={data.pageLink}>
-                  {data.pageName}
-                  <i
-                    className={
-                      data.pageName !== '개인정보와 약관'
-                        ? 'far fa-chevron-down inactive'
-                        : 'far fa-chevron-down'
-                    }
-                  ></i>
-                </Link>
-              );
-            })}
-          </FooterLinks>
-          <GoToHelpCenter>
-            <i className="fas fa-question-circle"></i>
-            <p>
-              <Link to="#">궁금한 점이 있으세요?</Link>
-              <br />
-              LinkedIT 고객센터 바로가기
-            </p>
-          </GoToHelpCenter>
-          <GoToMySettings>
-            <i className="fas fa-cog"></i>
-            <p>
-              <Link to="/profile">개인정보 설정</Link>
-              <br />
-              설정 페이지로 가세요.
-            </p>
-          </GoToMySettings>
-          <SelectLanguage>
-            <label
-              for="globalfooter-select_language"
-              class="global-footer__label"
-            >
-              언어 선택
-            </label>
-            <select
-              id="globalfooter-select_language"
-              class="global-footer__language-selection-dropdown"
-            >
-              {footerData.languages.map(data => {
+      {!isHidden && (
+        <StyledFooter default={isDefault}>
+          <ExitButton default={isDefault} onClick={() => toggleFooter()}>
+            <i className="fal fa-times"></i>
+          </ExitButton>
+          <GridContainer>
+            <FooterLogo alt="LinkedIT Logo Image" src="/images/logo_full.png" />
+            <FooterLinks>
+              {footerData.links.map(data => {
                 return (
-                  <option
-                    key={data.id}
-                    selected={data.selected}
-                    value={data.langValue}
-                    lang={data.langCode}
-                  >
-                    {data.langName}
-                  </option>
+                  <Link key={data.id} to={data.pageLink}>
+                    {data.pageName}
+                    <i
+                      className={
+                        data.pageName !== '개인정보와 약관'
+                          ? 'far fa-chevron-down inactive'
+                          : 'far fa-chevron-down'
+                      }
+                    ></i>
+                  </Link>
                 );
               })}
-            </select>
-          </SelectLanguage>
-          <CopyRightNotice>WeCoder's LinkedIT Project © 2021년</CopyRightNotice>
-        </GridContainer>
-      </StyledFooter>
-      <PopupBlocker popup={isFooterPopuped} close={isFooterOpened} />
+            </FooterLinks>
+            <GoToHelpCenter>
+              <i className="fas fa-question-circle"></i>
+              <p>
+                <Link to="#">궁금한 점이 있으세요?</Link>
+                <br />
+                LinkedIT 고객센터 바로가기
+              </p>
+            </GoToHelpCenter>
+            <GoToMySettings>
+              <i className="fas fa-cog"></i>
+              <p>
+                <Link to="/profile">개인정보 설정</Link>
+                <br />
+                설정 페이지로 가세요.
+              </p>
+            </GoToMySettings>
+            <SelectLanguage>
+              <label
+                for="globalfooter-select_language"
+                class="global-footer__label"
+              >
+                언어 선택
+              </label>
+              <select
+                id="globalfooter-select_language"
+                class="global-footer__language-selection-dropdown"
+              >
+                {footerData.languages.map(data => {
+                  return (
+                    <option
+                      key={data.id}
+                      selected={data.selected}
+                      value={data.langValue}
+                      lang={data.langCode}
+                    >
+                      {data.langName}
+                    </option>
+                  );
+                })}
+              </select>
+            </SelectLanguage>
+            <CopyRightNotice>
+              WeCoder's LinkedIT Project © 2021년
+            </CopyRightNotice>
+          </GridContainer>
+        </StyledFooter>
+      )}
+      {!isDefault && !isHidden && <PopupBlocker />}
     </>
   );
 }
 
 const StyledFooter = styled.footer`
-  position: ${props => (props.popup ? 'fixed' : 'static')};
+  position: ${props => (props.default ? 'static' : 'fixed')};
   bottom: 0;
-  z-index: ${props => (props.popup ? 10000 : 'auto')};
+  z-index: ${props => (props.default ? 'auto' : 10000)};
 
   width: 100%;
-  height: ${props => (props.popup ? '282px' : '266px')};
+  height: ${props => (props.default ? '266px' : '282px')};
   margin: 0 auto;
-  border-radius: ${props => (props.popup ? '8px' : 0)};
+  border-radius: ${props => (props.default ? 0 : '8px')};
   padding: 16px 24px;
-  padding-bottom: ${props => (props.popup ? '16px' : 0)};
+  padding-bottom: ${props => (props.default ? 0 : '16px')};
 
   background-color: ${props =>
-    props.popup
-      ? props => props.theme.colors.white
-      : props => props.theme.colors.bgcBeige};
+    props.default ? props => props.theme.colors.bgcBeige : 'white'};
   color: ${props => props.theme.colors.fontGrey};
   font-size: 1rem;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui;
-
-  display: ${props => (props.close ? 'block' : 'none')};
 `;
 
 const ExitButton = styled.button`
@@ -111,19 +107,17 @@ const ExitButton = styled.button`
   top: 12px;
   right: 8px;
 
+  display: ${props => (props.default ? 'none' : 'block')};
+
   width: 40px;
   height: 40px;
   border: 0;
   border-radius: 50%;
 
   background-color: ${props =>
-    props.popup
-      ? props => props.theme.colors.white
-      : props => props.theme.colors.bgcBeige};
+    props.default ? props => props.theme.colors.bgcBeige : 'white'};
   color: gray;
   font-size: 1.6em;
-
-  display: ${props => (props.popup ? 'block' : 'none')};
 
   &:hover {
     background-color: lightgray;
@@ -300,12 +294,11 @@ const PopupBlocker = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: ${props => (props.popup ? 5000 : 'auto')};
+  z-index: ${props => (props.default ? 'auto' : 5000)};
 
   width: 100vw;
   height: 100vh;
 
-  background-color: ${props => (props.popup ? 'black' : 'transparent')};
-  display: ${props => (props.close ? 'block' : 'none')};
-  opacity: ${props => (props.popup ? 0.6 : 0)};
+  background-color: ${props =>
+    props.default ? 'transparent' : 'rgba(0, 0, 0, 0.6)'};
 `;
