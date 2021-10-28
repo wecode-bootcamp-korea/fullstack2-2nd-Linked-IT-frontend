@@ -84,7 +84,7 @@ export default function Footer(props) {
 }
 
 const StyledFooter = styled.footer`
-  position: ${props => (props.default ? 'fixed' : 'fixed')};
+  position: ${props => (props.default ? 'static' : 'fixed')};
   bottom: 0;
   z-index: ${props => (props.default ? 'auto' : 10000)};
 
