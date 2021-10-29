@@ -9,9 +9,9 @@ export default function Footer(props) {
   return (
     <>
       {!isHidden && (
-        <StyledFooter className={isDefault ? '' : 'popup'} default={isDefault}>
+        <StyledFooter className={isDefault ? '' : 'modal'} default={isDefault}>
           <ExitButton
-            className={isDefault ? '' : 'popup'}
+            className={isDefault ? '' : 'modal'}
             default={isDefault}
             onClick={() => toggleFooter()}
           >
@@ -83,8 +83,8 @@ export default function Footer(props) {
         </StyledFooter>
       )}
       {!isDefault && !isHidden && (
-        <PopupBlocker
-          className={isDefault ? '' : 'popup'}
+        <ModalBlocker
+          className={isDefault ? '' : 'modal'}
           onClick={() => toggleFooter()}
         />
       )}
@@ -112,7 +112,7 @@ const StyledFooter = styled.footer`
   font-size: 1rem;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui;
 
-  &.popup {
+  &.modal {
     position: fixed;
     bottom: 0;
     z-index: 10000;
@@ -146,7 +146,7 @@ const ExitButton = styled.button`
   color: gray;
   font-size: 1.6rem;
 
-  &.popup {
+  &.modal {
     display: block;
     background-color: white;
   }
@@ -322,7 +322,7 @@ const CopyRightNotice = styled.p`
   font-size: 0.8125rem;
 `;
 
-const PopupBlocker = styled.div`
+const ModalBlocker = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -332,7 +332,7 @@ const PopupBlocker = styled.div`
 
   background-color: transparent;
 
-  &.popup {
+  &.modal {
     z-index: 5000;
     background-color: rgba(0, 0, 0, 0.6);
   }
