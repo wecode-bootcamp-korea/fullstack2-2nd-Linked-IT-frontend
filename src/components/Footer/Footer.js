@@ -18,7 +18,10 @@ export default function Footer(props) {
             <i className="fal fa-times"></i>
           </ExitButton>
           <FooterGridContainer>
-            <FooterLogo alt="LinkedIT Logo Image" src="/images/logo_full.png" />
+            <FooterLogo
+              alt="LinkedIT Logo"
+              src="/images/common_logo_full.png"
+            />
             <FooterLinks>
               {footerData.links.map(data => {
                 return (
