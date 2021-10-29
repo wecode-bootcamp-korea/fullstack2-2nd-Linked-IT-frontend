@@ -21,9 +21,6 @@ export default function Carousel(props) {
 
   useEffect(() => {
     setCards(cardData);
-    return () => {
-      console.log('??');
-    };
   }, []);
 
   const slideToLeft = () => {
