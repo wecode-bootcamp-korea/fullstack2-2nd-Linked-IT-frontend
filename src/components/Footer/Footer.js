@@ -305,7 +305,7 @@ const SelectLanguage = styled.aside`
     padding: 0 2.4em 0 0.6em;
 
     -webkit-appearance: none;
-    background: url('/images/arrow.png') no-repeat 98% 50%;
+    background: url('/images/footer_arrow_dropdown.png') no-repeat 98% 50%;
 
     background-color: white;
     color: ${props => props.theme.colors.fontGrey};
