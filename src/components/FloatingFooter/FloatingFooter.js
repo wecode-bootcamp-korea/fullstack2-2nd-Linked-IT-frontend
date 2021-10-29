@@ -18,7 +18,7 @@ export default function FloatingFooter() {
         <span>더 보기</span>
       </Links>
       <Footer>
-        <img src="/images/logo_full.png" alt="LinkedItLogo" />
+        <img alt="LinkedIT Logo" src="/images/common_logo_full.png" />
         <span> LinkedIT with Wecode</span>
       </Footer>
     </Aside>

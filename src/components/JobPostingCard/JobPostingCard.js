@@ -107,7 +107,7 @@ const FourthLine = styled.ul`
       width: 11px;
       height: 11px;
       margin: 0 3px 0 10px;
-      background: url('/images/logo_squared.png') no-repeat;
+      background: url('/images/common_logo_squared.png') no-repeat;
       background-size: contain;
     }
   }
