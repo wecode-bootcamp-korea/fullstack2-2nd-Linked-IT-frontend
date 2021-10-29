@@ -10,9 +10,6 @@ const COMPANY_PROFILE_DATA = [
     followerCount: '123456',
     companyIntroduction: `[오늘의집 비전] "No.1 Lifestyle Tech Company"`,
     jobPostingCount: 49,
-    clicked: false,
-    showBtn: true,
-    showBorder: true,
   },
   {
     companyId: 2,
@@ -25,9 +22,6 @@ const COMPANY_PROFILE_DATA = [
     companyIntroduction: `토스가 만드는 수많은 혁신의 순간들, 당신과 함께 만들고 싶습니다.
     지금, 토스에 합류하세요!`,
     jobPostingCount: 49,
-    clicked: false,
-    showBtn: true,
-    showBorder: true,
   },
   {
     companyId: 3,
@@ -40,9 +34,6 @@ const COMPANY_PROFILE_DATA = [
     companyIntroduction: `토스가 만드는 수많은 혁신의 순간들, 당신과 함께 만들고 싶습니다.
     지금, 토스에 합류하세요!`,
     jobPostingCount: 49,
-    clicked: false,
-    showBtn: false,
-    showBorder: false,
   },
   {
     companyId: 4,
@@ -55,9 +46,6 @@ const COMPANY_PROFILE_DATA = [
     companyIntroduction: `토스가 만드는 수많은 혁신의 순간들, 당신과 함께 만들고 싶습니다.
     지금, 토스에 합류하세요!`,
     jobPostingCount: 49,
-    clicked: false,
-    showBtn: true,
-    showBorder: null,
   },
   {
     companyId: 5,
@@ -71,8 +59,6 @@ const COMPANY_PROFILE_DATA = [
     지금, 토스에 합류하세요!`,
     jobPostingCount: 49,
     clicked: true,
-    showBtn: false,
-    showBorder: undefined,
   },
   {
     companyId: 6,
@@ -85,9 +71,6 @@ const COMPANY_PROFILE_DATA = [
     companyIntroduction: `토스가 만드는 수많은 혁신의 순간들, 당신과 함께 만들고 싶습니다.
     지금, 토스에 합류하세요!`,
     jobPostingCount: 49,
-    clicked: false,
-    showBtn: true,
-    showBorder: '',
   },
 ];
 

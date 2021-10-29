@@ -11,10 +11,6 @@ const JOB_POSTING_DATA = [
     createdAt: '2021-10-20',
     applicantCount: '123456',
     isEasyApply: true,
-    isMain: true,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   // {
   //   jobPostingId: 2,
@@ -27,9 +23,6 @@ const JOB_POSTING_DATA = [
   //   createdAt: '',
   //   applicantCount: '',
   //   isEasyApply: false,
-  //   clicked: false,
-  //   showBtn: '',
-  //   showBorder: true,
   // },
   {
     jobPostingId: 3,
@@ -43,10 +36,6 @@ const JOB_POSTING_DATA = [
     createdAt: '1일 전',
     applicantCount: '2',
     isEasyApply: true,
-    isMain: false,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   {
     jobPostingId: 4,
@@ -61,9 +50,6 @@ const JOB_POSTING_DATA = [
     createdAt: '6일 전',
     applicantCount: '2',
     isEasyApply: false,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   {
     jobPostingId: 5,
@@ -77,9 +63,6 @@ const JOB_POSTING_DATA = [
     createdAt: '1주 전',
     applicantCount: '5',
     isEasyApply: true,
-    clicked: false,
-    showBtn: false,
-    showBorder: true,
   },
   {
     jobPostingId: 6,
@@ -94,8 +77,6 @@ const JOB_POSTING_DATA = [
     applicantCount: '12',
     isEasyApply: false,
     clicked: true,
-    showBtn: false,
-    showBorder: true,
   },
   {
     jobPostingId: 7,
@@ -109,9 +90,6 @@ const JOB_POSTING_DATA = [
     createdAt: '2021-10-20',
     applicantCount: '123456',
     isEasyApply: true,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   // {
   //   jobPostingId: 8,
@@ -124,9 +102,6 @@ const JOB_POSTING_DATA = [
   //   createdAt: '',
   //   applicantCount: '',
   //   isEasyApply: false,
-  //   clicked: false,
-  //   showBtn: '',
-  //   showBorder: true,
   // },
   {
     jobPostingId: 9,
@@ -140,9 +115,6 @@ const JOB_POSTING_DATA = [
     createdAt: '1일 전',
     applicantCount: '2',
     isEasyApply: true,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   {
     jobPostingId: 10,
@@ -157,9 +129,6 @@ const JOB_POSTING_DATA = [
     createdAt: '6일 전',
     applicantCount: '2',
     isEasyApply: false,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   {
     jobPostingId: 11,
@@ -173,9 +142,6 @@ const JOB_POSTING_DATA = [
     createdAt: '1주 전',
     applicantCount: '5',
     isEasyApply: true,
-    clicked: false,
-    showBtn: false,
-    showBorder: true,
   },
   {
     jobPostingId: 12,
@@ -189,9 +155,6 @@ const JOB_POSTING_DATA = [
     createdAt: '6시간 전',
     applicantCount: '12',
     isEasyApply: false,
-    clicked: false,
-    showBtn: false,
-    showBorder: true,
   },
   {
     jobPostingId: 13,
@@ -205,9 +168,6 @@ const JOB_POSTING_DATA = [
     createdAt: '2021-10-20',
     applicantCount: '123456',
     isEasyApply: true,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   // {
   //   jobPostingId: 14,
@@ -220,9 +180,6 @@ const JOB_POSTING_DATA = [
   //   createdAt: '',
   //   applicantCount: '',
   //   isEasyApply: false,
-  //   clicked: false,
-  //   showBtn: '',
-  //   showBorder: true,
   // },
   {
     jobPostingId: 15,
@@ -236,9 +193,6 @@ const JOB_POSTING_DATA = [
     createdAt: '1일 전',
     applicantCount: '2',
     isEasyApply: true,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   {
     jobPostingId: 16,
@@ -253,9 +207,6 @@ const JOB_POSTING_DATA = [
     createdAt: '6일 전',
     applicantCount: '2',
     isEasyApply: false,
-    clicked: false,
-    showBtn: '',
-    showBorder: true,
   },
   {
     jobPostingId: 17,
@@ -269,9 +220,6 @@ const JOB_POSTING_DATA = [
     createdAt: '1주 전',
     applicantCount: '5',
     isEasyApply: true,
-    clicked: false,
-    showBtn: false,
-    showBorder: true,
   },
   {
     jobPostingId: 18,
@@ -285,9 +233,6 @@ const JOB_POSTING_DATA = [
     createdAt: '6시간 전',
     applicantCount: '12',
     isEasyApply: false,
-    clicked: false,
-    showBtn: false,
-    showBorder: true,
   },
 ];
 
