@@ -1,18 +1,19 @@
-import Carousel from './Carousel/Carousel';
+import Informaion from './ProfileMain/Informaion/Informaion';
+import styled from 'styled-components';
 
-import cards from './Carousel/CardMockData';
+import careerData from './data/careerData';
+import educationData from './data/educationData';
 
-function Profile() {
+export default function Profile() {
+  const careers = careerData;
+  const educations = educationData;
+
   return (
-    <div>
-      <Carousel
-        cards={cards}
-        cardWidth={350}
-        cardMargin={10}
-        wrapperWidth={700}
-      />
-    </div>
+    <StyledInformation>
+      <Informaion title="경력사항" cardData={careers} />
+      <Informaion title="학력" cardData={educations} />
+    </StyledInformation>
   );
 }
 
-export default Profile;
+const StyledInformation = styled.section``;
