@@ -28,7 +28,9 @@ export default function SearchDropDown({ keywordInput }) {
         return (
           <RecentSearchLine
             key={keyword.id}
-            onClick={() => console.log('SESARCH')}
+            onClick={() => {
+              console.log('SESARCH');
+            }}
           >
             <FontAwesomeIcon icon={faClock} />
             <p>{keyword.value}</p>
@@ -46,7 +48,7 @@ const StyledSearchDropDown = styled.div`
   box-shadow: 1px 1px 5px ${({ theme }) => theme.colors.boxShadowGrey};
   background-color: ${({ theme }) => theme.colors.white};
   overflow: hidden;
-  z-index: 2;
+  z-index: 30;
 
   button {
     padding: 3px 10px;

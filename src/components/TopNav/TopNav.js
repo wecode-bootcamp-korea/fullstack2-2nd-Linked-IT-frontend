@@ -14,10 +14,10 @@ export default function TopNav() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [currentPage, setCurrentPage] = useState('feed');
-  const topNavRef = useRef();
   const inputWrapperRef = useClickOutside(() => {
     setDropdownVisible(false);
   });
+  // const topNavRef = useRef();
 
   const onSubmit = e => {
     e.preventDefault();
@@ -25,7 +25,7 @@ export default function TopNav() {
   };
 
   return (
-    <StyledNav ref={topNavRef}>
+    <StyledNav>
       <MainWrapper>
         <LeftWrapper>
           <Link className="logo" to="/">
@@ -81,6 +81,7 @@ export default function TopNav() {
           </NavList>
         </RightWrapper>
       </MainWrapper>
+      {dropdownVisible && <DarkBackground>Hello</DarkBackground>}
     </StyledNav>
   );
 }
@@ -106,6 +107,7 @@ const MainWrapper = styled.div`
   width: 1128px;
   margin: 0 24px;
   height: 100%;
+  z-index: 1;
   /* background-color: red; */
 `;
 
@@ -203,5 +205,24 @@ const NavLink = styled(Link)`
   span {
     margin-top: 5px;
     font-size: 12px;
+  }
+`;
+
+const DarkBackground = styled.div`
+  position: fixed;
+  /* display: flex; */
+  background-color: black;
+  opacity: 0.6;
+  top: 52px;
+  height: 100vh;
+  width: 100vw;
+  animation: fadein 0.5s;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.6;
+    }
   }
 `;

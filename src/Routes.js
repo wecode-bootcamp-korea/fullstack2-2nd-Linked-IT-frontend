@@ -11,14 +11,16 @@ import TopNav from './components/TopNav/TopNav';
 export default function Routes() {
   return (
     <BrowserRouter>
-      <TopNav />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/feed" component={Feed} />
-        <Route exact path="/jobs" component={Jobs} />
-        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/signup" component={SignUp} />
+        <>
+          <TopNav />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/feed" component={Feed} />
+          <Route exact path="/jobs" component={Jobs} />
+          <Route exact path="/profile" component={Profile} />
+        </>
       </Switch>
     </BrowserRouter>
   );
