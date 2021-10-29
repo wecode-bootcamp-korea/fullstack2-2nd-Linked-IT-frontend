@@ -15,9 +15,9 @@ export default function CompanyProfileCard(props) {
     jobPostingCount,
     showIntro,
     showPostingCount,
-    clicked,
-    showBtn,
-    showBorder,
+    clicked = false,
+    showBtn = true,
+    showBorder = true,
   } = props;
 
   return (

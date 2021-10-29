@@ -25,7 +25,13 @@ export default function Jobs(props) {
         </SearchResultSummary>
         <CardWrapper>
           {jobPostingList.map(post => (
-            <JobPostingCard key={post.jobPostingId} {...post} />
+            <JobPostingCard
+              key={post.jobPostingId}
+              {...post}
+              isMain={false}
+              showBtn={false}
+              showBorder={false}
+            />
           ))}
         </CardWrapper>
       </ListSection>

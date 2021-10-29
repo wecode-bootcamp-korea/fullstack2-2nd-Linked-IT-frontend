@@ -15,10 +15,10 @@ export default function JobPostingCard(props) {
     createdAt,
     applicantCount,
     isEasyApply,
-    isMain,
-    clicked,
-    showBtn,
-    showBorder,
+    clicked = false,
+    isMain = true,
+    showBtn = true,
+    showBorder = true,
   } = props;
 
   return (
