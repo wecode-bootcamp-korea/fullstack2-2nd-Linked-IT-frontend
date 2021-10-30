@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 export default function Home() {
   /*  1. 단순히 Viewport 맨 아래에 마지막 요소로써 Footer를 이어붙이려는 경우 => true / false 입력
       2. 특정 버튼(링크)를 클릭하여 Footer를 Popup 효과로 등장하게 하려는 경우 => false / true 입력  */
-  const [isFooterDefault, setIsFooterDefault] = useState(true);
+  const [isFooterDefault, setIsFooterDefault] = useState(false);
   const [isFooterHidden, setIsFooterHidden] = useState(false);
 
   const toggleFooter = () => {
