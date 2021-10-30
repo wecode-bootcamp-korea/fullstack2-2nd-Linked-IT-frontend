@@ -1,17 +1,43 @@
-import Informaion from './ProfileMain/Informaion/Informaion';
+import { useState } from 'react';
 import styled from 'styled-components';
+import Informaion from './ProfileMain/Informaion/Informaion';
 
 import careerData from './data/careerData';
 import educationData from './data/educationData';
+import CareerAddModal from './ProfileMain/Modals/CareerAddModal';
+import { disableScroll, enableScroll } from '../../utils/ModalFunc';
 
 export default function Profile() {
+  const [showCareerAddModal, setShowCareerAddModal] = useState(false);
+
+  const openCareerAddModal = e => {
+    e.preventDefault();
+    disableScroll();
+    setShowCareerAddModal(true);
+  };
+
+  const closeCareerAddModal = e => {
+    e.preventDefault();
+    enableScroll();
+    setShowCareerAddModal(false);
+  };
+
   const careers = careerData;
   const educations = educationData;
 
   return (
     <StyledInformation>
-      <Informaion title="경력사항" cardData={careers} />
+      <Informaion
+        title="경력사항"
+        cardData={careers}
+        openCareerAddModal={openCareerAddModal}
+      />
       <Informaion title="학력" cardData={educations} />
+      <CareerAddModal
+        currentCareer={careers[0]}
+        showCareerAddModal={showCareerAddModal}
+        closeCareerAddModal={closeCareerAddModal}
+      />
     </StyledInformation>
   );
 }
