@@ -1,87 +1,162 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHome,
   faBriefcase,
   faSearch,
+  faUser,
+  faSignOutAlt,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import SearchDropDown from './SearchDropDown/SearchDropDown';
+import SearchDropdown from './SearchDropdown/SearchDropdown';
 import useClickOutside from '../../hooks/useClickOutside';
+import Button from '../Button/Button';
 
 export default function TopNav() {
+  console.log('TopNav render', window);
+
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
-  const [currentPage, setCurrentPage] = useState('feed');
   const inputWrapperRef = useClickOutside(() => {
     setDropdownVisible(false);
   });
-  // const topNavRef = useRef();
+  const inputRef = useRef();
+  const history = useHistory();
 
-  const onSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log('SUBMIT', searchInput);
+    inputRef.current.blur();
+    history.push({
+      pathname: '/search',
+      // search: '?update=true', // query string
+      state: {
+        // location state
+        // update: true,
+        keyword: searchInput,
+      },
+    });
+    setDropdownVisible(false);
+    // inputWrapperRef.current.blur(); //doesnt work
+    // localStorage.setItem('keyword')
   };
 
   return (
     <StyledNav>
       <MainWrapper>
         <LeftWrapper>
-          <Link className="logo" to="/">
-            <Logo
-              alt="logo"
-              src="/images/ItLogo.png"
-              onClick={() => setCurrentPage('feed')}
-            />
-          </Link>
+          <StyledNavLink
+            className="logo"
+            to="/feed"
+            onClick={() => setSearchInput('')}
+          >
+            <Logo alt="logo" src="/images/ItLogo.png" />
+          </StyledNavLink>
           <InputWrapper ref={inputWrapperRef}>
             <FontAwesomeIcon
               icon={faSearch}
               className="magnifyingGlass"
               size="sm"
             />
-            <form action="" onSubmit={onSubmit}>
+            <form action="" onSubmit={handleSubmit}>
               <Input
+                ref={inputRef}
                 placeholder="검색"
+                value={searchInput}
                 dropdownVisible={dropdownVisible}
-                onFocus={() => setDropdownVisible(true)}
+                onFocus={() => {
+                  setDropdownVisible(true);
+                }}
                 onChange={e => setSearchInput(e.target.value)}
-              />
+              ></Input>
             </form>
-            {dropdownVisible && <SearchDropDown searchInput={searchInput} />}
+            {dropdownVisible && (
+              <SearchDropdown
+                searchInput={searchInput}
+                setSearchInput={setSearchInput}
+                setDropdownVisible={setDropdownVisible}
+                setModalVisible={setModalVisible}
+              />
+            )}
+            {modalVisible && (
+              <>
+                <DarkBackground
+                  area="all"
+                  onClick={() => setModalVisible(false)}
+                />
+                <DeleteModal>
+                  <ModalLine fontSize="20px">
+                    <p>Clear Search History?</p>
+                    <FontAwesomeIcon
+                      icon={faTimes}
+                      className="closeButton"
+                      onClick={() => setModalVisible(false)}
+                    />
+                  </ModalLine>
+                  <ModalLine fontSize="16px">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Nobis exercitationem iure iusto laborum, tempore ex. Debitis
+                    expedita quia iste laudantium nobis ratione possimus, dolore
+                    deserunt tempora nam harum? Doloremque, quam.
+                  </ModalLine>
+                  <ModalLine isButtons>
+                    <StyledButton
+                      text="Cancel"
+                      margin="0 8px 0 0"
+                      onClick={() => setModalVisible(false)}
+                    />
+                    <StyledButton
+                      text="Clear History"
+                      onClick={() => {
+                        console.log('Clear search history (localstorage)');
+                        setModalVisible(false);
+                      }}
+                    />
+                  </ModalLine>
+                </DeleteModal>
+              </>
+            )}
           </InputWrapper>
         </LeftWrapper>
         <RightWrapper>
           <NavList>
-            <NavLink
+            <StyledNavLink
               to="/feed"
-              isSelected={currentPage === 'feed' ? true : false}
-              onClick={() => setCurrentPage('feed')}
+              activeClassName="selected"
+              onClick={() => setSearchInput('')}
             >
               <FontAwesomeIcon icon={faHome} />
               <span>홈</span>
-            </NavLink>
-            <NavLink
+            </StyledNavLink>
+            <StyledNavLink
               to="/jobs"
-              isSelected={currentPage === 'jobs' ? true : false}
-              onClick={() => setCurrentPage('jobs')}
+              activeClassName="selected"
+              onClick={() => setSearchInput('')}
             >
               <FontAwesomeIcon icon={faBriefcase} />
               <span>채용공고</span>
-            </NavLink>
-            <NavLink
+            </StyledNavLink>
+            <StyledNavLink
               to="/profile"
-              isSelected={currentPage === 'profile' ? true : false}
-              onClick={() => setCurrentPage('profile')}
+              activeClassName="selected"
+              onClick={() => setSearchInput('')}
             >
-              <FontAwesomeIcon icon={faHome} />
+              <FontAwesomeIcon icon={faUser} />
               <span>나</span>
-            </NavLink>
+            </StyledNavLink>
+            <StyledNavLink
+              to="/signin"
+              onClick={() => setSearchInput('')} // ?
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>로그아웃</span>
+            </StyledNavLink>
           </NavList>
         </RightWrapper>
       </MainWrapper>
-      {dropdownVisible && <DarkBackground>Hello</DarkBackground>}
+      {dropdownVisible && <DarkBackground area="page" />}
     </StyledNav>
   );
 }
@@ -92,12 +167,15 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* height: 200px; */
+  /* top: 0;
+  left: 0;
+  right: 0; */
+  /* border: 1px solid black; */
   height: 52px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
   background-color: ${({ theme }) => theme.colors.white};
-  /* border: 10px solid red; */
   z-index: 1;
+  user-select: none;
 `;
 
 const MainWrapper = styled.div`
@@ -108,7 +186,6 @@ const MainWrapper = styled.div`
   margin: 0 24px;
   height: 100%;
   z-index: 1;
-  /* background-color: red; */
 `;
 
 const LeftWrapper = styled.div`
@@ -116,107 +193,92 @@ const LeftWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 34px;
-  /* background-color: green; */
-
-  .logo {
-    height: 100%;
-    background-color: 'purple';
-  }
 `;
 
 const Logo = styled.img`
   height: 100%;
-  /* padding: 10px 0; */
   border-radius: 10%;
-  margin-right: 10px;
+  margin-right: 8px;
 `;
 
 const InputWrapper = styled.div`
   position: relative;
   height: 100%;
   width: 280px;
-  /* width: ${({ dropdownVisible }) =>
-    dropdownVisible ? '385px' : '280px'}; */
-  /* padding: 0 8px 0 40px; */
-  border-radius: 50px;
-  /* border: 1px solid red; */
-  /* background-color: red; */
+  /* background-color: blue; */
 
   .magnifyingGlass {
-    color: ${({ theme }) => theme.colors.darkGrey};
     position: absolute;
-    top: 10px;
+    top: 9px;
     left: 20px;
-    user-select: none;
-    cursor: text;
+    color: ${({ theme }) => theme.colors.darkGrey};
+    pointer-events: none;
   }
 
   form {
     height: 100%;
-    /* background-color: blue; */
   }
 `;
 
 const Input = styled.input`
   height: 100%;
-  /* width: 100%; */
-  width: ${({ dropdownVisible }) => (dropdownVisible ? '385px' : '100%')};
+  width: ${({ dropdownVisible }) => (dropdownVisible ? '385px' : '280px')};
   padding: 0 8px 0 40px;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.colors.borderGrey};
   border-radius: 5px;
   background-color: ${({ theme }) => theme.colors.bgcBeige};
   transition-duration: ${({ dropdownVisible }) =>
-    dropdownVisible ? '1000ms' : '0'};
+    dropdownVisible ? '500ms' : '0'};
   outline: none;
 `;
 
-const RightWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  /* background-color: yellow; */
-`;
-
-const NavList = styled.ul`
-  display: flex;
-  height: 100%;
-  /* background-color: orange; */
-`;
-
-const NavLink = styled(Link)`
+const DeleteModal = styled.div`
+  position: fixed;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 80px;
-  border-bottom: ${({ isSelected }) =>
-    isSelected ? '2px solid black' : 'none'};
-  color: ${({ theme, isSelected }) => {
-    // console.log('isSelected:', isSelected);
-    return isSelected ? theme.colors.black : theme.colors.darkGrey;
-  }};
-  cursor: pointer;
+  width: 500px;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.white};
+`;
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.black};
+const ModalLine = styled.div`
+  display: flex;
+  justify-content: ${({ isButtons }) =>
+    isButtons ? 'flex-end' : 'space-between'};
+  align-items: center;
+  padding: ${({ isButtons }) => (isButtons ? '10px 20px' : '20px')};
+  font-size: ${({ fontSize }) => fontSize};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
+
+  &:last-child {
+    border-bottom: none;
   }
 
-  span {
-    margin-top: 5px;
-    font-size: 12px;
+  .closeButton {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.fontGrey};
   }
 `;
+
+const StyledButton = styled(Button).attrs(({ theme, text }) => ({
+  bgc: text === 'Cancel' ? null : theme.colors.primary,
+  color: text === 'Cancel' ? null : theme.colors.white,
+}))``;
 
 const DarkBackground = styled.div`
   position: fixed;
-  /* display: flex; */
   background-color: black;
   opacity: 0.6;
-  top: 52px;
-  height: 100vh;
+  top: ${({ area }) => (area === 'all' ? '0' : '52px')};
+  left: 0;
+  height: ${({ area }) => (area === 'all' ? '100%' : '100vh')};
   width: 100vw;
-  animation: fadein 0.5s;
+  animation: ${({ area }) => (area === 'all' ? null : 'fadein 0.5s')};
   @keyframes fadein {
     from {
       opacity: 0;
@@ -224,5 +286,71 @@ const DarkBackground = styled.div`
     to {
       opacity: 0.6;
     }
+  }
+`;
+
+const RightWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  height: 100%;
+`;
+
+const StyledNavLink = styled(NavLink)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  border-bottom: 2px solid transparent;
+  color: ${({ theme }) => theme.colors.darkGrey};
+  cursor: pointer;
+
+  /* ::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -1rem;
+    height: 3px;
+    width: 100%;
+    background: $gray;
+  }
+
+  :focus::after {
+    transform: scaleX(1);
+    margin-left: 0;
+  }
+
+  ::after {
+    transform: scaleX(0);
+    margin-left: 50%;
+    transform-origin: left;
+    transition: transform 500ms ease, margin-left 0.5s ease;
+  } */
+
+  &.logo {
+    height: 100%;
+    width: auto;
+    border-bottom: none;
+    /* background-color: purple; */
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.black};
+  }
+
+  &.selected {
+    border-bottom: 2px solid ${({ theme }) => theme.colors.black};
+    color: ${({ theme }) => theme.colors.black};
+  }
+
+  span {
+    margin-top: 5px;
+    font-size: 12px;
   }
 `;

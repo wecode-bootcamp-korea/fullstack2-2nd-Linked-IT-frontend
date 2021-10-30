@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 
 export default function useClickOutside(handleState) {
-  const inputWrapperRef = useRef();
+  const contentRef = useRef();
 
   useEffect(() => {
     const handleOutsideClick = e => {
-      if (!inputWrapperRef.current.contains(e.target)) {
+      if (!contentRef.current.contains(e.target)) {
         handleState(false);
       }
     };
@@ -17,5 +17,5 @@ export default function useClickOutside(handleState) {
     };
   });
 
-  return inputWrapperRef;
+  return contentRef;
 }

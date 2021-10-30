@@ -18,15 +18,24 @@ export default function Button({
   color, // 값 안주면 theme.colors.btnGrey
   onClick,
   text,
+  width, // (optional)
+  height, // (optional)
+  margin, // (optional) (ex. '0 5px 0 0')
+  fontSize, // (optional)
   type, // (optional) 팔로우 버튼 & dropdown 버튼만 해당됨
   numOfFilters, // (optional) dropdown 버튼에 적용된 필터 갯수 보여줄 떄
   isFollowing, // (optional) 팔로우 버튼의 팔로우 상태
-  // width, //나중에 추가예정
-  // height, //나중에 추가예정
-  // fontSize, //나중에 추가예정
 }) {
   return (
-    <StyledButton bgc={bgc} color={color} onClick={onClick}>
+    <StyledButton
+      bgc={bgc}
+      color={color}
+      width={width}
+      height={height}
+      margin={margin}
+      fontSize={fontSize}
+      onClick={onClick}
+    >
       {type === 'follow' && (
         <FontAwesomeIcon
           icon={isFollowing ? faCheck : faPlus}
@@ -54,7 +63,9 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 31px;
+  height: ${({ height }) => height || '31px'};
+  width: ${({ width }) => width || null};
+  margin: ${({ margin }) => margin || '0'};
   padding: 5px 10px;
   border: 1px solid
     ${({ bgc, color }) => {
@@ -63,7 +74,7 @@ const StyledButton = styled.button`
   border-radius: 15px;
   background-color: ${({ bgc }) => bgc || 'transparent'};
   color: ${({ color, theme }) => color || theme.colors.btnGrey};
-  font-size: 16px;
+  font-size: ${({ fontSize }) => fontSize || '16px'};
   cursor: pointer;
   white-space: nowrap;
 
