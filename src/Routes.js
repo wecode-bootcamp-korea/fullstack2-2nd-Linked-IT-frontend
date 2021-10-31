@@ -4,11 +4,12 @@ import Home from './pages/Home/Home';
 import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
 import TopNav from './components/TopNav/TopNav';
-import Search from './pages/Search/Search';
+import MainSearch from './pages/MainSearch/MainSearch';
+import PeopleSearch from './pages/PeopleSearch/PeopleSearch';
 import Feed from './pages/Feed/Feed';
+import MyNetwork from './pages/MyNetwork/MyNetwork';
 import Jobs from './pages/Jobs/Jobs';
 import Profile from './pages/Profile/Profile';
-import MyNetwork from './pages/MyNetwork/MyNetwork';
 import Connections from './pages/Connections/Connections';
 // import NotFound from './pages/NotFound/NotFound';
 
@@ -21,9 +22,12 @@ export default function Routes() {
         <Route exact path="/signin" component={SignIn} />
         <>
           <TopNav />
-          <Route exact path="/search" component={Search} />
+          <Route exact path="/search/all" component={MainSearch} />
+          <Route exact path="/search/people" component={PeopleSearch} />
           <Route exact path="/feed" component={Feed} />
+          <Route exact path="/mynetwork" component={MyNetwork} />
           <Route exact path="/jobs" component={Jobs} />
+          <Route exact path="/profile:id" component={Profile} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/mynetwork" component={MyNetwork} />
           <Route exact path="/connections" component={Connections} />

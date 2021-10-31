@@ -7,12 +7,6 @@ import {
   faExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
-/*
- * props 중 bgc와 color는 Button 컴포넌트를 사용하는 부모 컴포넌트에서 theme을 import하시면 됩니다.
- * ex) bgc={theme.colors.primary} color={theme.colors.white}
- * theme은 이미 index.js에서 import 되었지만, 컴포넌트 안에서 theme을 사용하기 위해 다시 import했습니다.
- */
-
 export default function Button({
   bgc, //background-color, 값 안주면 'transparent'
   color, // 값 안주면 theme.colors.btnGrey
@@ -22,9 +16,9 @@ export default function Button({
   height, // (optional)
   margin, // (optional) (ex. '0 5px 0 0')
   fontSize, // (optional)
-  type, // (optional) 팔로우 버튼 & dropdown 버튼만 해당됨
+  type, // (optional) add, dropdown & apply 버튼만 해당됨
   numOfFilters, // (optional) dropdown 버튼에 적용된 필터 갯수 보여줄 떄
-  isFollowing, // (optional) 팔로우 버튼의 팔로우 상태
+  isFollowing, // (optional) 팔로우 버튼의 팔로우 상태 - Boolean
 }) {
   return (
     <StyledButton
@@ -36,7 +30,7 @@ export default function Button({
       fontSize={fontSize}
       onClick={onClick}
     >
-      {type === 'follow' && (
+      {type === 'add' && (
         <FontAwesomeIcon
           icon={isFollowing ? faCheck : faPlus}
           className="leftIcon"
@@ -123,6 +117,16 @@ const StyledButton = styled.button`
     margin-left: 5px;
   }
 `;
+
+// const FaIconLeft = styled(FontAwesomeIcon).attrs(({ icon, size }) => ({
+//   icon: icon,
+//   size: size,
+// }))``;
+
+// const StyledButton = styled(Button).attrs(({ theme, text }) => ({
+//   bgc: text === 'Cancel' ? null : theme.colors.primary,
+//   color: text === 'Cancel' ? null : theme.colors.white,
+// }))``;
 
 const Circle = styled.div`
   display: flex;

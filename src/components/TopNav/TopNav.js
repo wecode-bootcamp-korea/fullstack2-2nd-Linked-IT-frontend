@@ -2,17 +2,12 @@ import { useRef, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faHome,
-  faBriefcase,
-  faSearch,
-  faUser,
-  faSignOutAlt,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import SearchDropDown from './SearchDropDown/SearchDropDown';
-import useClickOutside from '../../hooks/useClickOutside';
 import Button from '../Button/Button';
+import useClickOutside from '../../hooks/useClickOutside';
+import { enableScroll } from '../../utils/ModalFunc';
+import NAV_LINK_DATA from './NavLinkData';
 
 export default function TopNav() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -24,32 +19,28 @@ export default function TopNav() {
   const inputRef = useRef();
   const history = useHistory();
 
-  const clearSearchInput = () => {
-    setSearchInput('');
-  };
-
   const addToSearchHistory = (keyword = searchInput) => {
     // if there is nothing saved at start then save an empty array
     if (localStorage.getItem('searchHistory') == null) {
       localStorage.setItem('searchHistory', '[]');
     }
-    // create variable
-    const searchHistoryArr = JSON.parse(localStorage.getItem('searchHistory'));
+    const searchHistoryArr = JSON.parse(localStorage.getItem('searchHistory')); // create variable
     // if new search input is already included in search history array
     if (searchHistoryArr.includes(keyword)) {
       const index = searchHistoryArr.indexOf(keyword);
       searchHistoryArr.splice(index, 1);
     }
-    // add new search input to front of search history array
-    searchHistoryArr.unshift(keyword);
-    // if new search history array has more than four elements, delete the last element
-    if (searchHistoryArr.length > 3) searchHistoryArr.pop();
-    // search history array에 갱신된 값 할당
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr));
+    searchHistoryArr.unshift(keyword); // add new search input to front of search history array
+    if (searchHistoryArr.length > 3) searchHistoryArr.pop(); // if new search history array has more than four elements, delete the last element
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr)); // search history array에 갱신된 값 할당
   };
 
   const clearSearchHistory = () => {
     localStorage.removeItem('searchHistory');
+  };
+
+  const clearSearchInput = () => {
+    setSearchInput('');
   };
 
   const handleSubmit = e => {
@@ -57,10 +48,9 @@ export default function TopNav() {
     addToSearchHistory();
     setDropdownVisible(false);
     history.push({
-      pathname: '/search',
-      state: {
-        keyword: searchInput,
-      },
+      pathname: '/search/all/',
+      search: `?keywords=${searchInput}`, // query string
+      state: { keyword: searchInput },
     });
     inputRef.current.blur();
   };
@@ -69,16 +59,20 @@ export default function TopNav() {
     <StyledNav>
       <MainWrapper>
         <LeftWrapper>
-          <StyledNavLink className="logo" to="/feed" onClick={clearSearchInput}>
+          <StyledNavLink
+            className="logo"
+            to={NAV_LINK_DATA[0].url}
+            onClick={clearSearchInput}
+          >
             <Logo alt="logo" src="/images/common_logo_squared.png" />
           </StyledNavLink>
           <InputWrapper ref={inputWrapperRef}>
-            <FontAwesomeIcon
-              icon={faSearch}
-              className="magnifyingGlass"
-              size="sm"
-            />
             <form action="" onSubmit={handleSubmit}>
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="magnifyingGlass"
+                size="sm"
+              />
               <Input
                 ref={inputRef}
                 placeholder="검색"
@@ -99,90 +93,73 @@ export default function TopNav() {
                 addToSearchHistory={addToSearchHistory}
               />
             )}
-            {modalVisible && (
-              <>
-                <DarkBackground
-                  area="all"
-                  onClick={() => {
-                    setModalVisible(false);
-                    document.body.style.overflow = 'unset';
-                  }}
-                />
-                <DeleteModal>
-                  <ModalLine fontSize="20px">
-                    <p>Clear Search History?</p>
-                    <FontAwesomeIcon
-                      icon={faTimes}
-                      className="closeButton"
-                      onClick={() => {
-                        setModalVisible(false);
-                        document.body.style.overflow = 'unset';
-                      }}
-                    />
-                  </ModalLine>
-                  <ModalLine fontSize="16px">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Nobis exercitationem iure iusto laborum, tempore ex. Debitis
-                    expedita quia iste laudantium nobis ratione possimus, dolore
-                    deserunt tempora nam harum? Doloremque, quam.
-                  </ModalLine>
-                  <ModalLine isButtons>
-                    <StyledButton
-                      text="Cancel"
-                      margin="0 8px 0 0"
-                      onClick={() => {
-                        setModalVisible(false);
-                        document.body.style.overflow = 'unset';
-                      }}
-                    />
-                    <StyledButton
-                      text="Clear History"
-                      onClick={() => {
-                        console.log('Clear search history (localstorage)');
-                        clearSearchHistory();
-                        setModalVisible(false);
-                        document.body.style.overflow = 'unset';
-                      }}
-                    />
-                  </ModalLine>
-                </DeleteModal>
-              </>
-            )}
           </InputWrapper>
+          {modalVisible && (
+            <>
+              <DarkBackground
+                area="all"
+                onClick={() => {
+                  setModalVisible(false);
+                  enableScroll();
+                }}
+              />
+              <DeleteModal>
+                <ModalLine fontSize="20px">
+                  <p>Clear Search History?</p>
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className="closeButton"
+                    onClick={() => {
+                      setModalVisible(false);
+                      enableScroll();
+                    }}
+                  />
+                </ModalLine>
+                <ModalLine fontSize="16px">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Nobis exercitationem iure iusto laborum, tempore ex. Debitis
+                  expedita quia iste laudantium nobis ratione possimus, dolore
+                  deserunt tempora nam harum? Doloremque, quam.
+                </ModalLine>
+                <ModalLine isButtons>
+                  <StyledButton
+                    text="Cancel"
+                    margin="0 8px 0 0"
+                    onClick={() => {
+                      setModalVisible(false);
+                      enableScroll();
+                    }}
+                  />
+                  <StyledButton
+                    text="Clear History"
+                    onClick={() => {
+                      console.log('Clear search history (localstorage)');
+                      clearSearchHistory();
+                      setModalVisible(false);
+                      enableScroll();
+                    }}
+                  />
+                </ModalLine>
+              </DeleteModal>
+            </>
+          )}
         </LeftWrapper>
         <RightWrapper>
           <NavList>
-            <StyledNavLink
-              to="/feed"
-              activeClassName="selected"
-              onClick={clearSearchInput}
-            >
-              <FontAwesomeIcon icon={faHome} />
-              <span>홈</span>
-            </StyledNavLink>
-            <StyledNavLink
-              to="/jobs"
-              activeClassName="selected"
-              onClick={clearSearchInput}
-            >
-              <FontAwesomeIcon icon={faBriefcase} />
-              <span>채용공고</span>
-            </StyledNavLink>
-            <StyledNavLink
-              to="/profile"
-              activeClassName="selected"
-              onClick={clearSearchInput}
-            >
-              <FontAwesomeIcon icon={faUser} />
-              <span>나</span>
-            </StyledNavLink>
-            <StyledNavLink
-              to="/signin"
-              onClick={clearSearchInput} // ?
-            >
-              <FontAwesomeIcon icon={faSignOutAlt} />
-              <span>로그아웃</span>
-            </StyledNavLink>
+            {NAV_LINK_DATA.map(navItem => {
+              const { id, title, url, icon } = navItem;
+              return (
+                <StyledNavLink
+                  key={id}
+                  to={url}
+                  activeClassName="selected"
+                  onClick={clearSearchInput}
+                >
+                  <FontAwesomeIcon icon={icon} />
+                  <span>{title}</span>
+                </StyledNavLink>
+              );
+            })}
           </NavList>
         </RightWrapper>
       </MainWrapper>
@@ -251,7 +228,7 @@ const Input = styled.input`
   padding: 0 8px 0 40px;
   border: 1px solid ${({ theme }) => theme.colors.borderGrey};
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.bgcBeige};
+  background-color: ${({ theme }) => theme.colors.inputLightBlue};
   transition-duration: ${({ dropdownVisible }) =>
     dropdownVisible ? '500ms' : '0'};
   outline: none;
@@ -285,8 +262,18 @@ const ModalLine = styled.div`
   }
 
   .closeButton {
-    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
     color: ${({ theme }) => theme.colors.fontGrey};
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.bgcBeige};
+    }
   }
 `;
 
@@ -303,6 +290,7 @@ const DarkBackground = styled.div`
   left: 0;
   height: ${({ area }) => (area === 'all' ? '100%' : '100vh')};
   width: 100vw;
+  /* z-index: -1; */
   animation: ${({ area }) => (area === 'all' ? null : 'fadein 0.5s')};
   @keyframes fadein {
     from {
