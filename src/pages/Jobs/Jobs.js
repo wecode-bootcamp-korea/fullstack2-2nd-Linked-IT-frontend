@@ -43,7 +43,9 @@ export default function Jobs(props) {
 }
 
 const Container = styled.div`
+  position: relative; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
   display: flex;
+  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
   width: 1128px;
   margin: 0 auto;
 `;
@@ -66,12 +68,12 @@ const DetailSection = styled(StyledSection)`
 
 const SearchResultSummary = styled.div`
   position: fixed;
-  top: 0;
+  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
   width: 501px;
   height: 56px;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary};
-  z-index: 999;
+  z-index: 1; // TopNav랑 겹쳐서 1로 낮췄습니다. -성재
 
   .searchKeyword {
     margin: 11px 0 6px 10px;

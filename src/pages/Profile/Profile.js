@@ -16,4 +16,8 @@ export default function Profile() {
   );
 }
 
-const StyledInformation = styled.section``;
+const StyledInformation = styled.section`
+  position: relative; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  padding: 20px 0; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+`;

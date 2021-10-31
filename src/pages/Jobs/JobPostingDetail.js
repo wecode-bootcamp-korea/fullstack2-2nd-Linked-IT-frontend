@@ -165,7 +165,10 @@ const BottomSection = styled.section``;
 
 const Toolbar = styled.div`
   position: fixed;
-  top: ${({ showToolbar }) => (showToolbar ? '0' : '-110px')};
+  top: ${({ showToolbar }) =>
+    showToolbar
+      ? '52px'
+      : '-110px'}; //TopNav관련 '0'을 '52px'로 바꿨습니다 -성재
   width: 625px;
   padding: 15px 20px 30px 23px;
   border-right: 1px solid ${({ theme }) => theme.colors.borderGrey};

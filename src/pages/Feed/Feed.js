@@ -14,10 +14,10 @@ export default function Feed() {
 }
 
 const Body = styled.div`
+  position: relative; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  padding-top: 20px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
   background-color: ${({ theme }) => theme.colors.bgcBeige};
-
-  top: 52px;
-  position: relative;
 `;
 
 const PostsContainer = styled.div`

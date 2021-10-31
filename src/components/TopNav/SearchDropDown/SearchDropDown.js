@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 export default function SearchDropdown({
@@ -10,69 +9,57 @@ export default function SearchDropdown({
   setSearchInput,
   setDropdownVisible,
   setModalVisible,
+  addToSearchHistory,
 }) {
-  const [recentKeywords, setRecentKeywords] = useState([]);
   const [matchingResults, setMatchingResults] = useState([]);
-  console.log('matchingResults:', matchingResults);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('data/searchHistoryData.json')
-      .then(res => res.json())
-      .then(res => {
-        setRecentKeywords(res.SEARCH_HISTORY_DATA);
-      });
-  }, []);
+  const searchHistory = JSON.parse(localStorage.getItem('searchHistory')); //렌더링 too much
 
   useEffect(() => {
     fetch('data/peopleData.json')
       .then(res => res.json())
       .then(res => {
-        // setTimeout(() => {
         setMatchingResults(
           res.PEOPLE_DATA.filter(result =>
             result.name.toLowerCase().includes(searchInput.toLowerCase())
           )
         );
-        // }, 1000);
       });
   }, [searchInput]);
 
-  if (!recentKeywords.length && !searchInput) return null; //fix this logic
+  //if nothing in search history and nothing typed in search input
+  if (!searchHistory && !searchInput) return null;
   if (!searchInput || !searchInput.replace(/\s/g, '').length) {
+    // FIX right side of 'IF STATEMENT LOGIC'
     return (
-      <StyledSearchDropdown
-      // onClick={e => e.preventDefault()}
-      >
+      <StyledSearchDropdown>
         <TopLine>
           <span>최근</span>
           <button
             onClick={() => {
               setDropdownVisible(false);
               setModalVisible(true);
+              document.body.style.overflow = 'hidden';
             }}
           >
             지우기
           </button>
         </TopLine>
-        {recentKeywords.map(keyword => {
-          const { id, value } = keyword;
+        {searchHistory.map(keyword => {
           return (
             <RecentSearchLine
-              key={id}
+              key={keyword}
               to={{
                 pathname: '/search',
-                // search: "?utm=your+face",
-                state: { keyword: value },
+                state: { keyword },
               }}
               onClick={() => {
-                console.log('SESARCH');
-                setSearchInput(value);
+                addToSearchHistory(keyword);
+                setSearchInput(keyword);
                 setDropdownVisible(false);
               }}
             >
               <FaIcon icon={faClock} />
-              <p>{value}</p>
+              <p>{keyword}</p>
             </RecentSearchLine>
           );
         })}
@@ -80,37 +67,39 @@ export default function SearchDropdown({
     );
   }
   return (
-    <StyledSearchDropdown
-    // onClick={e => e.preventDefault()}
-    >
+    <StyledSearchDropdown>
       {matchingResults.map(result => {
-        const { id, name, imageUrl } = result;
+        const { id, name, imageUrl, relation, company } = result;
         return (
           <ResultLine
             key={id}
             to={{
               pathname: '/search',
-              // search: "?utm=your+face",
               state: { keyword: name },
             }}
             onClick={() => {
+              addToSearchHistory(name);
               setDropdownVisible(false);
               setSearchInput(name);
             }}
           >
             <img alt={`${name}'s profile'`} src={imageUrl} />
             <p>{name}</p>
+            <span>&#183; {relation} &#183;</span>
+            <span>{company.name}</span>
           </ResultLine>
         );
       })}
       <ResultLine
-        seeAllResults
+        $seeAllResults
         to={{
           pathname: '/search',
-          // search: "?utm=your+face",
           state: { keyword: searchInput },
         }}
-        onClick={() => setDropdownVisible(false)}
+        onClick={() => {
+          setDropdownVisible(false);
+          addToSearchHistory();
+        }}
       >
         <p>See all results</p>
       </ResultLine>
@@ -121,7 +110,6 @@ export default function SearchDropdown({
 const StyledSearchDropdown = styled.div`
   width: 600px;
   margin-top: 3px;
-  /* padding: 10px 0; */
   border-radius: 5px;
   box-shadow: 1px 1px 5px ${({ theme }) => theme.colors.boxShadowGrey};
   background-color: ${({ theme }) => theme.colors.white};
@@ -148,7 +136,6 @@ const TopLine = styled.div`
   width: 100%;
   height: 40px;
   padding: 0 10px;
-  /* background-color: red; */
 `;
 
 const RecentSearchLine = styled(Link)`
@@ -156,10 +143,8 @@ const RecentSearchLine = styled(Link)`
   align-items: center;
   height: 44px;
   padding: 0 10px;
-  /* background-color: blue; */
   font-size: 17px;
   cursor: pointer;
-  /* border: 1px solid black; */
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.backgroundGrey};
@@ -170,7 +155,6 @@ const RecentSearchLine = styled(Link)`
     color: ${({ theme }) => theme.colors.black};
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    /* background-color: red; */
   }
 `;
 
@@ -181,13 +165,12 @@ const FaIcon = styled(FontAwesomeIcon)`
 const ResultLine = styled(Link)`
   display: flex;
   align-items: center;
-  justify-content: ${({ seeAllResults }) => (seeAllResults ? 'center' : null)};
+  justify-content: ${({ $seeAllResults }) =>
+    $seeAllResults ? 'center' : null};
   height: 44px;
   padding: 0 10px;
-  /* background-color: blue; */
   font-size: 17px;
   cursor: pointer;
-  /* border: 1px solid black; */
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.backgroundGrey};
@@ -201,12 +184,18 @@ const ResultLine = styled(Link)`
 
   p {
     margin-left: 10px;
-    color: ${({ theme, seeAllResults }) => {
+    color: ${({ theme, $seeAllResults }) => {
       const { primary, black } = theme.colors;
-      return seeAllResults ? primary : black;
+      return $seeAllResults ? primary : black;
     }};
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;
-    /* background-color: red; */
+  }
+
+  span {
+    margin-left: 5px;
+    color: ${({ theme }) => theme.colors.fontGrey};
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
   }
 `;

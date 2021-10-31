@@ -4,7 +4,7 @@ const theme = {
 
     //white계
     white: '#ffffff',
-    bgcBeige: '#f3f2ee',
+    bgcBeige: '#f3f2ef',
 
     //black계
     black: '#000000',
@@ -13,9 +13,10 @@ const theme = {
     //grey계
     fontGrey: '#666666',
     borderGrey: '#ebebeb',
+    backgroundGrey: '#f3f2ee',
+    darkGrey: '#5e5e5e',
     btnGrey: '#666666',
     btnLightGrey: '#ebebeb',
-    darkGrey: '#5e5e5e',
     boxShadowGrey: '#808080',
 
     //red계

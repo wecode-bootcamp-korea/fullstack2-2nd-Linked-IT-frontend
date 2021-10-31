@@ -15,8 +15,6 @@ import useClickOutside from '../../hooks/useClickOutside';
 import Button from '../Button/Button';
 
 export default function TopNav() {
-  console.log('TopNav render', window);
-
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchInput, setSearchInput] = useState('');
@@ -26,33 +24,53 @@ export default function TopNav() {
   const inputRef = useRef();
   const history = useHistory();
 
+  const clearSearchInput = () => {
+    setSearchInput('');
+  };
+
+  const addToSearchHistory = (keyword = searchInput) => {
+    // if there is nothing saved at start then save an empty array
+    if (localStorage.getItem('searchHistory') == null) {
+      localStorage.setItem('searchHistory', '[]');
+    }
+    // create variable
+    const searchHistoryArr = JSON.parse(localStorage.getItem('searchHistory'));
+    // if new search input is already included in search history array
+    if (searchHistoryArr.includes(keyword)) {
+      const index = searchHistoryArr.indexOf(keyword);
+      searchHistoryArr.splice(index, 1);
+    }
+    // add new search input to front of search history array
+    searchHistoryArr.unshift(keyword);
+    // if new search history array has more than four elements, delete the last element
+    if (searchHistoryArr.length > 3) searchHistoryArr.pop();
+    // search history array에 갱신된 값 할당
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArr));
+  };
+
+  const clearSearchHistory = () => {
+    localStorage.removeItem('searchHistory');
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
-    inputRef.current.blur();
+    addToSearchHistory();
+    setDropdownVisible(false);
     history.push({
       pathname: '/search',
-      // search: '?update=true', // query string
       state: {
-        // location state
-        // update: true,
         keyword: searchInput,
       },
     });
-    setDropdownVisible(false);
-    // inputWrapperRef.current.blur(); //doesnt work
-    // localStorage.setItem('keyword')
+    inputRef.current.blur();
   };
 
   return (
     <StyledNav>
       <MainWrapper>
         <LeftWrapper>
-          <StyledNavLink
-            className="logo"
-            to="/feed"
-            onClick={() => setSearchInput('')}
-          >
-            <Logo alt="logo" src="/images/ItLogo.png" />
+          <StyledNavLink className="logo" to="/feed" onClick={clearSearchInput}>
+            <Logo alt="logo" src="/images/common_logo_squared.png" />
           </StyledNavLink>
           <InputWrapper ref={inputWrapperRef}>
             <FontAwesomeIcon
@@ -70,7 +88,7 @@ export default function TopNav() {
                   setDropdownVisible(true);
                 }}
                 onChange={e => setSearchInput(e.target.value)}
-              ></Input>
+              />
             </form>
             {dropdownVisible && (
               <SearchDropdown
@@ -78,13 +96,17 @@ export default function TopNav() {
                 setSearchInput={setSearchInput}
                 setDropdownVisible={setDropdownVisible}
                 setModalVisible={setModalVisible}
+                addToSearchHistory={addToSearchHistory}
               />
             )}
             {modalVisible && (
               <>
                 <DarkBackground
                   area="all"
-                  onClick={() => setModalVisible(false)}
+                  onClick={() => {
+                    setModalVisible(false);
+                    document.body.style.overflow = 'unset';
+                  }}
                 />
                 <DeleteModal>
                   <ModalLine fontSize="20px">
@@ -92,7 +114,10 @@ export default function TopNav() {
                     <FontAwesomeIcon
                       icon={faTimes}
                       className="closeButton"
-                      onClick={() => setModalVisible(false)}
+                      onClick={() => {
+                        setModalVisible(false);
+                        document.body.style.overflow = 'unset';
+                      }}
                     />
                   </ModalLine>
                   <ModalLine fontSize="16px">
@@ -105,13 +130,18 @@ export default function TopNav() {
                     <StyledButton
                       text="Cancel"
                       margin="0 8px 0 0"
-                      onClick={() => setModalVisible(false)}
+                      onClick={() => {
+                        setModalVisible(false);
+                        document.body.style.overflow = 'unset';
+                      }}
                     />
                     <StyledButton
                       text="Clear History"
                       onClick={() => {
                         console.log('Clear search history (localstorage)');
+                        clearSearchHistory();
                         setModalVisible(false);
+                        document.body.style.overflow = 'unset';
                       }}
                     />
                   </ModalLine>
@@ -125,7 +155,7 @@ export default function TopNav() {
             <StyledNavLink
               to="/feed"
               activeClassName="selected"
-              onClick={() => setSearchInput('')}
+              onClick={clearSearchInput}
             >
               <FontAwesomeIcon icon={faHome} />
               <span>홈</span>
@@ -133,7 +163,7 @@ export default function TopNav() {
             <StyledNavLink
               to="/jobs"
               activeClassName="selected"
-              onClick={() => setSearchInput('')}
+              onClick={clearSearchInput}
             >
               <FontAwesomeIcon icon={faBriefcase} />
               <span>채용공고</span>
@@ -141,14 +171,14 @@ export default function TopNav() {
             <StyledNavLink
               to="/profile"
               activeClassName="selected"
-              onClick={() => setSearchInput('')}
+              onClick={clearSearchInput}
             >
               <FontAwesomeIcon icon={faUser} />
               <span>나</span>
             </StyledNavLink>
             <StyledNavLink
               to="/signin"
-              onClick={() => setSearchInput('')} // ?
+              onClick={clearSearchInput} // ?
             >
               <FontAwesomeIcon icon={faSignOutAlt} />
               <span>로그아웃</span>
@@ -167,14 +197,10 @@ const StyledNav = styled.nav`
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* top: 0;
-  left: 0;
-  right: 0; */
-  /* border: 1px solid black; */
   height: 52px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
   background-color: ${({ theme }) => theme.colors.white};
-  z-index: 1;
+  z-index: 2;
   user-select: none;
 `;
 
@@ -205,7 +231,6 @@ const InputWrapper = styled.div`
   position: relative;
   height: 100%;
   width: 280px;
-  /* background-color: blue; */
 
   .magnifyingGlass {
     position: absolute;
@@ -311,33 +336,10 @@ const StyledNavLink = styled(NavLink)`
   color: ${({ theme }) => theme.colors.darkGrey};
   cursor: pointer;
 
-  /* ::after {
-    content: '';
-    position: absolute;
-    left: 0px;
-    bottom: -1rem;
-    height: 3px;
-    width: 100%;
-    background: $gray;
-  }
-
-  :focus::after {
-    transform: scaleX(1);
-    margin-left: 0;
-  }
-
-  ::after {
-    transform: scaleX(0);
-    margin-left: 50%;
-    transform-origin: left;
-    transition: transform 500ms ease, margin-left 0.5s ease;
-  } */
-
   &.logo {
     height: 100%;
     width: auto;
     border-bottom: none;
-    /* background-color: purple; */
   }
 
   &:hover {
