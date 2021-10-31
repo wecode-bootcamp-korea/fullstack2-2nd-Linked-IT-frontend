@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
-/* props 중 bgc와 color는 Button 컴포넌트를 사용하는 부모컴포넌트에서 theme을 import하시면 됩니다.
-ex) bgc={theme.colors.primary} color={theme.colors.white} 
-theme은 이미 index.js에서 import 되었지만 컴포넌트 안에서 theme을 사용하기위해 다시 import 했습니다. */
+/*
+ * props 중 bgc와 color는 Button 컴포넌트를 사용하는 부모 컴포넌트에서 theme을 import하시면 됩니다.
+ * ex) bgc={theme.colors.primary} color={theme.colors.white}
+ * theme은 이미 index.js에서 import 되었지만, 컴포넌트 안에서 theme을 사용하기 위해 다시 import했습니다.
+ */
 
 export default function Button({
   bgc, //background-color

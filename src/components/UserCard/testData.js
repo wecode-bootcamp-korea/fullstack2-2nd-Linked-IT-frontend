@@ -15,7 +15,7 @@ const profile = {
   school: 'Chicken University',
   major: 'Business',
   degree: 'Bachelor of Arts(BA)',
-  // 친구관꼐
+  // 친구관계
   isConnection: false,
 };
 

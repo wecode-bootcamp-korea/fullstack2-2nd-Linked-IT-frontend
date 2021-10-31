@@ -4,7 +4,7 @@ const theme = {
 
     //white계
     white: '#ffffff',
-    bgcBeige: '#f3f2ef',
+    bgcBeige: '#f3f2ee',
 
     //black계
     black: '#000000',
@@ -13,20 +13,21 @@ const theme = {
     //grey계
     fontGrey: '#666666',
     borderGrey: '#ebebeb',
-    backgroundGrey: '#F3F2EE',
-    darkGrey: '#5E5E5E',
     btnGrey: '#666666',
     btnLightGrey: '#ebebeb',
+    darkGrey: '#5e5e5e',
 
     //red계
     alarmRed: '#d11e2c',
 
     //green계
+    fontGreen: '#057642',
     btnGreen: '#057642',
     btnDarkGreen: '#046238',
 
     //blue계
-    btnLightBlue: '#E4F1FE',
+    bgcLightBlue: '#e4f1fe',
+    btnLightBlue: '#e4f1fe',
     btnNavy: '#004182',
   },
 };
