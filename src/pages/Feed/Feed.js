@@ -15,6 +15,9 @@ export default function Feed() {
 
 const Body = styled.div`
   background-color: ${({ theme }) => theme.colors.bgcBeige};
+
+  top: 52px;
+  position: relative;
 `;
 
 const PostsContainer = styled.div`

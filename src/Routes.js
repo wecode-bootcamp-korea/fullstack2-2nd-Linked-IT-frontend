@@ -6,10 +6,12 @@ import SignIn from './pages/SignIn/SignIn';
 import Feed from './pages/Feed/Feed';
 import Jobs from './pages/Jobs/Jobs';
 import Profile from './pages/Profile/Profile';
+import TopNav from './components/TopNav/TopNav';
 
 export default function Routes() {
   return (
     <BrowserRouter>
+      <TopNav />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />

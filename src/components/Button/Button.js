@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus,
+  faCheck,
+  faSortDown,
+  faExternalLinkAlt,
+} from '@fortawesome/free-solid-svg-icons';
 
 /*
  * props 중 bgc와 color는 Button 컴포넌트를 사용하는 부모 컴포넌트에서 theme을 import하시면 됩니다.
@@ -9,26 +14,37 @@ import { faPlus, faCheck, faSortDown } from '@fortawesome/free-solid-svg-icons';
  */
 
 export default function Button({
-  bgc, //background-color
-  color,
+  bgc, //background-color, 값 안주면 'transparent'
+  color, // 값 안주면 theme.colors.btnGrey
   onClick,
   text,
   type, // (optional) 팔로우 버튼 & dropdown 버튼만 해당됨
   numOfFilters, // (optional) dropdown 버튼에 적용된 필터 갯수 보여줄 떄
   isFollowing, // (optional) 팔로우 버튼의 팔로우 상태
+  // width, //나중에 추가예정
+  // height, //나중에 추가예정
+  // fontSize, //나중에 추가예정
 }) {
   return (
     <StyledButton bgc={bgc} color={color} onClick={onClick}>
       {type === 'follow' && (
         <FontAwesomeIcon
           icon={isFollowing ? faCheck : faPlus}
-          style={{ marginRight: '5px' }}
+          className="leftIcon"
+          size="sm"
         />
       )}
       {text}
-      {numOfFilters > 0 && <StyledCircle>{numOfFilters}</StyledCircle>}
+      {numOfFilters > 0 && <Circle>{numOfFilters}</Circle>}
       {type === 'dropdown' && (
-        <FontAwesomeIcon icon={faSortDown} style={{ marginLeft: '5px' }} />
+        <FontAwesomeIcon icon={faSortDown} className="rightIcon" />
+      )}
+      {type === 'apply' && (
+        <FontAwesomeIcon
+          icon={faExternalLinkAlt}
+          className="rightIcon"
+          size="sm"
+        />
       )}
     </StyledButton>
   );
@@ -49,6 +65,7 @@ const StyledButton = styled.button`
   color: ${({ color, theme }) => color || theme.colors.btnGrey};
   font-size: 16px;
   cursor: pointer;
+  white-space: nowrap;
 
   &:hover {
     border: 1px solid
@@ -86,9 +103,17 @@ const StyledButton = styled.button`
       if (!color) return black;
     }};
   }
+
+  .leftIcon {
+    margin-right: 5px;
+  }
+
+  .rightIcon {
+    margin-left: 5px;
+  }
 `;
 
-const StyledCircle = styled.div`
+const Circle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
