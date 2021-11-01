@@ -66,7 +66,7 @@ const Container = styled.div`
 
   background-color: ${props => props.backgroundColor};
   color: ${props => props.color};
-  font-size: 1rem;
+  font-size: 16px;
 `;
 
 const ModeToggler = styled.div`
@@ -80,7 +80,7 @@ const ModeToggler = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2em;
+  font-size: 32px;
   font-weight: 600;
   cursor: pointer;
 `;
