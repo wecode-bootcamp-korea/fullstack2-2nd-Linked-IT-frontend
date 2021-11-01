@@ -256,6 +256,11 @@ const GoToSignUp = styled.article`
     color: ${props => props.theme.colors.primary};
     font-size: 16px;
     font-weight: 600;
+
+    &:hover {
+      background-color: ${props => props.theme.colors.bgcLightBlue};
+      text-decoration: underline;
+    }
   }
 `;
 
@@ -291,7 +296,6 @@ const SignInFooter = styled.footer`
       a {
         color: ${props => props.theme.colors.fontGrey};
         font-weight: 600;
-        text-decoration: none;
 
         .far {
           margin-left: 6px;
