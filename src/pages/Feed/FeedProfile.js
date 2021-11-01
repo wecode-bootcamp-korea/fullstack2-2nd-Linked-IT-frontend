@@ -36,7 +36,7 @@ export default function FeedProfile(props) {
 const Aside = styled.div`
   display: inline-block;
   position: sticky;
-  top: 50px;
+  top: 60px;
   width: 220px;
   border: 1px solid ${({ theme }) => theme.colors.borderGrey};
   border-radius: 12px;

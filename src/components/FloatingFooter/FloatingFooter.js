@@ -28,7 +28,7 @@ export default function FloatingFooter() {
 const Aside = styled.div`
   display: inline-block;
   position: sticky;
-  top: 50px;
+  top: 60px;
   width: 320px;
   text-align: center;
 `;

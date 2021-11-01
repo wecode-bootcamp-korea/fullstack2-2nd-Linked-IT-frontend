@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import icons from './data/Images/socialIcons';
 
@@ -44,11 +44,7 @@ export default function LikeBtnAndModal() {
       >
         <LikeIcon
           alt="thumbDefault"
-          src={
-            thumbIcon
-              ? thumbIcon
-              : require('./data/Images/thumbDefault.svg').default
-          }
+          src={thumbIcon ? thumbIcon : '/Images/ico_thumb.svg'}
         />
         <span>추천</span>
       </Button>
