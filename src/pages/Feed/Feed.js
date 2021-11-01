@@ -1,27 +1,38 @@
 import styled from 'styled-components';
 import FeedProfile from './FeedProfile';
+import Post from './Post';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import profileData from './data/Profile';
+import MY_PROFILE_DATA from './data/MyProfileData';
+import POST_DATA from './data/PostData';
 
 export default function Feed() {
+  const { ...myProfileData } = MY_PROFILE_DATA;
+
+  const postList = POST_DATA.map(data => {
+    return <Post myProfileData={myProfileData} postData={data} />;
+  });
+
   return (
     <Body>
-      <FeedProfile profileData={profileData} />
-      <PostsContainer />
+      <FeedProfile myProfileData={myProfileData} />
+      <PostContainer>{postList}</PostContainer>
       <FloatingFooter />
     </Body>
   );
 }
 
 const Body = styled.div`
-  position: relative; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
-  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
-  padding-top: 20px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 50px;
   background-color: ${({ theme }) => theme.colors.bgcBeige};
+  text-align: center;
 `;
 
-const PostsContainer = styled.div`
-  margin: 0 auto;
-  width: 540px;
-  background-color: ${({ theme }) => theme.white};
+const PostContainer = styled.div`
+  margin: 0 10px;
+  width: 45%;
+  min-width: 540px;
+  max-width: 760px;
 `;
