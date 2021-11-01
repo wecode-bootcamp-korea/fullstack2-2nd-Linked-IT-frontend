@@ -58,27 +58,29 @@ function MyComponent() {
 }
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  padding-top: 8em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 100vh;
 
   background-color: ${props => props.backgroundColor};
   color: ${props => props.color};
-  font-size: 2rem;
-  font-weight: 600;
-  text-align: center;
+  font-size: 1rem;
 `;
 
 const ModeToggler = styled.div`
-  width: 30px;
-  height: 30px;
-  margin: 30px auto;
+  width: 32px;
+  height: 32px;
+  margin: 200px 0 32px;
   border-radius: 50%;
 
   background-color: ${props => props.toggleColor};
   cursor: pointer;
 `;
 
-const Title = styled.span`
+const Title = styled.h1`
+  font-size: 2em;
+  font-weight: 600;
   cursor: pointer;
 `;

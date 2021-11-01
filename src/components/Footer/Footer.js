@@ -10,13 +10,13 @@ export default function Footer(props) {
     <>
       {!isHidden && (
         <StyledFooter className={isDefault ? '' : 'modal'} default={isDefault}>
-          <ExitButton
+          <FooterExitButton
             className={isDefault ? '' : 'modal'}
             default={isDefault}
             onClick={() => toggleFooter()}
           >
             <i className="fal fa-times"></i>
-          </ExitButton>
+          </FooterExitButton>
           <FooterGridContainer>
             <FooterLogo
               alt="LinkedIT Logo"
@@ -133,7 +133,7 @@ const StyledFooter = styled.footer`
   }
 `;
 
-const ExitButton = styled.button`
+const FooterExitButton = styled.button`
   position: absolute;
   top: 12px;
   right: 8px;

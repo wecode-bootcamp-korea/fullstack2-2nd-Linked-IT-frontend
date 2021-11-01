@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 
-export default function SearchDropdown({
+export default function SearchDropDown({
   searchInput,
   setSearchInput,
   setDropdownVisible,
