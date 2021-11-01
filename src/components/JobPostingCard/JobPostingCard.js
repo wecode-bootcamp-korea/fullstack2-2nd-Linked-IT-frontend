@@ -6,26 +6,27 @@ import { addComma } from '../../utils/NumberUtil';
 export default function JobPostingCard(props) {
   const {
     jobPostingId,
-    profileImgUrl,
+    companyProfileImgUrl,
     jobPostingTitle,
     companyId,
     companyName,
     companyLocation,
     workType,
-    createdAt,
+    timeSincePosted,
     applicantCount,
     isEasyApply,
-    clicked = false,
+    isClicked = false,
     isMain = true,
     showBtn = true,
     showBorder = true,
+    onClick,
   } = props;
 
   return (
-    <FlexDiv clicked={clicked}>
+    <FlexDiv isClicked={isClicked} onClick={() => onClick(jobPostingId)}>
       <ImgWrapper>
-        <Link to={`/company/${companyId}`}>
-          <img alt="profileImg" src={profileImgUrl} />
+        <Link to={`company/${companyId}`}>
+          <img alt="profile img" src={companyProfileImgUrl} />
         </Link>
       </ImgWrapper>
       <TextWrapper showBorder={showBorder}>
@@ -41,14 +42,14 @@ export default function JobPostingCard(props) {
           {companyLocation} {workType ? `(${workType})` : ``}
         </ThirdLine>
         <FourthLine>
-          {createdAt && <li>{createdAt}</li>}
+          {timeSincePosted && <li>{timeSincePosted}</li>}
           {applicantCount > 0 && (
             <li className="applicantCount">
               지원자 {addComma(applicantCount)}명
             </li>
           )}
-          {isEasyApply && <li className="isEasyApply" />}
-          {isEasyApply && <li>간편지원</li>}
+          {isEasyApply === 1 && <li className="isEasyApply" />}
+          {isEasyApply === 1 && <li>간편지원</li>}
         </FourthLine>
       </TextWrapper>
       {showBtn && (
@@ -62,8 +63,8 @@ export default function JobPostingCard(props) {
 
 const FlexDiv = styled.div`
   display: flex;
-  background-color: ${({ clicked, theme }) =>
-    clicked ? theme.colors.bgcLightBlue : ''};
+  background-color: ${({ isClicked, theme }) =>
+    isClicked ? theme.colors.bgcLightBlue : ''};
 `;
 
 const ImgWrapper = styled.div`
