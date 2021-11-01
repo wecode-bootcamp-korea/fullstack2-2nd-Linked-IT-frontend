@@ -107,7 +107,7 @@ const FourthLine = styled(Link)`
     width: 15px;
     height: 15px;
     margin-right: 5px;
-    background: url('/images/briefcaseIcon2.svg') no-repeat;
+    background: url('/images/ico_briefcase2.svg') no-repeat;
     background-size: contain;
   }
 `;
