@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 export default function SignUp() {
-  const history = useHistory();
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -18,9 +17,79 @@ export default function SignUp() {
     setUser({ ...user, [name]: value });
   };
 
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  const showPassword = () => {
+    setIsPasswordHidden(!isPasswordHidden);
+  };
+
+  const validateInput = () => {
+    const validLastName = /^[가-힣]{1,2}$/;
+    const validFirstName = /^[가-힣]{1,4}$/;
+    const validEmail =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    const validPassword =
+      /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
+    const isValidLastName =
+      user.lastName.match(validLastName) && user.lastName !== '';
+    const isValidFirstName =
+      user.firstName.match(validFirstName) && user.firstName !== '';
+    const isValidEmail = user.email.match(validEmail) && user.email !== '';
+    const isValidPassword =
+      user.password.match(validPassword) && user.password !== '';
+
+    // Test Code for Checking Functions
+    console.log(
+      isValidLastName,
+      isValidFirstName,
+      isValidEmail,
+      isValidPassword
+    );
+
+    return (
+      isValidLastName && isValidFirstName && isValidEmail && isValidPassword
+    );
+  };
+
+  const history = useHistory();
+  const submitInput = event => {
+    // event.preventDefault();
+    fetch(`user/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'SIGNUP_FAILED') {
+          alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
+        } else if (data.status === 'SIGNUP_SUCCESSED') {
+          alert('회원가입에 성공하였습니다.');
+          history.push('/signin');
+        } else {
+          alert(data.status);
+        }
+      });
+  };
+
+  const rejectInput = () => {
+    alert('회원가입에 실패하였습니다. 유효한 형식으로 다시 입력해주세요.');
+    setUser({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    });
+  };
+
+  // Test Code for Checking Functions
   useEffect(() => {
-    console.log('useEffect Callback', user);
-    return () => console.log('cleanUp', user);
+    console.log(user, validateInput());
   }, [user]);
 
   return (
@@ -30,7 +99,10 @@ export default function SignUp() {
         <h1>LinkedIn을 활용하여 기회의 문을 넓히세요.</h1>
       </SignUpHeader>
       <SignUpMain>
-        <SignUpMainForm>
+        <SignUpMainForm
+          action=""
+          onSubmit={validateInput() ? submitInput : rejectInput}
+        >
           <div>
             <label for="lastName">성</label>
             <input
@@ -62,15 +134,17 @@ export default function SignUp() {
             />
           </div>
           <div>
-            <label for="password">비밀번호(6자 이상)</label>
+            <label for="password">
+              비밀번호 (8자 이상, 문자와 특수문자 포함)
+            </label>
             <input
               id="password"
               name="password"
               onChange={handleInput}
               required
-              type="password"
+              type={isPasswordHidden ? 'password' : 'text'}
             />
-            {/* <span>보기</span> */}
+            <span onClick={showPassword}>보기</span>
           </div>
           <p>
             동의 후 가입을 클릭하시면 LinkedIT{` `}
@@ -121,7 +195,7 @@ const SignUpHeader = styled.header`
 
   h1 {
     height: 84px;
-    padding: 24px 16px;
+    padding: 20px;
 
     font-size: 32px;
     font-weight: 400;
@@ -138,7 +212,7 @@ const SignUpMain = styled.main`
   height: 530px;
   margin: 0 auto;
   border-radius: 8px;
-  padding: 26px 24px 24px;
+  padding: 24px 24px 22px;
   background-color: white;
 
   button {
@@ -168,7 +242,7 @@ const SignUpMainForm = styled.form`
   justify-content: space-between;
   align-content: flex-start;
 
-  height: 340px;
+  height: 344px;
 
   div {
     position: relative;
