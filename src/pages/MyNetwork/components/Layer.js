@@ -61,7 +61,7 @@ export default function Layer(props) {
       <Container>
         <StyledHeader {...props} isSticky={true} />
         <Grid>
-          {cardData.map((el, idx) => {
+          {cardData?.map((el, idx) => {
             return <ProfileCard key={idx} />;
           })}
         </Grid>
