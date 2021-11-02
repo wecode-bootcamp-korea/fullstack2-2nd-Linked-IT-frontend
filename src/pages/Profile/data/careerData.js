@@ -11,6 +11,7 @@ const careerData = [
     country: '대한민국',
     city: '서울',
     desc: '쉬운 금융을 실현하기 위해 노력합니다.',
+    isWorkingNow: true,
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const careerData = [
     country: '대한민국',
     city: '서울',
     desc: '유저지향 UI 웹디자이너로 활동하였습니다.',
+    isWorkingNow: false,
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const careerData = [
     country: '대한민국',
     city: '서울',
     desc: '',
+    isWorkingNow: false,
   },
 ];
 

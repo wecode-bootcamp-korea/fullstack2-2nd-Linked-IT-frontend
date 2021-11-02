@@ -27,8 +27,8 @@ export default function JobPostingDetail(props) {
 
   const [showToolbar, setShowToolbar] = useState(false);
   const [toggleIntro, setToggleIntro] = useState(false);
-  const target = useRef(null);
 
+  const target = useRef(null);
   const callback = (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -67,11 +67,11 @@ export default function JobPostingDetail(props) {
           </Subtitle>
           <IconList>
             <li>
-              <img alt="briefcaseIcon" src="/images/briefcaseIcon.svg" />
+              <img alt="ico_briefcase" src="/images/ico_briefcase.svg" />
               {employmentType}
             </li>
             <li>
-              <img alt="buildingIcon" src="/images/buildingIcon.svg" />
+              <img alt="ico_building" src="/images/ico_building.svg" />
               직원 {staffCount}명 &#183; {companyCategory}
             </li>
             <li ref={target}>

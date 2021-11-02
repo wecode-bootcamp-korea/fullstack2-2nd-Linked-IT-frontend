@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import CareerCard from './CareerCard';
 import EducationCard from './EducationCard';
 
-export default function InformaionCRUD(props) {
-  const { title, cardData } = props;
+export default function Informaion(props) {
+  const { title, cardData, openCareerAddModal } = props;
 
   return (
     <StyledInformation>
@@ -13,7 +13,11 @@ export default function InformaionCRUD(props) {
         <CareerInfo>
           <div>
             <h2>{title}</h2>
-            <FontAwesomeIcon className="plusBtn" icon={faPlus} />
+            <FontAwesomeIcon
+              className="plusBtn"
+              icon={faPlus}
+              onClick={openCareerAddModal}
+            />
             <ul className="cardList">
               {cardData.map(career => {
                 return <CareerCard key={career.id} career={career} />;

@@ -10,7 +10,7 @@ import {
   faSignOutAlt,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import SearchDropdown from './SearchDropdown/SearchDropdown';
+import SearchDropDown from './SearchDropDown/SearchDropDown';
 import useClickOutside from '../../hooks/useClickOutside';
 import Button from '../Button/Button';
 
@@ -91,7 +91,7 @@ export default function TopNav() {
               />
             </form>
             {dropdownVisible && (
-              <SearchDropdown
+              <SearchDropDown
                 searchInput={searchInput}
                 setSearchInput={setSearchInput}
                 setDropdownVisible={setDropdownVisible}
