@@ -20,7 +20,7 @@ export default function PostReplyList({
     setEditModal(!editModal);
   };
 
-  const handleModifying = () => {
+  const handleEditing = () => {
     setEditing(true);
     setEditModal(false);
   };
@@ -29,13 +29,13 @@ export default function PostReplyList({
     deleteReply(id);
   };
 
-  const resizeModifyingTextArea = () => {
+  const resizeEditingTextArea = () => {
     inputtedReplyRef.current.style.height = '22px';
     inputtedReplyRef.current.style.height =
       inputtedReplyRef.current.scrollHeight + 'px';
   };
 
-  const activeModifySaveBtn = e => {
+  const activeEditSaveBtn = e => {
     if (e.target.value.length === 0) {
       setEditBtn(false);
     } else if (e.target.value !== reply) {
@@ -61,17 +61,17 @@ export default function PostReplyList({
   };
 
   return (
-    <div>
+    <ReplyContainer>
       <img alt={writer} src={image} />
       <ReplyWrap>
         <ReplyButton>
           <button onClick={handleReplyModal}>⋯</button>
           {editModal && (
             <ReplyButtonModal>
-              <ModifyReply onClick={handleModifying}>
+              <EditReply onClick={handleEditing}>
                 <FontAwesomeIcon icon={faPen} />
                 <span>변경</span>
-              </ModifyReply>
+              </EditReply>
               <DeleteReply onClick={selectDeleteReply}>
                 <FontAwesomeIcon icon={faTrashAlt} />
                 <span>삭제</span>
@@ -82,13 +82,13 @@ export default function PostReplyList({
         <Writer>{writer}</Writer>
         <WriterHeadline>{headline}</WriterHeadline>
         {editing ? (
-          <ModifyingValue>
+          <EditingValue>
             <textarea
               id={id}
               defaultValue={reply}
-              onKeyDown={resizeModifyingTextArea}
+              onKeyDown={resizeEditingTextArea}
               ref={inputtedReplyRef}
-              onChange={activeModifySaveBtn}
+              onChange={activeEditSaveBtn}
             />
             {editBtn ? (
               <SaveBtnActived onClick={editedReply}>
@@ -102,7 +102,7 @@ export default function PostReplyList({
             <CancleBtn onClick={cancleEditReply}>
               <span>취소</span>
             </CancleBtn>
-          </ModifyingValue>
+          </EditingValue>
         ) : (
           <ReplyValue>{reply}</ReplyValue>
         )}
@@ -112,21 +112,33 @@ export default function PostReplyList({
           <span>추천</span>
         </LikeBtn>
         {replyLike && (
-          <LikeIcon>
+          <LikeIconWrap>
             <span>•</span>
             <img
               alt="likeIcon"
               src="https://static-exp1.licdn.com/sc/h/8ekq8gho1ruaf8i7f86vd1ftt"
             />
-          </LikeIcon>
+          </LikeIconWrap>
         )}
         <ReplyBtn name={replyLike}>
           <span>답장</span>
         </ReplyBtn>
       </ButtonWrap>
-    </div>
+    </ReplyContainer>
   );
 }
+
+const ReplyContainer = styled.div`
+  img {
+    width: 40px;
+    margin-left: 30px;
+  }
+
+  button {
+    height: 20px;
+    width: 30px;
+  }
+`;
 
 const ReplyWrap = styled.div`
   display: inline-block;
@@ -148,10 +160,7 @@ const ReplyButton = styled.span`
     color: ${({ theme }) => theme.colors.fontGrey};
     background-color: ${({ theme }) => theme.colors.bgcBeige};
     font-size: 1.2rem;
-
-    &:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
 `;
 
@@ -159,7 +168,7 @@ const ReplyButtonModal = styled.div`
   position: absolute;
   top: 25px;
   right: 15px;
-  height: 70px;
+  height: 65px;
   width: 100px;
   padding: 12px;
   border: 1px solid ${({ theme }) => theme.colors.borderGrey};
@@ -173,20 +182,15 @@ const ReplyButtonModal = styled.div`
   }
 `;
 
-const ModifyReply = styled.span`
+const EditReply = styled.span`
   display: block;
   margin-bottom: 10px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
+
 const DeleteReply = styled.span`
   display: block;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Writer = styled.span`
@@ -209,7 +213,7 @@ const ReplyValue = styled.div`
   white-space: pre-wrap;
 `;
 
-const ModifyingValue = styled.div`
+const EditingValue = styled.div`
   padding-bottom: 20px;
 
   textarea {
@@ -239,10 +243,7 @@ const SaveBtnActived = styled.div`
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.btnNavy};
   text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const SaveBtnInactived = styled.div`
@@ -257,10 +258,7 @@ const SaveBtnInactived = styled.div`
   color: ${({ theme }) => theme.colors.fontGrey};
   background-color: ${({ theme }) => theme.colors.btnLightGrey};
   text-align: center;
-
-  &:hover {
-    cursor: not-allowed;
-  }
+  cursor: not-allowed;
 `;
 
 const CancleBtn = styled.div`
@@ -274,10 +272,7 @@ const CancleBtn = styled.div`
   border-radius: 12px;
   color: ${({ theme }) => theme.colors.fontgrey};
   text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const ButtonWrap = styled.div`
@@ -297,19 +292,17 @@ const LikeBtn = styled.span`
   font-size: 0.9rem;
   text-align: center;
   user-select: none;
+  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.bgcBeige};
-    cursor: pointer;
   }
 `;
 
-const LikeIcon = styled.span`
+const LikeIconWrap = styled.span`
   display: inline-block;
   position: absolute;
   left: 110px;
-  height: 1.4rem;
-  width: 10px;
   vertical-align: middle;
 
   span {
@@ -335,9 +328,9 @@ const ReplyBtn = styled.span`
   border-radius: 5px;
   font-size: 0.9rem;
   text-align: center;
+  cursor: pointer;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.bgcBeige};
-    cursor: pointer;
   }
 `;

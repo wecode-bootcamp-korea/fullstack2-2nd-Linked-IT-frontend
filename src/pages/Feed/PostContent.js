@@ -72,10 +72,7 @@ const MoreBtn = styled.button`
     rgba(255, 255, 255, 1) 18%
   );
   color: ${({ theme }) => theme.colors.fontGrey};
-
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
 `;
 
 const Image = styled.div`
