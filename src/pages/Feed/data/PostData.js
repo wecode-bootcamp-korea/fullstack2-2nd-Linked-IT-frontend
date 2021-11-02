@@ -1,7 +1,7 @@
 const POST_DATA = [
   {
     id: 111,
-    userid: '12',
+    userid: 12,
     firstName: '시원',
     lastName: '김',
     headline: 'Fullstack 2기',
@@ -17,7 +17,7 @@ const POST_DATA = [
   },
   {
     id: 112,
-    userId: '11',
+    userId: 11,
     firstName: '지훈',
     lastName: '한',
     headline: 'Fullstack 2기',
