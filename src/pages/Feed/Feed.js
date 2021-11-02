@@ -106,6 +106,10 @@ const Body = styled.div`
   padding-top: 60px;
   background-color: ${({ theme }) => theme.colors.bgcBeige};
   text-align: center;
+
+  footer.modal {
+    text-align: left;
+  }
 `;
 
 const PostWrap = styled.div`
