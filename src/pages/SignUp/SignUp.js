@@ -1,10 +1,28 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 export default function SignUp() {
+  const history = useHistory();
+  const [user, setUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
+  const handleInput = event => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  useEffect(() => {
+    console.log('useEffect Callback', user);
+    return () => console.log('cleanUp', user);
+  }, [user]);
+
   return (
     <>
       <SignUpHeader>
@@ -14,12 +32,44 @@ export default function SignUp() {
       <SignUpMain>
         <SignUpMainForm>
           <div>
+            <label for="lastName">성</label>
+            <input
+              id="lastName"
+              name="lastName"
+              onChange={handleInput}
+              required
+              type="text"
+            />
+          </div>
+          <div>
+            <label for="firstName">이름</label>
+            <input
+              id="firstName"
+              name="firstName"
+              onChange={handleInput}
+              required
+              type="text"
+            />
+          </div>
+          <div>
             <label for="email">이메일</label>
-            <input required id="email" type="email" />
+            <input
+              id="email"
+              name="email"
+              onChange={handleInput}
+              required
+              type="email"
+            />
           </div>
           <div>
             <label for="password">비밀번호(6자 이상)</label>
-            <input required id="password" type="password" />
+            <input
+              id="password"
+              name="password"
+              onChange={handleInput}
+              required
+              type="password"
+            />
             {/* <span>보기</span> */}
           </div>
           <p>
@@ -85,8 +135,8 @@ const SignUpMain = styled.main`
   justify-content: space-between;
 
   width: 400px;
-  height: 436px;
-  margin: 12px auto 0;
+  height: 530px;
+  margin: 0 auto;
   border-radius: 8px;
   padding: 26px 24px 24px;
   background-color: white;
@@ -118,7 +168,7 @@ const SignUpMainForm = styled.form`
   justify-content: space-between;
   align-content: flex-start;
 
-  height: 236px;
+  height: 340px;
 
   div {
     position: relative;
@@ -135,7 +185,7 @@ const SignUpMainForm = styled.form`
       border: 1px solid black;
       border-radius: 4px;
       padding: 2px 0 0 12px;
-      font-size: 19px;
+      font-size: 17px;
     }
 
     span {
