@@ -16,7 +16,8 @@ export default function TextInput(props) {
     return e.target.value ? setIsNull(false) : setIsNull(true);
   };
 
-  const { title, name, textLimit, warningText, isNullable } = props;
+  const { title, name, defaultValue, textLimit, warningText, isNullable } =
+    props;
 
   return (
     <StyledTextInput numberOfLetters={numberOfLetters} textLimit={textLimit}>
@@ -24,6 +25,7 @@ export default function TextInput(props) {
       <input
         name={name}
         type="text"
+        defaultValue={defaultValue}
         onChange={getNumberOfLetters}
         onBlur={isNullable ? null : checkIsNull}
       />

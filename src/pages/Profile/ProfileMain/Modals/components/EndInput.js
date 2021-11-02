@@ -17,31 +17,44 @@ export default function EndInput(props) {
   const THISYEAR = new Date().getFullYear();
   const SERVICEYEAR = new Date().getFullYear() - 1920;
 
-  const { isWorkingNow } = props;
+  const { title, defaultValue, state } = props;
+  const SELECTEDMONTH = defaultValue && defaultValue.slice(6);
+  const SELECTEDYEAR = defaultValue && defaultValue.slice(0, 5);
 
   return (
     <StyledStartInput>
-      <div className="start">종료일</div>
+      <div className="end">{title}</div>
       <SelectDate>
-        <select name="startMonth" disabled={isWorkingNow} onBlur={checkIsNulls}>
-          <option selected>월</option>
+        <select
+          name="endMonth"
+          defaultValue={SELECTEDMONTH}
+          disabled={state}
+          onBlur={checkIsNulls}
+        >
+          <option defaultValue>월</option>
           {[...Array(12)].map((x, i) => {
             return <option key={i}>{i + 1 + '월'}</option>;
           })}
         </select>
-        <select name="startYear" disabled={isWorkingNow} onBlur={checkIsNulls}>
-          <option selected>연도</option>
+        <select
+          name="endYear"
+          defaultValue={SELECTEDYEAR}
+          disabled={state}
+          onBlur={checkIsNulls}
+        >
+          <option defaultValue>연도</option>
           {[...Array(SERVICEYEAR)].map((x, i) => {
             return <option key={i}>{THISYEAR - i + '년'}</option>;
           })}
         </select>
       </SelectDate>
-      {!isWorkingNow && (isMonthNull || isYearNull) && (
-        <Alarm>
-          <FontAwesomeIcon icon={faExclamationCircle} />
-          <span>종료일은 필수입니다.</span>
-        </Alarm>
-      )}
+      {!state &&
+        (isMonthNull || isYearNull) && ( // 식이상한듯?
+          <Alarm>
+            <FontAwesomeIcon icon={faExclamationCircle} />
+            <span>{title}은 필수입니다.</span>
+          </Alarm>
+        )}
     </StyledStartInput>
   );
 }

@@ -1,8 +1,25 @@
+import { useEffect } from 'react';
+import { useState } from 'react/cjs/react.development';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 export default function EducationCard(props) {
+  const { idx, openEducationEditModal } = props;
+  const [isHover, setIsHover] = useState(false);
+
+  useEffect(() => {
+    if (!idx) setIsHover(true);
+  }, [idx]);
+
+  const showEditBtn = () => {
+    setIsHover(true);
+  };
+
+  const hideEditBtn = () => {
+    setIsHover(false);
+  };
+
   const {
     schoolLogo,
     schoolName,
@@ -16,8 +33,19 @@ export default function EducationCard(props) {
   } = props.education;
 
   return (
-    <StyledEducationCard>
-      <FontAwesomeIcon className="editBtn" icon={faPen} />
+    <StyledEducationCard
+      onMouseEnter={idx ? showEditBtn : null}
+      onMouseLeave={idx ? hideEditBtn : null}
+    >
+      <EditBtnWrapper isHover={isHover}>
+        <div>
+          <FontAwesomeIcon
+            className="editBtn"
+            icon={faPen}
+            onClick={() => openEducationEditModal(idx)}
+          />
+        </div>
+      </EditBtnWrapper>
       <Logo>
         <img alt="학교로고" src={schoolLogo} />
       </Logo>
@@ -39,15 +67,38 @@ const StyledEducationCard = styled.li`
   padding: 25px 25px 0 0;
   border-bottom: 1px solid lightgray;
 
-  .editBtn {
-    position: absolute;
-    top: 20px;
-    right: 5px;
-    color: ${({ theme }) => theme.colors.btnGrey};
-    font-size: 18px;
+  &:last-child {
+    border: none;
+  }
+`;
+
+const EditBtnWrapper = styled.div`
+  display: ${({ isHover }) => (isHover ? 'block' : 'none')};
+  position: absolute;
+  top: 20px;
+  right: 5px;
+
+  div {
+    padding-top: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
 
     &:hover {
-      color: black;
+      background-color: black;
+      opacity: 0.5;
+    }
+
+    svg {
+      color: ${({ theme }) => theme.colors.btnGrey};
+      font-size: 18px;
+      font-weight: 400;
+
+      &:active {
+        opacity: 0.3;
+      }
     }
   }
 `;

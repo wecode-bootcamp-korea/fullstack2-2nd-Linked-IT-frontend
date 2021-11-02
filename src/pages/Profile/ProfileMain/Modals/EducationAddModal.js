@@ -4,14 +4,11 @@ import EndInput from './components/EndInput';
 import StartInput from './components/StartInput';
 import Button from '../../../../components/Button/Button';
 import TextInput from './components/TextInput';
-import CheckBox from './components/CheckBox';
 import TextArea from './components/TextArea';
 import AskCancel from './components/AskCancelModal';
 import theme from '../../../../styles/theme';
 
-export default function CareerAddModal(props) {
-  const [isWorkingNow, setIsWorkingNow] = useState(true);
-  const [isPositionClosed, setIsPositionClosed] = useState(false);
+export default function EducationAddModal(props) {
   const [showAskCancelModal, setShowAskCancelModal] = useState(false);
   const [hasChanged, setHasChanged] = useState(false);
 
@@ -26,120 +23,90 @@ export default function CareerAddModal(props) {
     setShowAskCancelModal(false);
   };
 
-  const toggleIsWorkingNow = () => {
-    setIsWorkingNow(!isWorkingNow);
-  };
-
-  const toggleIsPositionClosed = () => {
-    setIsPositionClosed(!isPositionClosed);
-  };
-
   const toggleHasChanged = () => {
     setHasChanged(true);
   };
 
-  const { currentCareer, showCareerAddModal, closeCareerAddModal } = props;
+  const { showEducationAddModal, closeEducationAddModal } = props;
 
   return (
-    <StyledCareerAddModal showCareerAddModal={showCareerAddModal}>
-      {showCareerAddModal && (
+    <StyledEducationAddModal showEducationAddModal={showEducationAddModal}>
+      {showEducationAddModal && (
         <div>
           <DimBg
             scrollY={window.scrollY}
-            onClick={hasChanged ? openAskCancelModal : closeCareerAddModal}
+            onClick={hasChanged ? openAskCancelModal : closeEducationAddModal}
           />
           <Container scrollY={window.scrollY}>
             <BoxHeader>
-              <h2>경력 입력</h2>
+              <h2>학력 입력</h2>
               <div className="highlightCircle">
                 <i
                   className="fal fa-times"
                   onClick={
-                    hasChanged ? openAskCancelModal : closeCareerAddModal
+                    hasChanged ? openAskCancelModal : closeEducationAddModal
                   }
                 />
               </div>
             </BoxHeader>
             <BoxBody onChange={toggleHasChanged}>
               <form method="POST">
-                <PositionInput>
+                <SchoolInput>
                   <TextInput
-                    title="직책"
-                    name="position"
+                    title="학교"
+                    name="school"
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
                   />
-                </PositionInput>
-                <EmploymentTypeInput>
+                </SchoolInput>
+                <DegreeInput>
                   <TextInput
-                    title="고용형태"
-                    name="employmentType"
-                    textLimit={100}
-                    warningText="100자를 초과할 수 없습니다."
-                    isNullable={false}
-                  />
-                  <EmploymentMoreInfo>국가별 고용형태</EmploymentMoreInfo>
-                  <a
-                    href="https://www.linkedin.com/help/linkedin/answer/123304"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    자세히 보기
-                  </a>
-                </EmploymentTypeInput>
-                <CompanyNameInput>
-                  <TextInput
-                    title="회사이름"
-                    name="companyName"
-                    textLimit={100}
-                    warningText="100자를 초과할 수 없습니다."
-                    isNullable={false}
-                  />
-                </CompanyNameInput>
-                <RegionInput>
-                  <TextInput
-                    title="지역"
-                    name="region"
+                    title="학위"
+                    name="degree"
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={true}
                   />
-                </RegionInput>
-                <CheckBoxWrapper isWorkingNow={isWorkingNow}>
-                  <CheckBox
-                    id="cbIsWorking"
-                    name="isWorkingNow"
-                    state={isWorkingNow}
-                    text="현재 이 업무로 근무 중"
-                    onClick={toggleIsWorkingNow}
+                </DegreeInput>
+                <MajorInput>
+                  <TextInput
+                    title="전공"
+                    name="major"
+                    textLimit={100}
+                    warningText="100자를 초과할 수 없습니다."
+                    isNullable={true}
                   />
-                </CheckBoxWrapper>
+                </MajorInput>
                 <StartAndEndWrapper>
-                  <StartInput title="시작일" />
-                  <EndInput title="종료일" state={isWorkingNow} />
+                  <StartInput title="입학일" />
+                  <EndInput title="졸업일(예정)" />
                 </StartAndEndWrapper>
-                {isWorkingNow && (
-                  <CheckBoxWrapper isPositionClosed={isPositionClosed}>
-                    <CheckBox
-                      id="cbPositionClosed"
-                      name="isPositionClosed"
-                      state={isPositionClosed}
-                      text={`현재 직책 종료 - ${currentCareer[0].position} at ${currentCareer[0].companyName}`}
-                      onClick={toggleIsPositionClosed}
-                    />
-                  </CheckBoxWrapper>
-                )}
-                <IndustryInput>
-                  <TextInput title="업계" name="industry" />
-                </IndustryInput>
+                <GradeInput>
+                  <TextInput
+                    title="학점"
+                    name="grade"
+                    textLimit={10}
+                    warningText="10자를 초과할 수 없습니다."
+                    isNullable={false}
+                  />
+                </GradeInput>
+                <ActivityInput>
+                  <TextArea
+                    title="동아리나 학회"
+                    name="activity"
+                    rows={3}
+                    textLimit={500}
+                    warningText="동아리나 학회는 500자를 넘을 수 없습니다."
+                  />
+                </ActivityInput>
                 <DescInput>
                   <TextArea
                     title="설명"
                     name="description"
                     rows={3}
-                    textLimit={2000}
-                    warningText="설명은 2,000자를 넘을 수 없습니다."
+                    textLimit={1000}
+                    warningText="설명은 1,000자를 넘을 수 없습니다."
                   />
                 </DescInput>
               </form>
@@ -169,18 +136,19 @@ export default function CareerAddModal(props) {
               </SaveBtnWrapper>
             </BoxTail>
           </Container>
+
           <AskCancel
             state={showAskCancelModal}
             closeAskCancelModal={closeAskCancelModal}
-            closeUpperModal={closeCareerAddModal}
+            closeUpperModal={closeEducationAddModal}
           />
         </div>
       )}
-    </StyledCareerAddModal>
+    </StyledEducationAddModal>
   );
 }
 
-const StyledCareerAddModal = styled.div``;
+const StyledEducationAddModal = styled.div``;
 
 const DimBg = styled.div`
   position: absolute;
@@ -247,46 +215,28 @@ const BoxBody = styled.div`
   overflow-x: hidden;
 `;
 
-const PositionInput = styled.div`
+const SchoolInput = styled.div`
   margin-top: 10px;
 `;
 
-const EmploymentTypeInput = styled.div`
-  margin-top: 40px;
-  color: grey;
-  font-size: 15px;
-
-  a {
-    font-size: 16px;
-  }
+const DegreeInput = styled.div`
+  margin-top: 30px;
 `;
 
-const EmploymentMoreInfo = styled.div`
-  margin-top: 10px;
-
-  a {
-    margin-top: 5px;
-  }
-`;
-
-const CompanyNameInput = styled.div`
-  margin-top: 40px;
-`;
-
-const RegionInput = styled.div`
-  margin-top: 40px;
-`;
-
-const CheckBoxWrapper = styled.div`
-  margin: 40px 0 20px 0;
+const MajorInput = styled.div`
+  margin-top: 30px;
 `;
 
 const StartAndEndWrapper = styled.div`
   margin-top: 30px;
 `;
 
-const IndustryInput = styled.div`
-  margin-top: 40px;
+const GradeInput = styled.div`
+  margin-top: 30px;
+`;
+
+const ActivityInput = styled.div`
+  margin-top: 30px;
 `;
 
 const DescInput = styled.div`
