@@ -1,10 +1,30 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 export default function SignIn() {
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleInput = event => {
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+  const showPassword = () => {
+    setIsPasswordHidden(!isPasswordHidden);
+  };
+
+  // Test Code for Checking Functions
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <>
       <SignInHeader>
@@ -20,17 +40,26 @@ export default function SignIn() {
         <SignInMainForm>
           <div>
             {/* <label for="email">이메일</label> */}
-            <input required id="email" type="email" placeholder="이메일" />
+            <input
+              id="email"
+              name="email"
+              onChange={handleInput}
+              required
+              type="email"
+              placeholder="이메일"
+            />
           </div>
           <div>
             {/* <label for="password">비밀번호</label> */}
             <input
-              required
               id="password"
-              type="password"
+              name="password"
+              onChange={handleInput}
+              required
+              type={isPasswordHidden ? 'password' : 'text'}
               placeholder="비밀번호"
             />
-            {/* <span>표시</span> */}
+            <span onClick={showPassword}>표시</span>
           </div>
           <p>
             <Link to="#">비밀번호를 잊으셨나요?</Link>
