@@ -3,7 +3,7 @@ import ProfileCard from './ProfileCard';
 import UserCard from '../../../components/UserCard/UserCard';
 import Button from '../../../components/Button/Button';
 
-export default function StyledBody(props) {
+export default function CardListContainer(props) {
   const { category, cards, isLayerOpened } = props;
 
   return (

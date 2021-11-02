@@ -5,6 +5,7 @@ import styled from 'styled-components';
 export default function Menus(props) {
   const {
     connectionsCount,
+    myJobPostingCount,
     addressbookCount,
     followCount,
     eventCount,
@@ -23,8 +24,11 @@ export default function Menus(props) {
     <>
       <StyledUl isMenuOpened={isMenuOpened}>
         <p>인맥 관리</p>
-        <StyledLink path="connection">
+        <StyledLink path="connections">
           1촌<span>{connectionsCount}</span>
+        </StyledLink>
+        <StyledLink path="myjobposting">
+          나의 채용공고<span>{myJobPostingCount}</span>
         </StyledLink>
         <StyledLink path="addressbook">
           연락처<span>{addressbookCount}</span>
@@ -63,7 +67,7 @@ const StyledUl = styled.ul`
 `;
 
 const StyledLink = styled(Link).attrs(({ path }) => {
-  return { to: `/mynetwork/${path}` };
+  return { to: `${path}` };
 })`
   display: flex;
   justify-content: space-between;
@@ -74,33 +78,28 @@ const StyledLink = styled(Link).attrs(({ path }) => {
   background-repeat: no-repeat;
   color: ${({ theme }) => theme.colors.fontGrey};
 
-  &:nth-child(2) {
-    background-image: url('/images/ico_people.svg');
-  }
-
-  &:nth-child(3) {
-    background-image: url('/images/ico_addressbook.svg');
-  }
-
-  &:nth-child(4) {
-    background-image: url('/images/ico_speech_bubble.svg');
-  }
-
-  &:nth-child(5) {
-    background-image: url('/images/ico_calendar.svg');
-  }
-
-  &:nth-child(6) {
-    background-image: url('/images/ico_building.svg');
-  }
-
-  &:nth-child(7) {
-    background-image: url('/images/ico_newsletter.svg');
-  }
-
-  &:nth-child(8) {
-    background-image: url('/images/ico_hashtag.svg');
-  }
+  background-image: ${({ path }) => {
+    const root = '/images/';
+    const svgUrl =
+      path === 'connections'
+        ? 'ico_people.svg'
+        : path === 'myjobposting'
+        ? 'ico_ribbon.svg'
+        : path === 'addressbook'
+        ? 'ico_addressbook.svg'
+        : path === 'follow'
+        ? 'ico_speech_bubble.svg'
+        : path === 'event'
+        ? 'ico_calendar.svg'
+        : path === 'page'
+        ? 'ico_building.svg'
+        : path === 'newsletter'
+        ? 'ico_newsletter.svg'
+        : path === 'hashtag'
+        ? 'ico_hashtag.svg'
+        : '';
+    return `url(${root + svgUrl})`;
+  }};
 `;
 
 const ShowMore = styled.div`

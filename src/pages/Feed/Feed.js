@@ -4,7 +4,7 @@ import FeedProfile from './FeedProfile';
 import WritePost from './WritePost';
 import Post from './Post';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import Loader from '../../utils/Loader';
+import Loader from '../../components/Loader/Loader';
 import MY_PROFILE_DATA from './data/MyProfileData';
 import POST_DATA from './data/PostData';
 import POST_DATA2 from './data/PostData2';

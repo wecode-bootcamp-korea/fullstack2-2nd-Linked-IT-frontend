@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import StyledHeader from './StyledHeader';
-import StyledBody from './StyledBody';
+import CardListContainer from './CardListContainer';
 
 export default function StyledSection(props) {
   return (
     <Section>
       <StyledHeader {...props} />
-      <StyledBody {...props} />
+      <CardListContainer {...props} />
     </Section>
   );
 }
