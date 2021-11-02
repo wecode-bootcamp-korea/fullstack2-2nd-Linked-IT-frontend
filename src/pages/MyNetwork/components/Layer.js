@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import StyledHeader from './StyledHeader';
 import ProfileCard from './ProfileCard';
-import Loader from '../../../utils/Loader';
+import Loader from '../../../components/Loader/Loader';
 
 export default function Layer(props) {
   const QUERY_LIMIT = 16;
