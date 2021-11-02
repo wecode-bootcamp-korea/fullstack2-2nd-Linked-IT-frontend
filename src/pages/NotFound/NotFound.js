@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
-import Footer from '../../components/Footer/Footer';
+import GlobalFooter from '../../components/GlobalFooter/GlobalFooter';
 
 export default function NotFound(props) {
   return (
@@ -14,9 +14,7 @@ export default function NotFound(props) {
           onClick={() => props.history.push('/feed')}
         />
       </Container>
-      <FooterWrapper>
-        <Footer isDefault={true} />
-      </FooterWrapper>
+      <GlobalFooter isDefault={true} />
     </Page>
   );
 }
@@ -25,8 +23,9 @@ const Page = styled.div`
   position: relative;
   top: 52px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   height: 100vh;
 `;
 
@@ -35,11 +34,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 1128px;
+  margin: 90px 0;
 `;
 
 const Logo = styled.img`
   width: 80%;
-  margin: 90px 0 50px;
+  margin-bottom: 50px;
 `;
 
 const Notification = styled.h1`
@@ -47,12 +47,6 @@ const Notification = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
   font-size: 80px;
   font-weight: 700;
-`;
-
-const FooterWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 `;
 
 const StyleButton = styled(Button).attrs({
