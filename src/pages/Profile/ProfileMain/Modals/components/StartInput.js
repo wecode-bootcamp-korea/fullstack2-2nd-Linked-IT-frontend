@@ -17,18 +17,30 @@ export default function StartInput(props) {
   const THISYEAR = new Date().getFullYear();
   const SERVICEYEAR = new Date().getFullYear() - 1920;
 
+  const { title, defaultValue } = props;
+  const SELECTEDMONTH = defaultValue && defaultValue.slice(6);
+  const SELECTEDYEAR = defaultValue && defaultValue.slice(0, 5);
+
   return (
     <StyledStartInput>
-      <div className="start">시작일</div>
+      <div className="start">{title}</div>
       <SelectDate>
-        <select name="startMonth" onBlur={checkIsNulls}>
-          <option selected>월</option>
+        <select
+          name="startMonth"
+          defaultValue={SELECTEDMONTH}
+          onBlur={checkIsNulls}
+        >
+          <option>월</option>
           {[...Array(12)].map((x, i) => {
             return <option key={i}>{i + 1 + '월'}</option>;
           })}
         </select>
-        <select name="startYear" onBlur={checkIsNulls}>
-          <option selected>연도</option>
+        <select
+          name="startYear"
+          defaultValue={SELECTEDYEAR}
+          onBlur={checkIsNulls}
+        >
+          <option>연도</option>
           {[...Array(SERVICEYEAR)].map((x, i) => {
             return <option key={i}>{THISYEAR - i + '년'}</option>;
           })}
@@ -37,7 +49,7 @@ export default function StartInput(props) {
       {(isMonthNull || isYearNull) && (
         <Alarm>
           <FontAwesomeIcon icon={faExclamationCircle} />
-          <span>시작일은 필수입니다.</span>
+          <span>{title}은 필수입니다.</span>
         </Alarm>
       )}
     </StyledStartInput>
