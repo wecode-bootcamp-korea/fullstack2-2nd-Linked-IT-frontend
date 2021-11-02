@@ -62,7 +62,7 @@ export default function SignUp() {
 }
 
 const SignUpHeader = styled.header`
-  margin: 24px auto 0 auto;
+  margin: 36px auto 0 auto;
   text-align: center;
 
   img {
@@ -86,7 +86,7 @@ const SignUpMain = styled.main`
 
   width: 400px;
   height: 436px;
-  margin: 0 auto;
+  margin: 12px auto 0;
   border-radius: 8px;
   padding: 26px 24px 24px;
   background-color: white;
