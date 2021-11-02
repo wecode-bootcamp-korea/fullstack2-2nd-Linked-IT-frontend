@@ -1,0 +1,253 @@
+const signUpFooterData = [
+  {
+    id: 1,
+    pageName: '회사소개',
+    pageLink: '#',
+  },
+  {
+    id: 2,
+    pageName: '웹접근성',
+    pageLink: '#',
+  },
+  {
+    id: 3,
+    pageName: '사용자약관',
+    pageLink: '#',
+  },
+  {
+    id: 4,
+    pageName: '개인정보 처리방침',
+    pageLink: '#',
+  },
+  {
+    id: 5,
+    pageName: '쿠키정책',
+    pageLink: '#',
+  },
+  {
+    id: 6,
+    pageName: '저작권정책',
+    pageLink: '#',
+  },
+  {
+    id: 7,
+    pageName: '브랜드정책',
+    pageLink: '#',
+  },
+  {
+    id: 8,
+    pageName: '비회원 설정',
+    pageLink: '#',
+  },
+  {
+    id: 9,
+    pageName: '커뮤니티정책',
+    pageLink: '#',
+  },
+];
+
+const signInFooterData = [
+  {
+    id: 1,
+    pageName: '사용자약관',
+    pageLink: '#',
+  },
+  {
+    id: 2,
+    pageName: '개인정보 처리방침',
+    pageLink: '#',
+  },
+  {
+    id: 3,
+    pageName: '커뮤니티정책',
+    pageLink: '#',
+  },
+  {
+    id: 4,
+    pageName: '쿠키정책',
+    pageLink: '#',
+  },
+  {
+    id: 5,
+    pageName: '저작권정책',
+    pageLink: '#',
+  },
+  {
+    id: 6,
+    pageName: '피드백 보내기',
+    pageLink: '#',
+  },
+];
+
+const languageData = [
+  {
+    id: 1,
+    langName: '아라비아어(العربية)',
+    langCode: 'ar-ae',
+    langValue: 'ar_AE',
+    selected: false,
+  },
+  {
+    id: 2,
+    langName: '체코어(Čeština)',
+    langCode: 'cs-cz',
+    langValue: 'cs_CZ',
+    selected: false,
+  },
+  {
+    id: 3,
+    langName: '덴마크어(Dansk)',
+    langCode: 'da-dk',
+    langValue: 'da_DK',
+    selected: false,
+  },
+  {
+    id: 4,
+    langName: '독일어(Deutsch)',
+    langCode: 'de-de',
+    langValue: 'de_DE',
+    selected: false,
+  },
+  {
+    id: 5,
+    langName: '영어(English)',
+    langCode: 'en-us',
+    langValue: 'en_US',
+    selected: false,
+  },
+  {
+    id: 6,
+    langName: '스페인어(Español)',
+    langCode: 'es-es',
+    langValue: 'es_ES',
+    selected: false,
+  },
+  {
+    id: 7,
+    langName: '프랑스어(Français)',
+    langCode: 'fr-fr',
+    langValue: 'fr_FR',
+    selected: false,
+  },
+  {
+    id: 8,
+    langName: '인도네시아어(Bahasa Indonesia)',
+    langCode: 'in-id',
+    langValue: 'in_ID',
+    selected: false,
+  },
+  {
+    id: 9,
+    langName: '이탈리아어(Italiano)',
+    langCode: 'it-it',
+    langValue: 'it_IT',
+    selected: false,
+  },
+  {
+    id: 10,
+    langName: '일본어(日本語)',
+    langCode: 'ja-jp',
+    langValue: 'ja_JP',
+    selected: false,
+  },
+  {
+    id: 11,
+    langName: '한국어',
+    langCode: 'ko-kr',
+    langValue: 'ko_KR',
+    selected: true,
+  },
+  {
+    id: 12,
+    langName: '말레이시아어(Bahasa Malaysia)',
+    langCode: 'ms-my',
+    langValue: 'ms_MY',
+    selected: false,
+  },
+  {
+    id: 13,
+    langName: '네덜란드어(Nederlands)',
+    langCode: 'nl-nl',
+    langValue: 'nl_NL',
+    selected: false,
+  },
+  {
+    id: 14,
+    langName: '노르웨이어(Norsk)',
+    langCode: 'no-no',
+    langValue: 'no_NO',
+    selected: false,
+  },
+  {
+    id: 15,
+    langName: '폴란드어(Polski)',
+    langCode: 'pl-pl',
+    langValue: 'pl_PL',
+    selected: false,
+  },
+  {
+    id: 16,
+    langName: '포르투갈어(Português)',
+    langCode: 'pt-br',
+    langValue: 'pt_BR',
+    selected: false,
+  },
+  {
+    id: 17,
+    langName: '루마니아어(Română)',
+    langCode: 'ro-ro',
+    langValue: 'ro_RO',
+    selected: false,
+  },
+  {
+    id: 18,
+    langName: '러시아어(Русский)',
+    langCode: 'ru-ru',
+    langValue: 'ru_RU',
+    selected: false,
+  },
+  {
+    id: 19,
+    langName: '스웨덴어(Svenska)',
+    langCode: 'sv-se',
+    langValue: 'sv_SE',
+    selected: false,
+  },
+  {
+    id: 20,
+    langName: '태국어(ภาษาไทย)',
+    langCode: 'th-th',
+    langValue: 'th_TH',
+    selected: false,
+  },
+  {
+    id: 21,
+    langName: '필리핀어(Tagalog)',
+    langCode: 'tl-ph',
+    langValue: 'tl_PH',
+    selected: false,
+  },
+  {
+    id: 22,
+    langName: '터키어(Türkçe)',
+    langCode: 'tr-tr',
+    langValue: 'tr_TR',
+    selected: false,
+  },
+  {
+    id: 23,
+    langName: '중국어 간체(简体中文)',
+    langCode: 'zh-cn',
+    langValue: 'zh_CN',
+    selected: false,
+  },
+  {
+    id: 24,
+    langName: '중국어 번체(正體中文)',
+    langCode: 'zh-tw',
+    langValue: 'zh_TW',
+    selected: false,
+  },
+];
+
+export { signUpFooterData, signInFooterData, languageData };
