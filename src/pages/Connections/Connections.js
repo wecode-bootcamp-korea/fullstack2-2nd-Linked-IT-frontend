@@ -90,7 +90,7 @@ export default function Connections(props) {
           </AdditionalFeature>
         </Header>
         <UserCardContainer>
-          {filteredCardList.map((card, idx) => {
+          {filteredCardList?.map((card, idx) => {
             return (
               <UserCardWrapper
                 key={card.id}

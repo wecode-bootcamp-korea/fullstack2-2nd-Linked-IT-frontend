@@ -9,7 +9,7 @@ export default function CardListContainer(props) {
   return (
     <Body>
       {category === 'invitations' &&
-        cards.map((card, idx) => {
+        cards?.map((card, idx) => {
           return (
             <UserCardWrapper
               key={card.id}
@@ -33,7 +33,7 @@ export default function CardListContainer(props) {
         })}
       {category !== 'invitations' && (
         <Grid isLayerOpened={isLayerOpened}>
-          {cards.map((card, idx) => {
+          {cards?.map((card, idx) => {
             return <ProfileCard key={idx} />;
           })}
         </Grid>

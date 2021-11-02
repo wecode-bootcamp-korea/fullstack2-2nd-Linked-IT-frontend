@@ -24,7 +24,7 @@ export default function Jobs(props) {
           <p className="searchResult">결과 {jobPostingList.length}</p>
         </SearchResultSummary>
         <CardWrapper>
-          {jobPostingList.map(post => (
+          {jobPostingList?.map(post => (
             <JobPostingCard
               key={post.jobPostingId}
               {...post}
