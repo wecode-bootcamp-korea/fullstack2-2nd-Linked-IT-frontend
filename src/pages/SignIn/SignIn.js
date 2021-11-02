@@ -20,9 +20,51 @@ export default function SignIn() {
     setIsPasswordHidden(!isPasswordHidden);
   };
 
+  const validateInput = () => {
+    const validEmail =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    const isValidEmail = user.email.match(validEmail) && user.email !== '';
+    const isValidPassword = user.password.length >= 8 && user.password !== '';
+
+    return isValidEmail && isValidPassword;
+  };
+
+  const history = useHistory();
+  const submitInput = event => {
+    // event.preventDefault();
+    fetch(`user/signin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: user.email,
+        password: user.password,
+      }),
+      credentials: 'include',
+    })
+      .then(res => res.json())
+      .then(res => {
+        localStorage.setItem('accessToken', res.access_token);
+        if (res.access_token) {
+          history.push('/feed');
+        } else {
+          alert(
+            '로그인에 실패하였습니다. 이메일과 비밀번호를 다시 입력해주세요.'
+          );
+        }
+      });
+  };
+
+  const rejectInput = () => {
+    alert('로그인에 실패하였습니다. 이메일과 비밀번호를 다시 입력해주세요.');
+    setUser({
+      email: '',
+      password: '',
+    });
+  };
+
   // Test Code for Checking Functions
   useEffect(() => {
-    console.log(user);
+    console.log(user, validateInput());
   }, [user]);
 
   return (
@@ -37,7 +79,7 @@ export default function SignIn() {
           <h1>로그인하세요</h1>
           <p>업무 관련 소식을 받아보세요</p>
         </SignInMainHead>
-        <SignInMainForm>
+        <SignInMainForm onSubmit={validateInput() ? submitInput : rejectInput}>
           <div>
             {/* <label for="email">이메일</label> */}
             <input

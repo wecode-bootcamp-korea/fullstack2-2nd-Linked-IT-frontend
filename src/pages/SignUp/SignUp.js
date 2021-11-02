@@ -38,14 +38,6 @@ export default function SignUp() {
     const isValidPassword =
       user.password.match(validPassword) && user.password !== '';
 
-    // Test Code for Checking Functions
-    console.log(
-      isValidLastName,
-      isValidFirstName,
-      isValidEmail,
-      isValidPassword
-    );
-
     return (
       isValidLastName && isValidFirstName && isValidEmail && isValidPassword
     );
@@ -65,14 +57,14 @@ export default function SignUp() {
       }),
     })
       .then(res => res.json())
-      .then(data => {
-        if (data.status === 'SIGNUP_FAILED') {
+      .then(res => {
+        if (res.status === 'SIGNUP_FAILED') {
           alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
-        } else if (data.status === 'SIGNUP_SUCCESSED') {
+        } else if (res.status === 'SIGNUP_SUCCESSED') {
           alert('회원가입에 성공하였습니다.');
           history.push('/signin');
         } else {
-          alert(data.status);
+          alert(res.status);
         }
       });
   };
@@ -99,10 +91,7 @@ export default function SignUp() {
         <h1>LinkedIn을 활용하여 기회의 문을 넓히세요.</h1>
       </SignUpHeader>
       <SignUpMain>
-        <SignUpMainForm
-          action=""
-          onSubmit={validateInput() ? submitInput : rejectInput}
-        >
+        <SignUpMainForm onSubmit={validateInput() ? submitInput : rejectInput}>
           <div>
             <label for="lastName">성</label>
             <input

@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -33,8 +32,8 @@ const MODES = {
 
 function MyComponent() {
   const mode = useContext(ModeContext);
-  const user = useContext(UserContext);
   const modeDispatch = useContext(ModeDispatchContext);
+  const user = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
 
   return (
