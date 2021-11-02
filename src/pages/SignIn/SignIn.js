@@ -43,13 +43,16 @@ export default function SignIn() {
     })
       .then(res => res.json())
       .then(res => {
+        console.log(res); // 백엔드로부터 토큰을 잘 받았는지 확인
         localStorage.setItem('accessToken', res.access_token);
-        if (res.access_token) {
-          history.push('/feed');
-        } else {
+        if (res.status === 'SIGNIN_FAILED') {
           alert(
             '로그인에 실패하였습니다. 이메일과 비밀번호를 다시 입력해주세요.'
           );
+        } else if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
+          history.push('/feed');
+        } else {
+          alert(res.status);
         }
       });
   };
