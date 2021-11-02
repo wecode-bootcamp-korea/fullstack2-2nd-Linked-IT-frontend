@@ -1,99 +1,62 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 export default function SignUp() {
   return (
     <>
       <SignUpHeader>
-        <Link to="/">
-          <img alt="LinkedIT Logo" src="/images/common_logo_full.png" />
-        </Link>
+        <img alt="LinkedIT Logo" src="/images/common_logo_full.png" />
         <h1>LinkedIn을 활용하여 기회의 문을 넓히세요.</h1>
       </SignUpHeader>
       <SignUpMain>
         <SignUpMainForm>
           <div>
-            {/* <label for="email">이메일 또는 전화</label> */}
-            <input
-              required
-              id="email"
-              type="email"
-              placeholder="이메일 또는 전화"
-            />
+            <label for="email">이메일</label>
+            <input required id="email" type="email" />
           </div>
           <div>
-            {/* <label for="password">비밀번호</label> */}
-            <input
-              required
-              id="password"
-              type="password"
-              placeholder="비밀번호"
-            />
-            {/* <span>표시</span> */}
+            <label for="password">비밀번호(6자 이상)</label>
+            <input required id="password" type="password" />
+            {/* <span>보기</span> */}
           </div>
-          <Link to="#">비밀번호를 잊으셨나요?</Link>
+          <p>
+            동의 후 가입을 클릭하시면 LinkedIT{` `}
+            <Link to="#">사용자약관</Link>,{` `}
+            <Link to="#">개인정보 취급방침</Link>,{` `}
+            <Link to="#">쿠키정책</Link>에 동의한 것으로 간주됩니다.
+          </p>
           <Button
             type="submit"
             bgc={props => props.theme.colors.primary}
             color={`white`}
-            text={`로그인`}
-            width={`304px`}
-            height={`52px`}
+            text={`동의 후 가입`}
+            width={`100%`}
+            height={`48px`}
           />
         </SignUpMainForm>
-        <SignUpMainSeperator>
-          또<br />는
-        </SignUpMainSeperator>
+        <SignUpMainSeperator>또는</SignUpMainSeperator>
         <Button
           type="submit"
           bgc={`white`}
-          color={props => props.theme.colors.fontGrey}
+          color={props => props.theme.colors.primary}
           text={
             <div>
-              <i class="fab fa-apple"></i>
-              <span>애플 계정으로 로그인</span>
+              <i class="fab fa-google"></i>
+              <span>구글 계정으로 가입</span>
             </div>
           }
-          width={`304px`}
-          height={`52px`}
+          width={`100%`}
+          height={`48px`}
         />
+        <GoToSignIn>
+          이미 LinkedIT 회원이세요? <Link to="/signin">로그인</Link>하세요.
+        </GoToSignIn>
       </SignUpMain>
-      <GoToSignIn>
-        LinkedIT이 처음이세요? <Link to="/signin">회원 가입</Link>
-      </GoToSignIn>
-      <SignUpFooter>
-        <ul>
-          <li>
-            <img alt="LinkedIT Logo" src="/images/common_logo_full.png" /> ©
-            2021
-          </li>
-          <li>
-            <Link to="#">사용자 약관</Link>
-          </li>
-          <li>
-            <Link to="#">개인정보 취급방침</Link>
-          </li>
-          <li>
-            <Link to="#">커뮤니티정책</Link>
-          </li>
-          <li>
-            <Link to="#">쿠키정책</Link>
-          </li>
-          <li>
-            <Link to="#">저작권정책</Link>
-          </li>
-          <li>
-            <Link to="#">피드백 보내기</Link>
-          </li>
-          <li>
-            <Link to="#">
-              언어<i className="far fa-chevron-down"></i>
-            </Link>
-          </li>
-        </ul>
-      </SignUpFooter>
+      <LinearFooter signUp />
+      <SignUpBackground />
     </>
   );
 }
@@ -102,17 +65,16 @@ const SignUpHeader = styled.header`
   margin: 24px auto 0 auto;
   text-align: center;
 
-  a {
-    img {
-      width: 135px;
-    }
+  img {
+    width: 135px;
   }
 
   h1 {
-    height: 88px;
+    height: 84px;
     padding: 24px 16px;
 
     font-size: 32px;
+    font-weight: 400;
     line-height: 1.25;
   }
 `;
@@ -122,27 +84,30 @@ const SignUpMain = styled.main`
   flex-direction: column;
   justify-content: space-between;
 
-  width: 352px;
-  height: 410px;
+  width: 400px;
+  height: 436px;
   margin: 0 auto;
-  box-shadow: 0 4px 12px 0 #dddddd;
   border-radius: 8px;
   padding: 26px 24px 24px;
+  background-color: white;
 
   button {
-    border: 1px solid black;
+    border: 1px solid ${props => props.theme.colors.primary};
     border-radius: 28px;
     font-weight: 600;
 
     .fab {
+      position: relative;
+      top: 2px;
+
       margin-right: 12px;
-      color: black;
+      color: ${props => props.theme.colors.primary};
       font-size: 21px;
     }
 
     &:hover {
-      border: 2px solid dimgrey;
-      background-color: ${props => props.theme.colors.btnLightGrey};
+      border: 2px solid ${props => props.theme.colors.primary};
+      background-color: ${props => props.theme.colors.bgcLightBlue};
     }
   }
 `;
@@ -159,18 +124,14 @@ const SignUpMainForm = styled.form`
     position: relative;
 
     label {
-      position: absolute;
-      top: 26px;
-      left: 13px;
-
       color: ${props => props.theme.colors.fontGrey};
-      font-size: 19px;
+      font-size: 15px;
     }
 
     input {
-      width: 304px;
-      height: 52px;
-      margin-top: 8px;
+      width: 100%;
+      height: 32px;
+      margin-top: 4px;
       border: 1px solid black;
       border-radius: 4px;
       padding: 2px 0 0 12px;
@@ -179,32 +140,40 @@ const SignUpMainForm = styled.form`
 
     span {
       position: absolute;
-      top: 28px;
-      right: 12px;
+      top: 30px;
+      right: 10px;
 
-      color: ${props => props.theme.colors.primary};
-      font-size: 14px;
-      font-weight: 600;
+      color: ${props => props.theme.colors.fontGrey};
+      font-size: 15px;
       cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
-  a {
-    width: 150px;
-    margin-top: 4px;
+  p {
+    display: block;
 
-    color: ${props => props.theme.colors.primary};
-    font-weight: 600;
+    color: ${props => props.theme.colors.fontGrey};
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.3;
 
-    &:hover {
-      background-color: ${props => props.theme.colors.bgcLightBlue};
-      text-decoration: underline;
+    a {
+      color: ${props => props.theme.colors.primary};
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
   button {
-    margin-top: 8px;
     border: 0;
+    padding-top: 6px;
 
     &:hover {
       border: 0;
@@ -217,10 +186,11 @@ const SignUpMainSeperator = styled.span`
   display: flex;
   align-items: center;
 
+  margin-top: 4px;
+
   color: ${props => props.theme.colors.fontGrey};
-  font-size: 15px;
+  font-size: 17px;
   text-align: center;
-  line-height: 1.3;
 
   &::before,
   &::after {
@@ -228,7 +198,7 @@ const SignUpMainSeperator = styled.span`
     flex-grow: 1;
 
     height: 1px;
-    margin: 0 16px;
+    margin: 0 10px;
     background: #c4c4c4;
   }
 `;
@@ -243,58 +213,21 @@ const GoToSignIn = styled.article`
 
     margin-left: 2px;
     color: ${props => props.theme.colors.primary};
-    font-size: 16px;
     font-weight: 600;
 
     &:hover {
-      background-color: ${props => props.theme.colors.bgcLightBlue};
       text-decoration: underline;
     }
   }
 `;
 
-const SignUpFooter = styled.footer`
+const SignUpBackground = styled.div`
   position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  z-index: -1;
 
-  ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;
-
-    width: 920px;
-    height: 32px;
-    margin: 20px auto;
-
-    li {
-      padding: 8px;
-      color: ${props => props.theme.colors.fontGrey};
-      font-size: 13px;
-
-      img {
-        position: relative;
-        top: 3px;
-
-        width: 56px;
-        margin-right: 2px;
-      }
-
-      a {
-        color: ${props => props.theme.colors.fontGrey};
-        font-weight: 600;
-
-        .far {
-          margin-left: 6px;
-        }
-
-        &:hover {
-          color: ${props => props.theme.colors.primary};
-          text-decoration: underline;
-        }
-      }
-    }
-  }
+  width: 100vw;
+  height: 100vh;
+  background-color: ${props => props.theme.colors.bgcBeige};
 `;

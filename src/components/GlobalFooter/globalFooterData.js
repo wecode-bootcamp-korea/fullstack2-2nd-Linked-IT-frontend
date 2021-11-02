@@ -1,4 +1,4 @@
-const footerData = {
+const globalFooterData = {
   links: [
     {
       id: 1,
@@ -238,4 +238,4 @@ const footerData = {
   ],
 };
 
-export default footerData;
+export default globalFooterData;

@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import footerData from './footerData';
+import globalFooterData from './globalFooterData';
 
-export default function Footer(props) {
+export default function GlobalFooter(props) {
   const { isDefault, isHidden, toggleFooter } = props;
 
   return (
@@ -23,7 +22,7 @@ export default function Footer(props) {
               src="/images/common_logo_full.png"
             />
             <FooterLinks>
-              {footerData.links.map(data => {
+              {globalFooterData.links.map(data => {
                 return (
                   <Link key={data.id} to={data.pageLink}>
                     {data.pageName}
@@ -65,7 +64,7 @@ export default function Footer(props) {
                 id="globalfooter-select_language"
                 class="global-footer__language-selection-dropdown"
               >
-                {footerData.languages.map(data => {
+                {globalFooterData.languages.map(data => {
                   return (
                     <option
                       key={data.id}
