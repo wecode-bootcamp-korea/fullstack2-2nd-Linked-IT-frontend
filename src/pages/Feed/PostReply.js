@@ -33,6 +33,7 @@ export default function PostReply({ myProfileData, numOfReplys }) {
     ]);
     replyInputRef.current.value = '';
     replyInputRef.current.style.height = '44px';
+    setReplyValue('');
   };
 
   const resizeReplyTextArea = () => {
@@ -86,7 +87,7 @@ export default function PostReply({ myProfileData, numOfReplys }) {
           onKeyDown={resizeReplyTextArea}
           ref={replyInputRef}
         />
-        {replyValue && <button onClick={pushReply}>올리기</button>}
+        {replyValue ? <button onClick={pushReply}>올리기</button> : ''}
       </InputReply>
       <ReplyContainer>{replys}</ReplyContainer>
     </article>
@@ -136,14 +137,4 @@ const ReplyContainer = styled.div`
   margin-top: 20px;
   padding: 10px;
   text-align: left;
-
-  img {
-    width: 40px;
-    margin-left: 30px;
-  }
-
-  button {
-    height: 20px;
-    width: 30px;
-  }
 `;
