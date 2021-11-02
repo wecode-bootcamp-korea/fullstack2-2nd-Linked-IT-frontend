@@ -1,26 +1,25 @@
 import styled from 'styled-components';
 import LikeBtnAndModal from './LikeBtnAndModal';
 
-export default function PostSocialInteract(props) {
+export default function PostSocialInteract({ handleReply, numOfReplys }) {
   return (
     <article>
       <Header>
-        <span>아이콘 수</span>
-        <span>댓글 수</span>
+        <span>댓글 {numOfReplys}</span>
       </Header>
       <Interact>
         <BtnWrap>
           <LikeBtnAndModal />
-          <button onClick={props.handleReply}>
-            <img alt="reply" src={require('./data/Images/reply.svg').default} />
+          <button onClick={handleReply}>
+            <img alt="reply" src="/Images/ico_reply.svg" />
             <span>댓글</span>
           </button>
           <button>
-            <img alt="share" src={require('./data/Images/share.svg').default} />
+            <img alt="share" src="/Images/ico_share.svg" />
             <span>공유</span>
           </button>
           <button>
-            <img alt="send" src={require('./data/Images/send.svg').default} />
+            <img alt="send" src="/Images/ico_send.svg" />
             <span>보내기</span>
           </button>
         </BtnWrap>
@@ -30,11 +29,10 @@ export default function PostSocialInteract(props) {
 }
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
   margin: 0 20px;
-  padding: 10px 0;
+  padding: 10px 5px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
+  text-align: right;
 `;
 
 const Interact = styled.div`

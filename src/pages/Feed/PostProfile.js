@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import UserCard from '../../components/UserCard/UserCard';
 
 export default function PostProfile(props) {
-  const { ...profile } = props.postData.writerData;
+  const { ...postData } = props.postData;
 
   return (
     <Writer>
-      <UserCard profile={profile} relation="true" type="kjob" />
+      <UserCard profile={postData} relation="true" type="kjob" />
     </Writer>
   );
 }
