@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import StyledHeader from './StyledHeader';
+import ProfileCard from './ProfileCard';
 import Loader from './Loader';
 
 export default function Layer(props) {
@@ -61,7 +62,7 @@ export default function Layer(props) {
         <StyledHeader {...props} isSticky={true} />
         <Grid>
           {cardData.map((el, idx) => {
-            return <ProfileCard key={idx}>{idx + 1}</ProfileCard>;
+            return <ProfileCard key={idx} />;
           })}
         </Grid>
         <InfiniteDiv ref={setTarget} />
@@ -91,15 +92,6 @@ const Grid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   padding: 15px 20px 25px 20px;
-`;
-
-const ProfileCard = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 289px;
-  border: 1px solid ${({ theme }) => theme.colors.borderGrey};
-  border-radius: 5px;
 `;
 
 const InfiniteDiv = styled.div``;
