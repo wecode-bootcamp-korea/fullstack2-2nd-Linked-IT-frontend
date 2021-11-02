@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 export default function SignIn() {
   return (
@@ -18,13 +19,8 @@ export default function SignIn() {
         </SignInMainHead>
         <SignInMainForm>
           <div>
-            {/* <label for="email">이메일 또는 전화</label> */}
-            <input
-              required
-              id="email"
-              type="email"
-              placeholder="이메일 또는 전화"
-            />
+            {/* <label for="email">이메일</label> */}
+            <input required id="email" type="email" placeholder="이메일" />
           </div>
           <div>
             {/* <label for="password">비밀번호</label> */}
@@ -36,13 +32,15 @@ export default function SignIn() {
             />
             {/* <span>표시</span> */}
           </div>
-          <Link to="#">비밀번호를 잊으셨나요?</Link>
+          <p>
+            <Link to="#">비밀번호를 잊으셨나요?</Link>
+          </p>
           <Button
             type="submit"
             bgc={props => props.theme.colors.primary}
             color={`white`}
             text={`로그인`}
-            width={`304px`}
+            width={`100%`}
             height={`52px`}
           />
         </SignInMainForm>
@@ -55,63 +53,27 @@ export default function SignIn() {
           color={props => props.theme.colors.fontGrey}
           text={
             <div>
-              <i class="fab fa-apple"></i>
-              <span>애플 계정으로 로그인</span>
+              <i class="fab fa-google"></i>
+              <span>구글 계정으로 로그인</span>
             </div>
           }
-          width={`304px`}
+          width={`100%`}
           height={`52px`}
         />
       </SignInMain>
       <GoToSignUp>
         LinkedIT이 처음이세요? <Link to="/signup">회원 가입</Link>
       </GoToSignUp>
-      <SignInFooter>
-        <ul>
-          <li>
-            <img alt="LinkedIT Logo" src="/images/common_logo_full.png" /> ©
-            2021
-          </li>
-          <li>
-            <Link to="#">사용자 약관</Link>
-          </li>
-          <li>
-            <Link to="#">개인정보 취급방침</Link>
-          </li>
-          <li>
-            <Link to="#">커뮤니티정책</Link>
-          </li>
-          <li>
-            <Link to="#">쿠키정책</Link>
-          </li>
-          <li>
-            <Link to="#">저작권정책</Link>
-          </li>
-          <li>
-            <Link to="#">피드백 보내기</Link>
-          </li>
-          <li>
-            <Link to="#">
-              언어<i className="far fa-chevron-down"></i>
-            </Link>
-          </li>
-        </ul>
-      </SignInFooter>
+      <LinearFooter signIn />
     </>
   );
 }
 
 const SignInHeader = styled.header`
-  position: relative;
-  top: 0;
+  margin: 32px 0 0 56px;
 
-  a {
-    display: block;
-    margin: 32px 0 0 56px;
-
-    img {
-      width: 112px;
-    }
+  img {
+    width: 112px;
   }
 `;
 
@@ -122,7 +84,7 @@ const SignInMain = styled.main`
 
   width: 352px;
   height: 485px;
-  margin: 42px auto;
+  margin: 42px auto 36px;
   box-shadow: 0 4px 12px 0 #dddddd;
   border-radius: 8px;
   padding: 26px 24px 24px;
@@ -133,13 +95,16 @@ const SignInMain = styled.main`
     font-weight: 600;
 
     .fab {
+      position: relative;
+      top: 2px;
+
       margin-right: 12px;
       color: black;
       font-size: 21px;
     }
 
     &:hover {
-      border: 2px solid dimgrey;
+      border: 2px solid ${props => props.theme.colors.darkGrey};
       background-color: ${props => props.theme.colors.btnLightGrey};
     }
   }
@@ -179,7 +144,7 @@ const SignInMainForm = styled.form`
     }
 
     input {
-      width: 304px;
+      width: 100%;
       height: 52px;
       margin-top: 8px;
       border: 1px solid black;
@@ -197,25 +162,34 @@ const SignInMainForm = styled.form`
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+
+      &:hover {
+        background-color: ${props => props.theme.colors.bgcLightBlue};
+      }
     }
   }
 
-  a {
+  p {
+    display: block;
+
     width: 150px;
     margin-top: 4px;
 
-    color: ${props => props.theme.colors.primary};
-    font-weight: 600;
+    a {
+      color: ${props => props.theme.colors.primary};
+      font-weight: 600;
 
-    &:hover {
-      background-color: ${props => props.theme.colors.bgcLightBlue};
-      text-decoration: underline;
+      &:hover {
+        background-color: ${props => props.theme.colors.bgcLightBlue};
+        text-decoration: underline;
+      }
     }
   }
 
   button {
     margin-top: 8px;
     border: 0;
+    padding-top: 6px;
 
     &:hover {
       border: 0;
@@ -228,6 +202,8 @@ const SignInMainSeperator = styled.span`
   display: flex;
   align-items: center;
 
+  margin-top: 2px;
+
   color: ${props => props.theme.colors.fontGrey};
   font-size: 15px;
   text-align: center;
@@ -239,7 +215,7 @@ const SignInMainSeperator = styled.span`
     flex-grow: 1;
 
     height: 1px;
-    margin: 0 16px;
+    margin: 0 10px;
     background: #c4c4c4;
   }
 `;
@@ -260,52 +236,6 @@ const GoToSignUp = styled.article`
     &:hover {
       background-color: ${props => props.theme.colors.bgcLightBlue};
       text-decoration: underline;
-    }
-  }
-`;
-
-const SignInFooter = styled.footer`
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-end;
-
-    width: 920px;
-    height: 32px;
-    margin: 20px auto;
-
-    li {
-      padding: 8px;
-      color: ${props => props.theme.colors.fontGrey};
-      font-size: 13px;
-
-      img {
-        position: relative;
-        top: 3px;
-
-        width: 56px;
-        margin-right: 2px;
-      }
-
-      a {
-        color: ${props => props.theme.colors.fontGrey};
-        font-weight: 600;
-
-        .far {
-          margin-left: 6px;
-        }
-
-        &:hover {
-          color: ${props => props.theme.colors.primary};
-          text-decoration: underline;
-        }
-      }
     }
   }
 `;
