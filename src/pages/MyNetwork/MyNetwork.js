@@ -1,18 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Menus from './components/Menus';
 import Layer from './components/Layer';
 import StyledSection from './components/StyledSection';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import MY_PROFILE_DATA from './data/MyProfileData';
-import INVITATIONS_DATA from './data/InvitationsData';
 const TEMP_DATA = new Array(8).fill(0);
 
-export default function MyNetwork() {
-  const { companyName, universityName, industryCategory } = MY_PROFILE_DATA;
-
+export default function MyNetwork(props) {
+  const [myProfileData, setMyProfileData] = useState(0);
   const [isLayerOpened, setIsLayerOpened] = useState(false);
   const [clickedCategoryInfo, setClickedCategoryInfo] = useState({});
+
+  const { friendsCount, companyName, education, industryCategory } =
+    myProfileData;
+
+  useEffect(() => {
+    getMyProfileData();
+  }, []);
+
+  const getMyProfileData = () => {
+    const url = `/data/mynetwork/myProfileData.json`;
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        setMyProfileData(res);
+      })
+      .catch();
+  };
 
   const showAll = clickedCategoryInfo => {
     setIsLayerOpened(!isLayerOpened);
@@ -24,15 +38,11 @@ export default function MyNetwork() {
       {isLayerOpened && <Dim onClick={showAll} />}
       <Container>
         <Management>
-          <Menus {...MY_PROFILE_DATA} />
+          <Menus connectionsCount={friendsCount} />
           <FloatingFooter />
         </Management>
         <Recommendation>
-          <StyledSection
-            category="invitations"
-            cards={INVITATIONS_DATA}
-            onClick={showAll}
-          />
+          <StyledSection category="invitations" onClick={showAll} />
           <StyledSection
             category="company"
             title={companyName}
@@ -41,7 +51,7 @@ export default function MyNetwork() {
           />
           <StyledSection
             category="education"
-            title={universityName}
+            title={education}
             cards={TEMP_DATA}
             onClick={showAll}
           />
