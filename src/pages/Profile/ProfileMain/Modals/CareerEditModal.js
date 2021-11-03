@@ -195,6 +195,7 @@ export default function CareerEditModal(props) {
                   bgc={theme.colors.primary}
                   color={theme.colors.white}
                   text="저장"
+                  onClick={closeCareerEditModal}
                 />
               </SaveBtnWrapper>
             </BoxTail>
