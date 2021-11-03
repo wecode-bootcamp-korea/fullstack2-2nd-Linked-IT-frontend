@@ -13,6 +13,9 @@ const theme = {
     //grey계
     fontGrey: '#666666',
     bgcGrey: '#f3f2ee',
+    borderGrey: '#e0dfdb',
+    backgroundGrey: '#f3f2ee',
+    darkGrey: '#5e5e5e',
     btnGrey: '#666666',
     btnLightGrey: '#ebebeb',
     borderGrey: '#ebebeb',
@@ -28,6 +31,7 @@ const theme = {
     btnDarkGreen: '#046238',
 
     //blue계
+    inputLightBlue: '#eef3f8',
     bgcLightBlue: '#e4f1fe',
     btnLightBlue: '#e4f1fe',
     btnNavy: '#004182',

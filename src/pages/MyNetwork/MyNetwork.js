@@ -79,6 +79,7 @@ export default function MyNetwork(props) {
 const Page = styled.div`
   position: relative;
   top: 52px;
+  /* padding: 20px 0; // TopNav -성재 */
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.bgcBeige};
@@ -94,6 +95,7 @@ const Container = styled.div`
 const Management = styled.aside`
   position: sticky;
   top: 60px;
+  /* top: 72px; // TopNav -성재 */
   width: 322px;
   height: 100%;
   border-radius: 10px;

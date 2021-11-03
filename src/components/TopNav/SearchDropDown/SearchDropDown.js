@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { disableScroll } from '../../../utils/ModalFunc';
 
 export default function SearchDropDown({
   searchInput,
@@ -12,21 +13,26 @@ export default function SearchDropDown({
   addToSearchHistory,
 }) {
   const [matchingResults, setMatchingResults] = useState([]);
+  // console.log('matchingResults:', matchingResults);
+  // const [isLoading, setIsLoading] = useState(true);
   const searchHistory = JSON.parse(localStorage.getItem('searchHistory')); //렌더링 too much
+  // console.log('searchHistory:', searchHistory);
 
   useEffect(() => {
-    fetch('data/peopleData.json')
+    // fetch(`${API}/${location.search}/?limit=10`);
+    fetch('/data/peopleData.json')
       .then(res => res.json())
       .then(res => {
         setMatchingResults(
-          res.PEOPLE_DATA.filter(result =>
-            result.name.toLowerCase().includes(searchInput.toLowerCase())
+          res.PEOPLE_DATA.filter(person =>
+            person.name.toLowerCase().includes(searchInput.toLowerCase())
           )
         );
-      });
+      })
+      .catch(err => console.error(err));
   }, [searchInput]);
 
-  //if nothing in search history and nothing typed in search input
+  // if nothing in search history and nothing typed in search input
   if (!searchHistory && !searchInput) return null;
   if (!searchInput || !searchInput.replace(/\s/g, '').length) {
     // FIX right side of 'IF STATEMENT LOGIC'
@@ -38,7 +44,7 @@ export default function SearchDropDown({
             onClick={() => {
               setDropdownVisible(false);
               setModalVisible(true);
-              document.body.style.overflow = 'hidden';
+              disableScroll();
             }}
           >
             지우기
@@ -49,7 +55,8 @@ export default function SearchDropDown({
             <RecentSearchLine
               key={keyword}
               to={{
-                pathname: '/search',
+                pathname: '/search/all/',
+                search: `?keywords=${keyword}`,
                 state: { keyword },
               }}
               onClick={() => {
@@ -74,7 +81,8 @@ export default function SearchDropDown({
           <ResultLine
             key={id}
             to={{
-              pathname: '/search',
+              pathname: '/search/all/',
+              search: `?keywords=${name}`,
               state: { keyword: name },
             }}
             onClick={() => {
@@ -83,17 +91,23 @@ export default function SearchDropDown({
               setSearchInput(name);
             }}
           >
-            <img alt={`${name}'s profile'`} src={imageUrl} />
+            <img
+              alt={`${name}'s profile'`}
+              src={imageUrl || 'https://robohash.org/no-image'}
+            />
             <p>{name}</p>
             <span>&#183; {relation} &#183;</span>
-            <span>{company.name}</span>
+            <span>
+              {company.position} at {company.name}
+            </span>
           </ResultLine>
         );
       })}
       <ResultLine
         $seeAllResults
         to={{
-          pathname: '/search',
+          pathname: '/search/all/',
+          search: `?keywords=${searchInput}`,
           state: { keyword: searchInput },
         }}
         onClick={() => {
@@ -109,7 +123,6 @@ export default function SearchDropDown({
 
 const StyledSearchDropdown = styled.div`
   width: 600px;
-  margin-top: 3px;
   border-radius: 5px;
   box-shadow: 1px 1px 5px ${({ theme }) => theme.colors.boxShadowGrey};
   background-color: ${({ theme }) => theme.colors.white};
@@ -155,6 +168,8 @@ const RecentSearchLine = styled(Link)`
     color: ${({ theme }) => theme.colors.black};
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 

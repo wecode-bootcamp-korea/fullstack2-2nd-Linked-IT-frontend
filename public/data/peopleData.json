@@ -22,6 +22,7 @@
       "website": "hildegard.org",
       "company": {
         "name": "Romaguera-Crona",
+        "position": "Associate Consultant",
         "catchPhrase": "Multi-layered client-server neural-net",
         "bs": "harness real-time e-markets"
       }
@@ -47,6 +48,7 @@
       "website": "anastasia.net",
       "company": {
         "name": "Deckow-Crist",
+        "position": "Associate Consultant",
         "catchPhrase": "Proactive didactic contingency",
         "bs": "synergize scalable supply-chains"
       }
@@ -72,6 +74,7 @@
       "website": "ramiro.info",
       "company": {
         "name": "Romaguera-Jacobson",
+        "position": "Associate Consultant",
         "catchPhrase": "Face to face bifurcated interface",
         "bs": "e-enable strategic applications"
       }
@@ -97,6 +100,7 @@
       "website": "kale.biz",
       "company": {
         "name": "Robel-Corkery",
+        "position": "Associate Consultant",
         "catchPhrase": "Multi-tiered zero tolerance productivity",
         "bs": "transition cutting-edge web services"
       }
@@ -122,6 +126,7 @@
       "website": "demarco.info",
       "company": {
         "name": "Keebler LLC",
+        "position": "Associate Consultant",
         "catchPhrase": "User-centric fault-tolerant solution",
         "bs": "revolutionize end-to-end systems"
       }
@@ -147,6 +152,7 @@
       "website": "ola.org",
       "company": {
         "name": "Considine-Lockman",
+        "position": "Associate Consultant",
         "catchPhrase": "Synchronised bottom-line interface",
         "bs": "e-enable innovative applications"
       }
@@ -172,6 +178,7 @@
       "website": "elvis.io",
       "company": {
         "name": "Johns Group",
+        "position": "Associate Consultant",
         "catchPhrase": "Configurable multimedia task-force",
         "bs": "generate enterprise e-tailers"
       }
@@ -197,6 +204,7 @@
       "website": "jacynthe.com",
       "company": {
         "name": "Abernathy Group",
+        "position": "Associate Consultant",
         "catchPhrase": "Implemented secondary concept",
         "bs": "e-enable extensible e-tailers"
       }
@@ -222,6 +230,7 @@
       "website": "conrad.com",
       "company": {
         "name": "Yost and Sons",
+        "position": "Associate Consultant",
         "catchPhrase": "Switchable contextually-based project",
         "bs": "aggregate real-time technologies"
       }
@@ -247,9 +256,259 @@
       "website": "ambrose.net",
       "company": {
         "name": "Hoeger LLC",
+        "position": "Associate Consultant",
         "catchPhrase": "Centralized empowering task-force",
         "bs": "target end-to-end models"
       }
+    }
+  ],
+  "SEARCH_DATA": [
+    {
+      "id": 1,
+      "firstName": "Leanne",
+      "lastName": "Graham",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/leanne",
+      "email": "Sincere@april.biz",
+      "country": "South Korea",
+      "city": "Seoul",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Romaguera-Crona",
+      "companyNameKor": "(주)케이쿨",
+      "currentPosition": "CEO",
+      "school": "Chicken University",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": false
+    },
+    {
+      "id": 2,
+      "firstName": "Ervin",
+      "lastName": "Howell",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/ervin",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Deckow-Crist",
+      "companyNameKor": "(주)케이쿨",
+      "currentPosition": "Front-end Web Developer",
+      "school": "Chicken University",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": false
+    },
+    {
+      "id": 3,
+      "firstName": "Clementine",
+      "lastName": "Bauch",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/clementine",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Pineapple",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "CEO",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 4,
+      "firstName": "Hans",
+      "lastName": "Lee",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/hans",
+      "email": "Sincere@april.biz",
+      "country": "USA",
+      "city": "New York",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Amazon Rain Forest",
+      "companyNameKor": "(주)케이쿨",
+      "currentPosition": "CFO",
+      "school": "College University",
+      "major": "Psychology",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": false
+    },
+    {
+      "id": 5,
+      "firstName": "Jihoon",
+      "lastName": "Han",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/jihoon",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Deckow-Crist",
+      "companyNameKor": "(주)케이쿨",
+      "currentPosition": "Front-end Web Developer",
+      "school": "Chicken University",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": false
+    },
+    {
+      "id": 6,
+      "firstName": "Rick",
+      "lastName": "Wilson",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/rick",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Pineapple",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "CEO",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 7,
+      "firstName": "Kim",
+      "lastName": "Minjae",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/minjae",
+      "email": "Sincere@april.biz",
+      "country": "Korea",
+      "city": "Seoul",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Wecode",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "멘토",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 8,
+      "firstName": "Franck",
+      "lastName": "Ribery",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/franck",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Pineapple",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "CEO",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 9,
+      "firstName": "Rick",
+      "lastName": "Wilson",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/rick",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Pineapple",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "CEO",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 10,
+      "firstName": "Rick",
+      "lastName": "Wilson",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/rick",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Pineapple",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "CEO",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 11,
+      "firstName": "Clementine",
+      "lastName": "Bauch",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/clementine",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Pineapple",
+      "companyNameKor": "(주)파인애플",
+      "currentPosition": "CEO",
+      "school": "State University of Buffalo Wild Wings",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": true
+    },
+    {
+      "id": 12,
+      "firstName": "Hans",
+      "lastName": "Lee",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/hans",
+      "email": "Sincere@april.biz",
+      "country": "USA",
+      "city": "New York",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Amazon Rain Forest",
+      "companyNameKor": "(주)케이쿨",
+      "currentPosition": "CFO",
+      "school": "College University",
+      "major": "Psychology",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": false
+    },
+    {
+      "id": 13,
+      "firstName": "Jihoon",
+      "lastName": "Han",
+      "relation": "1st",
+      "userProfileUrl": "https://robohash.org/jihoon",
+      "email": "Sincere@april.biz",
+      "country": "Westeros",
+      "city": "Wisokyburgh",
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "companyNameEng": "Deckow-Crist",
+      "companyNameKor": "(주)케이쿨",
+      "currentPosition": "Front-end Web Developer",
+      "school": "Chicken University",
+      "major": "Business",
+      "degree": "Bachelor of Arts(BA)",
+      "isConnection": false
     }
   ]
 }

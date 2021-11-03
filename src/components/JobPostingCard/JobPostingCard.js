@@ -24,14 +24,14 @@ export default function JobPostingCard(props) {
   return (
     <FlexDiv clicked={clicked}>
       <ImgWrapper>
-        <Link to={`company/${companyId}`}>
+        <Link to={`/company/${companyId}`}>
           <img alt="profileImg" src={profileImgUrl} />
         </Link>
       </ImgWrapper>
       <TextWrapper showBorder={showBorder}>
         <FirstLine>
           {isMain ? (
-            <Link to={`jobs/${jobPostingId}`}>{jobPostingTitle}</Link>
+            <Link to={`/jobs/${jobPostingId}`}>{jobPostingTitle}</Link>
           ) : (
             jobPostingTitle
           )}
@@ -127,6 +127,6 @@ const ButtonWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const BtnSave = styled(Button).attrs({
-  color: ({ theme }) => theme.colors.primary,
-})``;
+const BtnSave = styled(Button).attrs(({ theme }) => ({
+  color: theme.colors.primary,
+}))``; // Warning 떠서 수정했습니다 -성재
