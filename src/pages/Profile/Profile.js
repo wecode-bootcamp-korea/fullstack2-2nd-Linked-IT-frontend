@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Informaion from './ProfileMain/Informaion/Information';
-import CareerAddModal from './ProfileMain/Modals/CareerAddModal';
-import EducationAddModal from './ProfileMain/Modals/EducationAddModal';
-import CareerEditModal from './ProfileMain/Modals/CareerEditModal';
-import EducationEditModal from './ProfileMain/Modals/EducationEditModal';
 import ProfileMain from './ProfileMain/ProfileMain';
+import Informaion from './Informaion/Information';
+import CareerAddModal from './Modals/CareerAddModal';
+import EducationAddModal from './Modals/EducationAddModal';
+import CareerEditModal from './Modals/CareerEditModal';
+import EducationEditModal from './Modals/EducationEditModal';
+import BasicEditModal from './Modals/BasicEditModal';
+import MayKonwList from './MayKnowList';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import BasicEditModal from './ProfileMain/Modals/BasicEditModal';
-import PopUpMessage from './ProfileMain/Modals/PopUpMessage';
+import PopUpMessage from './Modals/PopUpMessage';
 import { disableScroll, enableScroll } from '../../utils/ModalFunc';
 
 export default function Profile() {
@@ -26,25 +27,32 @@ export default function Profile() {
   const [careers, setCareers] = useState([]);
   const [educations, setEducation] = useState([]);
   const [profile, setProfile] = useState([]);
+  const [mayKnowList, setMayKnowList] = useState([]);
 
   useEffect(() => {
     fetch('data/profile/profileDataUrl.json')
       // fetch('data/profileData.json') 이미지 없을 경우
       .then(res => res.json())
       .then(data => {
-        setProfile(data.profileData);
+        setProfile(data.PROFILE_DATA);
       });
-
+    //경력
     fetch('data/profile/careerData.json')
       .then(res => res.json())
       .then(data => {
         setCareers(data.CAREER_DATA);
       });
-
+    //학력
     fetch('data/profile/educationData.json')
       .then(res => res.json())
       .then(data => {
         setEducation(data.EDUCATION_DATA);
+      });
+    //알수도있는 사람
+    fetch('data/profile/mayKnowListData.json')
+      .then(res => res.json())
+      .then(data => {
+        setMayKnowList(data.MAYKNOWLIST_DATA);
       });
   }, []);
 
@@ -113,7 +121,6 @@ export default function Profile() {
     enableScroll();
     setShowEducationEditModal(false);
   };
-  console.log(popUpSaved);
   return (
     <StyledInformation>
       <Container>
@@ -166,6 +173,7 @@ export default function Profile() {
           />
         </Main>
         <Aside>
+          <MayKonwList mayKnowList={mayKnowList} />
           <FloatingFooter />
         </Aside>
       </Container>

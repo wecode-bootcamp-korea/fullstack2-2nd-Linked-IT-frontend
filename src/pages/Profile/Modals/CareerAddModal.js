@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import EndInput from './components/EndInput';
 import StartInput from './components/StartInput';
-import Button from '../../../../components/Button/Button';
+import Button from '../../../components/Button/Button';
 import TextInput from './components/TextInput';
 import CheckBox from './components/CheckBox';
 import TextArea from './components/TextArea';
 import AskCancel from './components/AskCancelModal';
-import theme from '../../../../styles/theme';
+import theme from '../../../styles/theme';
 
-export default function CareerEditModal(props) {
+export default function CareerAddModal(props) {
   const [isWorkingNow, setIsWorkingNow] = useState(true);
   const [isPositionClosed, setIsPositionClosed] = useState(false);
   const [showAskCancelModal, setShowAskCancelModal] = useState(false);
   const [hasChanged, setHasChanged] = useState(false);
-
-  useEffect(() => {
-    // 현재 직책 종료 여부 초기화
-    if (!workingCurrently) setIsWorkingNow(workingCurrently);
-  }, []);
 
   const openAskCancelModal = e => {
     e.preventDefault();
@@ -43,36 +38,24 @@ export default function CareerEditModal(props) {
     setHasChanged(true);
   };
 
-  const { selectedCareer, showCareerEditModal, closeCareerEditModal } = props;
-  const {
-    position,
-    employmentType,
-    companyName,
-    country,
-    city,
-    isWorkingNow: workingCurrently,
-    startDate,
-    endDate,
-    industry,
-    desc,
-  } = props.selectedCareer || {};
+  const { currentCareer, showCareerAddModal, closeCareerAddModal } = props;
 
   return (
-    <StyledCareerAddModal showCareerEditModal={showCareerEditModal}>
-      {showCareerEditModal && (
+    <StyledCareerAddModal showCareerAddModal={showCareerAddModal}>
+      {showCareerAddModal && (
         <div>
           <DimBg
             scrollY={window.scrollY}
-            onClick={hasChanged ? openAskCancelModal : closeCareerEditModal}
+            onClick={hasChanged ? openAskCancelModal : closeCareerAddModal}
           />
           <Container scrollY={window.scrollY}>
             <BoxHeader>
-              <h2>경력 사항 수정</h2>
+              <h2>경력 입력</h2>
               <div className="highlightCircle">
                 <i
                   className="fal fa-times"
                   onClick={
-                    hasChanged ? openAskCancelModal : closeCareerEditModal
+                    hasChanged ? openAskCancelModal : closeCareerAddModal
                   }
                 />
               </div>
@@ -83,7 +66,6 @@ export default function CareerEditModal(props) {
                   <TextInput
                     title="직책"
                     name="position"
-                    defaultValue={position}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
@@ -93,7 +75,6 @@ export default function CareerEditModal(props) {
                   <TextInput
                     title="고용형태"
                     name="employmentType"
-                    defaultValue={employmentType}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
@@ -111,7 +92,6 @@ export default function CareerEditModal(props) {
                   <TextInput
                     title="회사이름"
                     name="companyName"
-                    defaultValue={companyName}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
@@ -122,7 +102,6 @@ export default function CareerEditModal(props) {
                     title="지역"
                     name="region"
                     textLimit={100}
-                    defaultValue={`${country} ${city}`}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={true}
                   />
@@ -137,12 +116,8 @@ export default function CareerEditModal(props) {
                   />
                 </CheckBoxWrapper>
                 <StartAndEndWrapper>
-                  <StartInput title="시작일" defaultValue={startDate} />
-                  <EndInput
-                    title="종료일"
-                    defaultValue={endDate}
-                    state={isWorkingNow}
-                  />
+                  <StartInput title="시작일" />
+                  <EndInput title="종료일" state={isWorkingNow} />
                 </StartAndEndWrapper>
                 {isWorkingNow && (
                   <CheckBoxWrapper isPositionClosed={isPositionClosed}>
@@ -150,24 +125,19 @@ export default function CareerEditModal(props) {
                       id="cbPositionClosed"
                       name="isPositionClosed"
                       state={isPositionClosed}
-                      text={`현재 직책 종료 - ${selectedCareer.position} at ${selectedCareer.companyName}`}
+                      text={`현재 직책 종료 - ${currentCareer[0].position} at ${currentCareer[0].companyName}`}
                       onClick={toggleIsPositionClosed}
                     />
                   </CheckBoxWrapper>
                 )}
                 <IndustryInput>
-                  <TextInput
-                    title="업계"
-                    name="industry"
-                    defaultValue={industry}
-                  />
+                  <TextInput title="업계" name="industry" />
                 </IndustryInput>
                 <DescInput>
                   <TextArea
                     title="설명"
                     name="description"
                     rows={3}
-                    defaultValue={desc}
                     textLimit={2000}
                     warningText="설명은 2,000자를 넘을 수 없습니다."
                   />
@@ -195,7 +165,7 @@ export default function CareerEditModal(props) {
                   bgc={theme.colors.primary}
                   color={theme.colors.white}
                   text="저장"
-                  onClick={closeCareerEditModal}
+                  onClick={closeCareerAddModal}
                 />
               </SaveBtnWrapper>
             </BoxTail>
@@ -203,7 +173,7 @@ export default function CareerEditModal(props) {
           <AskCancel
             state={showAskCancelModal}
             closeAskCancelModal={closeAskCancelModal}
-            closeUpperModal={closeCareerEditModal}
+            closeUpperModal={closeCareerAddModal}
           />
         </div>
       )}

@@ -1,0 +1,52 @@
+{
+  "MAYKNOWLIST_DATA": [
+    {
+      "userProfileUrl": "https://ca.slack-edge.com/TH0U6FBTN-U028TJCFCG1-0260201910af-512",
+      "firstName": "지붕",
+      "lastName": "한",
+      "companyNameEng": "wecode",
+      "currentPosition": "F/E Developer",
+      "github": "https://github.com/JivenHan"
+    },
+    {
+      "userProfileUrl": "https://ca.slack-edge.com/TH0U6FBTN-U0294KC9V7A-331668c12438-512",
+      "firstName": "찐성",
+      "lastName": "김",
+      "companyNameEng": "wecode",
+      "currentPosition": "B/E Developer",
+      "github": "https://github.com/jsung1103"
+    },
+    {
+      "userProfileUrl": "https://ca.slack-edge.com/TH0U6FBTN-U028VJJDY8K-bb2d7f9e9401-512",
+      "firstName": "완승",
+      "lastName": "한",
+      "companyNameEng": "wecode",
+      "currentPosition": "F/E Developer",
+      "github": "https://github.com/han0gu"
+    },
+    {
+      "userProfileUrl": "https://media-exp1.licdn.com/dms/image/C4D03AQFi1pS0QA9Mlg/profile-displayphoto-shrink_400_400/0/1540929671780?e=1641427200&v=beta&t=1GkdKHpcBdIbqvmv84I_8Xy0EV_8SUaneshVA0Jp35I",
+      "firstName": "한스",
+      "lastName": "리",
+      "companyNameEng": "wecode",
+      "currentPosition": "F/E Developer",
+      "github": "https://github.com/hanslee1"
+    },
+    {
+      "userProfileUrl": "https://ca.slack-edge.com/TH0U6FBTN-U028M52BTNY-ba192e996043-512",
+      "firstName": "민",
+      "lastName": "미",
+      "companyNameEng": "wecode",
+      "currentPosition": "B/E Developer",
+      "github": "https://github.com/minjamie"
+    },
+    {
+      "userProfileUrl": "https://ca.slack-edge.com/TH0U6FBTN-U028EUG8KDG-a18e2042762a-512",
+      "firstName": "보틀",
+      "lastName": "잼",
+      "companyNameEng": "wecode",
+      "currentPosition": "F/E Developer",
+      "github": "https://github.com/jambottle"
+    }
+  ]
+}
