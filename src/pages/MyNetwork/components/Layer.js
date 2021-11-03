@@ -7,41 +7,20 @@ import Loader from '../../../components/Loader/Loader';
 export default function Layer(props) {
   const QUERY_LIMIT = 16;
 
-  const [cardData, setCardData] = useState([]);
+  const [cardList, setCardList] = useState([]);
   const [infiniteTarget, setTarget] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const options = { rootMargin: '0px', threshold: 1 };
-
-  async function callback([entry], observer) {
-    console.log('callback'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-
-    if (entry.isIntersecting && !isLoading) {
-      observer.unobserve(entry.target);
-      await getMoreItem(cardData.length, QUERY_LIMIT);
-      observer.observe(entry.target);
-    }
-  }
-
-  async function getMoreItem(offset, limit) {
-    console.log('getMoreItem', cardData); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-
-    setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    setCardData(cardData => cardData.concat(new Array(limit).fill(offset)));
-    setIsLoading(false);
-  }
-
   useEffect(() => {
-    console.log('mount effect'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-    console.log('cardData', cardData); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-
-    setCardData(props.cards);
+    const url = `/data/mynetwork/userCardListData.json`;
+    fetch(url)
+      .then(res => res.json())
+      .then(res => {
+        setCardList(res.data);
+      });
   }, []);
 
   useEffect(() => {
-    console.log('infiniteTarget effect'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-
     let observer;
     if (infiniteTarget) {
       console.log('target');
@@ -51,18 +30,32 @@ export default function Layer(props) {
     return () => observer && observer.disconnect();
   }, [infiniteTarget]);
 
-  useEffect(() => {
-    console.log('cardData effect'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-    console.log(cardData); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-  }, [cardData]);
+  useEffect(() => {}, [cardList]);
+
+  const options = { rootMargin: '0px', threshold: 1 };
+
+  async function callback([entry], observer) {
+    if (entry.isIntersecting && !isLoading) {
+      observer.unobserve(entry.target);
+      await getMoreItem(cardList.length, QUERY_LIMIT);
+      observer.observe(entry.target);
+    }
+  }
+
+  async function getMoreItem(offset, limit) {
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setCardList(cardList => cardList.concat(new Array(limit).fill(offset)));
+    setIsLoading(false);
+  }
 
   return (
     <>
       <Container>
         <StyledHeader {...props} isSticky={true} />
         <Grid>
-          {cardData?.map((el, idx) => {
-            return <ProfileCard key={idx} />;
+          {cardList?.map((card, idx) => {
+            return <ProfileCard key={idx} {...card} />;
           })}
         </Grid>
         <InfiniteDiv ref={setTarget} />
@@ -74,7 +67,7 @@ export default function Layer(props) {
 
 const Container = styled.div`
   position: fixed;
-  top: 3%;
+  top: 9%;
   left: 50%;
   transform: translate(-50%);
   width: 744px;

@@ -5,13 +5,13 @@ import styled from 'styled-components';
 export default function Menus(props) {
   const {
     connectionsCount,
-    myJobPostingCount,
-    addressbookCount,
-    followCount,
-    eventCount,
-    pageCount,
-    newsletterCount,
-    hashtagCount,
+    myJobPostingCount = 6,
+    addressbookCount = 511,
+    followCount = 12,
+    eventCount = 3,
+    pageCount = 7,
+    newsletterCount = 49,
+    hashtagCount = 6,
   } = props;
 
   const [isMenuOpened, setIsMenuOpened] = useState(true);

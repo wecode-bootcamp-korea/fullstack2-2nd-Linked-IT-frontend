@@ -10,7 +10,7 @@ import Jobs from './pages/Jobs/Jobs';
 import Profile from './pages/Profile/Profile';
 import MyNetwork from './pages/MyNetwork/MyNetwork';
 import Connections from './pages/Connections/Connections';
-import NotFound from './pages/NotFound/NotFound';
+// import NotFound from './pages/NotFound/NotFound';
 
 export default function Routes() {
   return (
