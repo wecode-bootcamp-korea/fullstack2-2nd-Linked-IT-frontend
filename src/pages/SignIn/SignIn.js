@@ -36,13 +36,15 @@ export default function SignIn() {
 
   const history = useHistory();
   const submitInput = event => {
+    const { email, password } = user;
+
     // event.preventDefault();
     fetch(`user/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: user.email,
-        password: user.password,
+        email,
+        password,
       }),
       credentials: 'include',
     })

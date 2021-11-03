@@ -45,15 +45,17 @@ export default function SignUp() {
 
   const history = useHistory();
   const submitInput = event => {
+    const { firstName, lastName, email, password } = user;
+
     // event.preventDefault();
     fetch(`user/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        password: user.password,
+        firstName,
+        lastName,
+        email,
+        password,
       }),
     })
       .then(res => res.json())
