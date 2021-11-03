@@ -3,6 +3,41 @@ import styled from 'styled-components';
 import UserCard from '../../components/UserCard/UserCard';
 import Button from '../../components/Button/Button';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
+import isKorean from '../../utils/LanguageUtil';
+
+function sortArrayByName(array, sortCriteria) {
+  array.sort(compareName);
+  if (sortCriteria === 'desc') array = array.reverse();
+  return array;
+}
+
+function compareName(obj1, obj2) {
+  if (obj1.lastName.toUpperCase() < obj2.lastName.toUpperCase()) {
+    return 1;
+  } else if (obj1.lastName.toUpperCase() === obj2.lastName.toUpperCase()) {
+    if (obj1.firstName.toUpperCase() < obj2.firstName.toUpperCase()) {
+      return 1;
+    } else {
+      return -1;
+    }
+  } else {
+    return -1;
+  }
+}
+
+function searchUserByName(userCardList, searchInput) {
+  return userCardList.filter(card => {
+    const { lastName, firstName } = card;
+    const booleanValue = isKorean(lastName);
+    const name = booleanValue ? lastName + firstName : firstName + lastName;
+    return (
+      name
+        .replaceAll(' ', '')
+        .toUpperCase()
+        .indexOf(searchInput.replaceAll(' ', '').toUpperCase()) > -1
+    );
+  });
+}
 
 export default function Connections(props) {
   const [userCardList, setUserCardList] = useState([]);
@@ -11,67 +46,31 @@ export default function Connections(props) {
   const [sortCriteria, setSortCriteria] = useState('');
 
   useEffect(() => {
-    const url = `/data/mynetwork/userCardListData.json`;
+    const url = `http://localhost:10000/friend/my?userId=${1}`;
     fetch(url)
       .then(res => res.json())
       .then(res => {
-        setUserCardList(res.data);
-        setFilteredCardList(res.data);
+        setUserCardList(res);
+        setFilteredCardList(res);
       });
   }, []);
 
   useEffect(() => {
-    const filteredList = userCardList.filter((card, idx) => {
-      if (
-        card.firstName.indexOf(searchInput) > -1 ||
-        card.lastName.indexOf(searchInput) > -1
-      ) {
-        return true;
-      }
-    });
+    const filteredList = searchUserByName(userCardList, searchInput);
     setFilteredCardList(filteredList);
   }, [searchInput]);
 
   useEffect(() => {
-    const sortedList = [...filteredCardList].sort(compareName);
+    if (filteredCardList.length === 0) return;
+    const sortedList = sortArrayByName(filteredCardList, sortCriteria);
     setFilteredCardList(sortedList);
   }, [sortCriteria]);
-
-  function compareName(obj1, obj2) {
-    if (sortCriteria === 'asc') {
-      if (obj1.lastName < obj2.lastName) {
-        return -1;
-      } else if (obj1.lastName === obj2.lastName) {
-        if (obj1.firstName < obj2.firstName) {
-          return -1;
-        } else {
-          return 1;
-        }
-      } else {
-        return 1;
-      }
-    } else if (sortCriteria === 'desc') {
-      if (obj1.lastName < obj2.lastName) {
-        return 1;
-      } else if (obj1.lastName === obj2.lastName) {
-        if (obj1.firstName < obj2.firstName) {
-          return 1;
-        } else {
-          return -1;
-        }
-      } else {
-        return -1;
-      }
-    } else {
-      return 0;
-    }
-  }
 
   return (
     <Container>
       <Main>
         <Header>
-          <Title>1촌 {userCardList.length}명</Title>
+          <Title>1촌 {userCardList?.length}명</Title>
           <AdditionalFeature>
             <Sort>
               정렬 기준
@@ -95,7 +94,7 @@ export default function Connections(props) {
               <UserCardWrapper
                 key={card.id}
                 borderBottom={
-                  idx === filteredCardList.length - 1 ? false : true
+                  idx === filteredCardList?.length - 1 ? false : true
                 }
               >
                 <UserCard
@@ -103,7 +102,7 @@ export default function Connections(props) {
                   profile={card}
                   withoutName="false"
                   relation="true"
-                  type="location ejob"
+                  type="education major"
                   text=""
                 />
                 <ButtonWrapper>
@@ -122,7 +121,7 @@ export default function Connections(props) {
 
 const Container = styled.div`
   position: relative;
-  top: 70px;
+  top: 98px;
   display: flex;
   justify-content: space-between;
   width: 1128px;
@@ -131,9 +130,10 @@ const Container = styled.div`
 
 const Main = styled.main`
   width: 782px;
-  height: 850px;
+  height: 100%;
   border: 1px solid ${({ theme }) => theme.colors.borderGrey};
   border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.white};
   overflow: auto;
 `;
 
@@ -160,7 +160,6 @@ const AdditionalFeature = styled.div`
 const Sort = styled.div``;
 
 const StyledSelect = styled.select`
-  border: none;
   margin-left: 10px;
   text-align: center;
 `;

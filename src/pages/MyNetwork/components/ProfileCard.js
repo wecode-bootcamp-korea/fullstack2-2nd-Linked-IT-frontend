@@ -3,22 +3,24 @@ import Button from '../../../components/Button/Button';
 
 export default function ProfileCard(props) {
   const {
-    userName = '이름',
-    companyName = '회사명',
-    positionName = '직책명',
+    userProfileUrl = '/images/profile_default.png',
+    lastName = '이름',
+    firstName = '',
+    companyNameKor = '회사명',
+    currentPosition = '직책명',
   } = props;
 
   return (
     <Container>
       <BackgroundImage />
       <CircleImage
-        alt={`${userName}'s profile image'`}
-        src="/images/profile_default.png"
+        alt={`${lastName + firstName}'s profile image'`}
+        src={userProfileUrl}
       />
       <UserInfoWrapper>
-        <UserName>{userName}</UserName>
-        <CompanyName>{companyName}</CompanyName>
-        <PositionName>{positionName}</PositionName>
+        <UserName>{lastName + firstName}</UserName>
+        <CompanyName>{companyNameKor}</CompanyName>
+        <PositionName>{currentPosition}</PositionName>
       </UserInfoWrapper>
       <ButtonWrapper>
         <Button
@@ -41,7 +43,7 @@ const Container = styled.section`
   border-radius: 10px;
 `;
 
-const BackgroundImage = styled.div`
+const BackgroundImage = styled.img`
   width: 100%;
   height: 60px;
   border-top-left-radius: 8px;

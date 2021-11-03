@@ -132,6 +132,7 @@ export default function EducationAddModal(props) {
                   bgc={theme.colors.primary}
                   color={theme.colors.white}
                   text="저장"
+                  onClick={closeEducationAddModal}
                 />
               </SaveBtnWrapper>
             </BoxTail>

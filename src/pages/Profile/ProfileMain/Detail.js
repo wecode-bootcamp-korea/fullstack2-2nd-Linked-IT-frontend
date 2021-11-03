@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import isKorean from '../../../utils/LanguageUtil';
 
 export default function Detail(props) {
+  const { showCurrentCompany, showEducation } = props;
   const {
     firstName,
     lastName,
@@ -32,13 +33,13 @@ export default function Detail(props) {
       </StyledBasicInfo>
 
       <StyledAdditionalInfo>
-        {companyName && (
+        {showCurrentCompany && companyName && (
           <div className="companyCardWrapper">
             <img alt="companyLogo" src={companyLogo} />
             <span>{companyName}</span>
           </div>
         )}
-        {schoolName && (
+        {showEducation && schoolName && (
           <div className="schoolCardWrapper">
             <img alt="schoolLogo" src={schoolLogo} />
             <span>{schoolName}</span>

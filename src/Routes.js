@@ -10,7 +10,7 @@ import Jobs from './pages/Jobs/Jobs';
 import Profile from './pages/Profile/Profile';
 import MyNetwork from './pages/MyNetwork/MyNetwork';
 import Connections from './pages/Connections/Connections';
-import NotFound from './pages/NotFound/NotFound';
+// import NotFound from './pages/NotFound/NotFound';
 
 export default function Routes() {
   return (
@@ -27,7 +27,7 @@ export default function Routes() {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/mynetwork" component={MyNetwork} />
           <Route exact path="/connections" component={Connections} />
-          <Route component={NotFound} />
+          {/* <Route component={NotFound} /> */}
         </>
       </Switch>
     </BrowserRouter>
