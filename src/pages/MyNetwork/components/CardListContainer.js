@@ -63,9 +63,9 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const BtnAccept = styled(Button).attrs({
-  color: ({ theme }) => theme.colors.primary,
-})``;
+const BtnAccept = styled(Button).attrs(({ theme }) => ({
+  color: theme.colors.primary,
+}))``;
 
 const Grid = styled.div`
   display: grid;

@@ -119,6 +119,6 @@ const ButtonWrapper = styled.div`
   white-space: nowrap;
 `;
 
-const BtnSave = styled(Button).attrs({
-  color: ({ theme }) => theme.colors.primary,
-})``;
+const BtnSave = styled(Button).attrs(({ theme }) => ({
+  color: theme.colors.primary,
+}))``; // Warning 떠서 수정했습니다 -성재
