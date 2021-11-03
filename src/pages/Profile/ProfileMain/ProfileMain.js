@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react/cjs/react.development';
+import { useState } from 'react/cjs/react.development';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
@@ -47,6 +47,7 @@ export default function ProfileMain(props) {
   };
 
   const { userProfileUrl, backgroundImg } = props.profile;
+  const { openBasicEditModal, showCurrentCompany, showEducation } = props;
 
   return (
     <StyledProfileCard>
@@ -54,10 +55,14 @@ export default function ProfileMain(props) {
         <ProfileBackGround backgroundImg={backgroundImg} />
       </BoxHeader>
       <ProfileImage userProfileUrl={userProfileUrl} />
-      <div className="penIconWrapper">
-        <FontAwesomeIcon className="penIcon" icon={faPen} />
-      </div>
-      <Detail profile={props.profile} />
+      <PenIconWrapper>
+        <FontAwesomeIcon icon={faPen} onClick={openBasicEditModal} />
+      </PenIconWrapper>
+      <Detail
+        profile={props.profile}
+        showCurrentCompany={showCurrentCompany}
+        showEducation={showEducation}
+      />
       <ButtonWrapper>
         <Button
           bgc={theme.colors.primary}
@@ -96,18 +101,22 @@ const StyledProfileCard = styled.main`
   border-radius: 15px 15px 15px 15px;
 
   .penIconWrapper {
-    margin-right: 17px;
-    height: 50px;
-    text-align: right;
+  }
+`;
 
-    .penIcon {
-      margin: 15px 15px 0 0;
-      color: gray;
-      cursor: pointer;
+const PenIconWrapper = styled.div`
+  margin-right: 17px;
+  height: 50px;
+  text-align: right;
 
-      &:hover {
-        color: black;
-      }
+  svg {
+    margin: 15px 15px 0 0;
+    color: gray;
+    font-size: 20px;
+    cursor: pointer;
+
+    &:hover {
+      color: black;
     }
   }
 `;

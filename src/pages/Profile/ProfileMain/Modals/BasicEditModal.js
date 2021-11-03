@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import EndInput from './components/EndInput';
-import StartInput from './components/StartInput';
 import Button from '../../../../components/Button/Button';
 import TextInput from './components/TextInput';
 import CheckBox from './components/CheckBox';
-import TextArea from './components/TextArea';
 import AskCancel from './components/AskCancelModal';
 import theme from '../../../../styles/theme';
 
-export default function CareerAddModal(props) {
-  const [isWorkingNow, setIsWorkingNow] = useState(true);
-  const [isPositionClosed, setIsPositionClosed] = useState(false);
+export default function BasicEditModal(props) {
   const [showAskCancelModal, setShowAskCancelModal] = useState(false);
   const [hasChanged, setHasChanged] = useState(false);
 
@@ -26,138 +21,161 @@ export default function CareerAddModal(props) {
     setShowAskCancelModal(false);
   };
 
-  const toggleIsWorkingNow = () => {
-    setIsWorkingNow(!isWorkingNow);
-  };
-
-  const toggleIsPositionClosed = () => {
-    setIsPositionClosed(!isPositionClosed);
-  };
-
   const toggleHasChanged = () => {
     setHasChanged(true);
   };
 
-  const { currentCareer, showCareerAddModal, closeCareerAddModal } = props;
+  const {
+    showBasicEditModal,
+    closeBasicEditModal,
+    showCurrentCompany,
+    setShowCurrentCompany,
+    showEducation,
+    setShowEducation,
+  } = props;
+  const {
+    firstName,
+    lastName,
+    oneLineProfile,
+    country,
+    city,
+    companyName,
+    industry,
+    schoolName,
+  } = props.profile || {};
 
   return (
-    <StyledCareerAddModal showCareerAddModal={showCareerAddModal}>
-      {showCareerAddModal && (
+    <StyledBasicEditModal showBasicEditModal={showBasicEditModal}>
+      {showBasicEditModal && (
         <div>
           <DimBg
             scrollY={window.scrollY}
-            onClick={hasChanged ? openAskCancelModal : closeCareerAddModal}
+            onClick={hasChanged ? openAskCancelModal : closeBasicEditModal}
           />
           <Container scrollY={window.scrollY}>
             <BoxHeader>
-              <h2>경력 입력</h2>
+              <h2>소개말 수정</h2>
               <div className="highlightCircle">
                 <i
                   className="fal fa-times"
                   onClick={
-                    hasChanged ? openAskCancelModal : closeCareerAddModal
+                    hasChanged ? openAskCancelModal : closeBasicEditModal
                   }
                 />
               </div>
             </BoxHeader>
             <BoxBody onChange={toggleHasChanged}>
               <form method="POST">
-                <PositionInput>
+                <LastNameInput>
                   <TextInput
-                    title="직책"
-                    name="position"
+                    title="성"
+                    name="lastName"
+                    defaultValue={lastName}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
                   />
-                </PositionInput>
-                <EmploymentTypeInput>
+                </LastNameInput>
+                <FirstNameInput>
                   <TextInput
-                    title="고용형태"
-                    name="employmentType"
+                    title="이름"
+                    name="firstName"
+                    defaultValue={firstName}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
                   />
-                  <EmploymentMoreInfo>국가별 고용형태</EmploymentMoreInfo>
-                  <a
-                    href="https://www.linkedin.com/help/linkedin/answer/123304"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    자세히 보기
-                  </a>
-                </EmploymentTypeInput>
+                </FirstNameInput>
+                <OneLieProfileInput>
+                  <TextInput
+                    title="한 줄 프로필"
+                    name="oneLineProfile"
+                    defaultValue={oneLineProfile}
+                    textLimit={100}
+                    warningText="100자를 초과할 수 없습니다."
+                    isNullable={true}
+                  />
+                </OneLieProfileInput>
                 <CompanyNameInput>
+                  <h3>현재 직책</h3>
                   <TextInput
                     title="회사이름"
                     name="companyName"
+                    defaultValue={companyName}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
                   />
                 </CompanyNameInput>
-                <RegionInput>
+                <IndustryInput>
                   <TextInput
-                    title="지역"
-                    name="region"
+                    title="업계"
+                    name="industry"
+                    defaultValue={industry}
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={true}
                   />
-                </RegionInput>
-                <CheckBoxWrapper isWorkingNow={isWorkingNow}>
+                </IndustryInput>
+                <CheckBoxWrapper showCurrentCompany={showCurrentCompany}>
                   <CheckBox
-                    id="cbIsWorking"
-                    name="isWorkingNow"
-                    state={isWorkingNow}
-                    text="현재 이 업무로 근무 중"
-                    onClick={toggleIsWorkingNow}
+                    id="cbShowCurrentCompany"
+                    name="showCurrentCompany"
+                    state={showCurrentCompany}
+                    text="소개 섹션에 현재회사 표시"
+                    onClick={() => setShowCurrentCompany(!showCurrentCompany)}
                   />
                 </CheckBoxWrapper>
-                <StartAndEndWrapper>
-                  <StartInput title="시작일" />
-                  <EndInput title="종료일" state={isWorkingNow} />
-                </StartAndEndWrapper>
-                {isWorkingNow && (
-                  <CheckBoxWrapper isPositionClosed={isPositionClosed}>
-                    <CheckBox
-                      id="cbPositionClosed"
-                      name="isPositionClosed"
-                      state={isPositionClosed}
-                      text={`현재 직책 종료 - ${currentCareer[0].position} at ${currentCareer[0].companyName}`}
-                      onClick={toggleIsPositionClosed}
-                    />
-                  </CheckBoxWrapper>
-                )}
-                <IndustryInput>
-                  <TextInput title="업계" name="industry" />
-                </IndustryInput>
-                <DescInput>
-                  <TextArea
-                    title="설명"
-                    name="description"
-                    rows={3}
-                    textLimit={2000}
-                    warningText="설명은 2,000자를 넘을 수 없습니다."
+
+                <SchoolNameInput>
+                  <h3>최종 학력</h3>
+                  <TextInput
+                    title="학교이름"
+                    name="schoolName"
+                    defaultValue={schoolName}
+                    textLimit={100}
+                    warningText="100자를 초과할 수 없습니다."
+                    isNullable={false}
                   />
-                </DescInput>
+                </SchoolNameInput>
+                <CheckBoxWrapper showEducation={showEducation}>
+                  <CheckBox
+                    id="cbShowEducation"
+                    name="showEducation"
+                    state={showEducation}
+                    text="소개 섹션에 최종학력 표시"
+                    onClick={() => setShowEducation(!showEducation)}
+                  />
+                </CheckBoxWrapper>
+                <RegionInput>
+                  <h3>지역</h3>
+                  <TextInput
+                    title="국가/지역"
+                    name="country"
+                    defaultValue={country}
+                    textLimit={100}
+                    warningText="100자를 초과할 수 없습니다."
+                    isNullable={false}
+                  />
+                </RegionInput>
+                <CityInput>
+                  <TextInput
+                    title="시"
+                    name="city"
+                    defaultValue={city}
+                    textLimit={100}
+                    warningText="100자를 초과할 수 없습니다."
+                    isNullable={true}
+                  />
+                </CityInput>
               </form>
-              <MediaInput>
-                <div>미디어</div>
-                <div className="link">
-                  외부 문서, 사진 ,사이트, 동영상, 프레젠테이션 링크{' '}
-                  <a
-                    href="https://www.linkedin.com/help/linkedin/answer/34327/supported-providers-and-content-types-for-work-samples-on-your-profile"
-                    target="blank"
-                  >
-                    자세히 보기
-                  </a>
-                </div>
+              <ContectInput>
+                <div>연락처</div>
+                <div className="link">프로필 URL, 이메일, 웹사이트 등 변경</div>
                 <ButtonWrapper>
-                  <Button color={theme.colors.primary} text="미디어 등록" />
+                  <Button color={theme.colors.primary} text="연락처 수정" />
                 </ButtonWrapper>
-              </MediaInput>
+              </ContectInput>
             </BoxBody>
             <BoxTail>
               <SaveBtnWrapper>
@@ -165,23 +183,24 @@ export default function CareerAddModal(props) {
                   bgc={theme.colors.primary}
                   color={theme.colors.white}
                   text="저장"
-                  onClick={closeCareerAddModal}
+                  onClick={closeBasicEditModal}
                 />
               </SaveBtnWrapper>
             </BoxTail>
           </Container>
+
           <AskCancel
             state={showAskCancelModal}
             closeAskCancelModal={closeAskCancelModal}
-            closeUpperModal={closeCareerAddModal}
+            closeUpperModal={closeBasicEditModal}
           />
         </div>
       )}
-    </StyledCareerAddModal>
+    </StyledBasicEditModal>
   );
 }
 
-const StyledCareerAddModal = styled.div``;
+const StyledBasicEditModal = styled.div``;
 
 const DimBg = styled.div`
   position: absolute;
@@ -248,53 +267,43 @@ const BoxBody = styled.div`
   overflow-x: hidden;
 `;
 
-const PositionInput = styled.div`
+const LastNameInput = styled.div`
   margin-top: 10px;
 `;
 
-const EmploymentTypeInput = styled.div`
-  margin-top: 40px;
-  color: grey;
-  font-size: 15px;
-
-  a {
-    font-size: 16px;
-  }
+const FirstNameInput = styled.div`
+  margin-top: 30px;
 `;
 
-const EmploymentMoreInfo = styled.div`
-  margin-top: 10px;
-
-  a {
-    margin-top: 5px;
-  }
+const OneLieProfileInput = styled.div`
+  margin-top: 30px;
 `;
 
 const CompanyNameInput = styled.div`
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
-const RegionInput = styled.div`
-  margin-top: 40px;
+const IndustryInput = styled.div`
+  margin-top: 30px;
 `;
 
 const CheckBoxWrapper = styled.div`
   margin: 40px 0 20px 0;
 `;
 
-const StartAndEndWrapper = styled.div`
+const SchoolNameInput = styled.div`
   margin-top: 30px;
 `;
 
-const IndustryInput = styled.div`
-  margin-top: 40px;
+const RegionInput = styled.div`
+  margin-top: 30px;
 `;
 
-const DescInput = styled.div`
-  margin-top: 40px;
+const CityInput = styled.div`
+  margin-top: 30px;
 `;
 
-const MediaInput = styled.div`
+const ContectInput = styled.div`
   margin-top: 40px;
   color: grey;
   font-size: 15px;

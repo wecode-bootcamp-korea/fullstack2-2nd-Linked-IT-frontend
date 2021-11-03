@@ -7,15 +7,21 @@ import CareerEditModal from './ProfileMain/Modals/CareerEditModal';
 import EducationEditModal from './ProfileMain/Modals/EducationEditModal';
 import ProfileMain from './ProfileMain/ProfileMain';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
+import BasicEditModal from './ProfileMain/Modals/BasicEditModal';
+import PopUpMessage from './ProfileMain/Modals/PopUpMessage';
 import { disableScroll, enableScroll } from '../../utils/ModalFunc';
 
 export default function Profile() {
+  const [showBasicEditModal, setShowBasicEditModal] = useState(false);
   const [showCareerAddModal, setShowCareerAddModal] = useState(false);
   const [showCareerEditModal, setShowCareerEditModal] = useState(false);
   const [showEducationAddModal, setShowEducationAddModal] = useState(false);
   const [showEducationEditModal, setShowEducationEditModal] = useState(false);
   const [selectedCareer, setSelectedCareer] = useState(0);
   const [selectedEducation, setSelectedEducation] = useState(0);
+  const [showCurrentCompany, setShowCurrentCompany] = useState(true);
+  const [showEducation, setShowEducation] = useState(true);
+  const [popUpSaved, setPopUpSaved] = useState(true);
 
   const [careers, setCareers] = useState([]);
   const [educations, setEducation] = useState([]);
@@ -23,7 +29,7 @@ export default function Profile() {
 
   useEffect(() => {
     fetch('data/profile/profileDataUrl.json')
-      // fetch('data/profileData.json')
+      // fetch('data/profileData.json') 이미지 없을 경우
       .then(res => res.json())
       .then(data => {
         setProfile(data.profileData);
@@ -42,6 +48,20 @@ export default function Profile() {
       });
   }, []);
 
+  // 기본정보 수정
+  const openBasicEditModal = e => {
+    e.preventDefault();
+    disableScroll();
+    setShowBasicEditModal(true);
+  };
+
+  const closeBasicEditModal = e => {
+    e.preventDefault();
+    enableScroll();
+    setShowBasicEditModal(false);
+    if (e.target.textContent === '저장') setPopUpSaved(true);
+  };
+
   // 경력 추가
   const openCareerAddModal = e => {
     e.preventDefault();
@@ -54,6 +74,7 @@ export default function Profile() {
     enableScroll();
     setShowCareerAddModal(false);
   };
+
   // 경력 수정
   const openCareerEditModal = idx => {
     setSelectedCareer(idx);
@@ -66,6 +87,7 @@ export default function Profile() {
     enableScroll();
     setShowCareerEditModal(false);
   };
+
   // 교육 추가
   const openEducationAddModal = e => {
     e.preventDefault();
@@ -78,6 +100,7 @@ export default function Profile() {
     enableScroll();
     setShowEducationAddModal(false);
   };
+
   // 교육 수정
   const openEducationEditModal = idx => {
     setSelectedEducation(idx);
@@ -90,12 +113,17 @@ export default function Profile() {
     enableScroll();
     setShowEducationEditModal(false);
   };
-
+  console.log(popUpSaved);
   return (
     <StyledInformation>
       <Container>
         <Main>
-          <ProfileMain profile={profile} />
+          <ProfileMain
+            profile={profile}
+            openBasicEditModal={openBasicEditModal}
+            showCurrentCompany={showCurrentCompany}
+            showEducation={showEducation}
+          />
           <Informaion
             title="경력사항"
             cardData={careers}
@@ -127,11 +155,23 @@ export default function Profile() {
             showEducationEditModal={showEducationEditModal}
             closeEducationEditModal={closeEducationEditModal}
           />
+          <BasicEditModal
+            profile={profile}
+            showBasicEditModal={showBasicEditModal}
+            closeBasicEditModal={closeBasicEditModal}
+            showCurrentCompany={showCurrentCompany}
+            setShowCurrentCompany={setShowCurrentCompany}
+            showEducation={showEducation}
+            setShowEducation={setShowEducation}
+          />
         </Main>
         <Aside>
           <FloatingFooter />
         </Aside>
       </Container>
+      {popUpSaved && (
+        <PopUpMessage popUpSaved={popUpSaved} text="저장되었습니다." />
+      )}
     </StyledInformation>
   );
 }
