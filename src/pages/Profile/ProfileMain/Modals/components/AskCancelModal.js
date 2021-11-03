@@ -9,7 +9,7 @@ export default function AskCancel(props) {
       {state && (
         <div>
           <DimBg scrollY={window.scrollY} onClick={closeAskCancelModal} />
-          <Container>
+          <Container scrollY={window.scrollY}>
             <BoxHeader>
               <h2>변경 취소</h2>
               <div className="highlightCircle">
@@ -58,7 +58,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 120px;
+  top: ${({ scrollY }) => scrollY + 120 + 'px'};
   left: 50%;
   transform: translate(-50%, 0);
   width: 300px;
@@ -118,6 +118,7 @@ const BoxTail = styled.div`
 `;
 
 const NoBtnWrapper = styled.div``;
+
 const DeleteBtnWrapper = styled.div`
   margin-left: 10px;
 `;

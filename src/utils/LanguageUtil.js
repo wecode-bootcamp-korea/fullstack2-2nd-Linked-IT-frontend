@@ -5,5 +5,4 @@ const isKorean = string => {
   if (0xac00 <= uniCode && uniCode <= 0xd7a3) return true;
   return false;
 };
-
 export default isKorean;

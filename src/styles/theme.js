@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    primary: '#0b66c2',
+    primary: '#0173B0',
 
     //white계
     white: '#ffffff',
@@ -12,13 +12,12 @@ const theme = {
 
     //grey계
     fontGrey: '#666666',
-    borderGrey: '#ebebeb',
-    backgroundGrey: '#f3f2ee',
-    darkGrey: '#5e5e5e',
+    bgcGrey: '#f3f2ee',
     btnGrey: '#666666',
     btnLightGrey: '#ebebeb',
+    borderGrey: '#ebebeb',
     boxShadowGrey: '#808080',
-    shadowGrey: '#808080',
+    darkGrey: '#5e5e5e',
 
     //red계
     alarmRed: '#d11e2c',

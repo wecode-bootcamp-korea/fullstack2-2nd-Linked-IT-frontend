@@ -12,10 +12,10 @@ export default function CheckBox(props) {
         id={id}
         name={name}
         type="checkbox"
-        checked={state}
+        defaultChecked={state}
         onClick={onClick}
       />
-      <label for={id}>
+      <label htmlFor={id}>
         <FontAwesomeIcon icon={state ? faCheckSquare : faSquare} />
         <span>{text}</span>
       </label>

@@ -89,7 +89,7 @@ export default function JobPostingDetail(props) {
             text=""
           />
           <Description>
-            {description.split('\n').map((line, idx) => {
+            {description.split('\n')?.map((line, idx) => {
               return <p key={idx}>{line}&nbsp;</p>;
             })}
           </Description>
@@ -118,7 +118,7 @@ export default function JobPostingDetail(props) {
                   return idx < 5 && line;
                 })}
               {toggleIntro &&
-                companyIntroduction.split('\n').map((line, idx) => {
+                companyIntroduction.split('\n')?.map((line, idx) => {
                   return <p key={idx}>{line}&nbsp;</p>;
                 })}
             </Introduction>

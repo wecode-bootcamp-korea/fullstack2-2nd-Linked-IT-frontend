@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
@@ -7,11 +7,15 @@ import { addComma } from '../../../../../utils/NumberUtil';
 export default function TextArea(props) {
   const [numberOfLetters, setNumberOfLetters] = useState(0);
 
+  useEffect(() => {
+    if (defaultValue) setNumberOfLetters(defaultValue.length);
+  }, []);
+
   const getNumberOfLetters = e => {
     setNumberOfLetters(+e.target.value.length);
   };
 
-  const { title, name, rows, warningText } = props;
+  const { title, name, rows, textLimit, warningText, defaultValue } = props;
 
   return (
     <StyledTextarea>
@@ -20,12 +24,15 @@ export default function TextArea(props) {
         numberOfLetters={numberOfLetters}
         name={name}
         rows={rows}
+        defaultValue={defaultValue}
+        textLimit={textLimit}
         onChange={getNumberOfLetters}
       />
-      <LetterCount numberOfLetters={numberOfLetters}>{`${addComma(
-        numberOfLetters
-      )}/2,000`}</LetterCount>
-      {numberOfLetters > 2000 && (
+      <LetterCount
+        numberOfLetters={numberOfLetters}
+        textLimit={textLimit}
+      >{`${addComma(numberOfLetters)}/${textLimit}`}</LetterCount>
+      {numberOfLetters > textLimit && (
         <OverFlowAlarm>
           <FontAwesomeIcon icon={faExclamationCircle} />
           <span>{warningText}</span>
@@ -34,33 +41,40 @@ export default function TextArea(props) {
     </StyledTextarea>
   );
 }
-const StyledTextarea = styled.div``;
+const StyledTextarea = styled.div`
+  div {
+    color: grey;
+    font-size: 15px;
+  }
+`;
 
 const MyTextArea = styled.textarea`
   margin-top: 5px;
   width: 600px;
-  border: 2px solid
-    ${({ theme, numberOfLetters }) =>
-      numberOfLetters > 2000 ? theme.colors.alarmRed : 'grey'};
+  border: ${({ numberOfLetters, textLimit }) =>
+      numberOfLetters > textLimit ? '2px' : '1px'}
+    solid
+    ${({ theme, numberOfLetters, textLimit }) =>
+      numberOfLetters > textLimit ? theme.colors.alarmRed : 'grey'};
   border-radius: 5px;
 
   &:hover {
     border: 2px solid
-      ${({ theme, numberOfLetters }) =>
-        numberOfLetters > 2000 ? theme.colors.alarmRed : 'grey'};
+      ${({ theme, numberOfLetters, textLimit }) =>
+        numberOfLetters > textLimit ? theme.colors.alarmRed : 'grey'};
   }
 
   &:focus {
     border: 2px solid
-      ${({ theme, numberOfLetters }) =>
-        numberOfLetters > 2000 ? theme.colors.alarmRed : 'grey'};
+      ${({ theme, numberOfLetters, textLimit }) =>
+        numberOfLetters > textLimit ? theme.colors.alarmRed : 'grey'};
     outline: none;
   }
 `;
 
 const LetterCount = styled.div`
-  color: ${({ theme, numberOfLetters }) =>
-    numberOfLetters > 2000 ? theme.colors.alarmRed : 'grey'};
+  color: ${({ theme, numberOfLetters, textLimit }) =>
+    numberOfLetters > textLimit ? theme.colors.alarmRed : 'grey'};
   font-size: 15px;
   text-align: end;
 `;

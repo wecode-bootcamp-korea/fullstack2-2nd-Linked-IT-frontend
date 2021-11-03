@@ -4,15 +4,15 @@ import {
   faChevronCircleLeft,
   faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
-import Card from './Card';
 import styled from 'styled-components';
+import Card from './Card';
 
 export default function Carousel(props) {
   const [currentIdx, setCurrentIdx] = useState(1);
   const [cards, setCards] = useState([]);
   const [compShow, setCompShow] = useState(true);
 
-  const { cards: cardData, cardWidth, cardMargin, wrapperWidth } = props;
+  const { cardData, cardWidth, cardMargin, wrapperWidth } = props;
   const cardLen = cards.length;
   const translateDistance =
     (((cardWidth + cardMargin * 2 + 10) * cardLen - wrapperWidth) /
@@ -81,7 +81,9 @@ export default function Carousel(props) {
 }
 
 const StyledGuideCarousel = styled.section`
+  padding-bottom: 10px;
   background-color: white;
+  border-radius: 0 0 15px 15px;
 
   .btnNorm {
     position: relative;

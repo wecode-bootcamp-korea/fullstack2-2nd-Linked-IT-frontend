@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import ProfileCard from './ProfileCard';
 import UserCard from '../../../components/UserCard/UserCard';
 import Button from '../../../components/Button/Button';
 
-export default function StyledBody(props) {
+export default function CardListContainer(props) {
   const { category, cards, isLayerOpened } = props;
 
   return (
     <Body>
       {category === 'invitations' &&
-        cards.map((card, idx) => {
+        cards?.map((card, idx) => {
           return (
             <UserCardWrapper
               key={card.id}
@@ -32,8 +33,8 @@ export default function StyledBody(props) {
         })}
       {category !== 'invitations' && (
         <Grid isLayerOpened={isLayerOpened}>
-          {cards.map((card, idx) => {
-            return <ProfileCard key={idx}>{idx + 1}</ProfileCard>;
+          {cards?.map((card, idx) => {
+            return <ProfileCard key={idx} />;
           })}
         </Grid>
       )}
@@ -71,13 +72,4 @@ const Grid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   padding: 0 20px 25px 20px;
-`;
-
-const ProfileCard = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 289px;
-  border: 1px solid ${({ theme }) => theme.colors.borderGrey};
-  border-radius: 5px;
 `;

@@ -1,5 +1,6 @@
 const MY_PROFILE_DATA = {
   connectionsCount: 31,
+  myJobPostingCount: 6,
   addressbookCount: 512,
   followCount: 19,
   eventCount: 7,

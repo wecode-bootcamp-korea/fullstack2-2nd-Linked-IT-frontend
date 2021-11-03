@@ -22,6 +22,7 @@ export default function CareerAddModal(props) {
 
   const closeAskCancelModal = e => {
     e.preventDefault();
+    if (e.target.textContent === '삭제') setHasChanged(false);
     setShowAskCancelModal(false);
   };
 
@@ -47,7 +48,7 @@ export default function CareerAddModal(props) {
             scrollY={window.scrollY}
             onClick={hasChanged ? openAskCancelModal : closeCareerAddModal}
           />
-          <Container>
+          <Container scrollY={window.scrollY}>
             <BoxHeader>
               <h2>경력 입력</h2>
               <div className="highlightCircle">
@@ -114,27 +115,30 @@ export default function CareerAddModal(props) {
                     onClick={toggleIsWorkingNow}
                   />
                 </CheckBoxWrapper>
-                <StartInput />
-                <EndInput isWorkingNow={isWorkingNow} />
+                <StartAndEndWrapper>
+                  <StartInput title="시작일" />
+                  <EndInput title="종료일" state={isWorkingNow} />
+                </StartAndEndWrapper>
                 {isWorkingNow && (
                   <CheckBoxWrapper isPositionClosed={isPositionClosed}>
                     <CheckBox
                       id="cbPositionClosed"
                       name="isPositionClosed"
                       state={isPositionClosed}
-                      text={`현재 직책 종료 - ${currentCareer.position} at ${currentCareer.companyName}`}
+                      text={`현재 직책 종료 - ${currentCareer[0].position} at ${currentCareer[0].companyName}`}
                       onClick={toggleIsPositionClosed}
                     />
                   </CheckBoxWrapper>
                 )}
-                <InderstryInput>
-                  <TextInput title="업계" name="inderstry" />
-                </InderstryInput>
+                <IndustryInput>
+                  <TextInput title="업계" name="industry" />
+                </IndustryInput>
                 <DescInput>
                   <TextArea
                     title="설명"
-                    name="inderstry"
+                    name="description"
                     rows={3}
+                    textLimit={2000}
                     warningText="설명은 2,000자를 넘을 수 없습니다."
                   />
                 </DescInput>
@@ -193,7 +197,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 30px;
+  top: ${({ scrollY }) => scrollY + 'px'};
   left: 50%;
   transform: translate(-50%, 0);
   width: 650px;
@@ -277,7 +281,11 @@ const CheckBoxWrapper = styled.div`
   margin: 40px 0 20px 0;
 `;
 
-const InderstryInput = styled.div`
+const StartAndEndWrapper = styled.div`
+  margin-top: 30px;
+`;
+
+const IndustryInput = styled.div`
   margin-top: 40px;
 `;
 

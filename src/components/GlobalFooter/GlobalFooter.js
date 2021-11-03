@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import footerData from './footerData';
+import globalFooterData from './globalFooterData';
 
-export default function Footer(props) {
+export default function GlobalFooter(props) {
   const { isDefault, isHidden, toggleFooter } = props;
 
   return (
@@ -23,7 +22,7 @@ export default function Footer(props) {
               src="/images/common_logo_full.png"
             />
             <FooterLinks>
-              {footerData.links.map(data => {
+              {globalFooterData.links.map(data => {
                 return (
                   <Link key={data.id} to={data.pageLink}>
                     {data.pageName}
@@ -65,7 +64,7 @@ export default function Footer(props) {
                 id="globalfooter-select_language"
                 class="global-footer__language-selection-dropdown"
               >
-                {footerData.languages.map(data => {
+                {globalFooterData.languages.map(data => {
                   return (
                     <option
                       key={data.id}
@@ -108,11 +107,11 @@ const StyledFooter = styled.footer`
   width: 100%;
   height: 266px;
   margin: 0 auto;
-  padding: 1em 1.5em;
+  padding: 16px 24px;
 
   background-color: ${props => props.theme.colors.bgcBeige};
   color: ${props => props.theme.colors.fontGrey};
-  font-size: 1rem;
+  font-size: 16px;
   font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui;
 
   &.modal {
@@ -122,7 +121,7 @@ const StyledFooter = styled.footer`
 
     height: 282px;
     border-radius: 8px;
-    padding-bottom: 1em;
+    padding-bottom: 16px;
 
     background-color: white;
 
@@ -147,7 +146,7 @@ const FooterExitButton = styled.button`
 
   background-color: ${props => props.theme.colors.bgcBeige};
   color: gray;
-  font-size: 1.6rem;
+  font-size: 25px;
 
   &.modal {
     display: block;
@@ -167,7 +166,7 @@ const FooterGridContainer = styled.section`
 
   width: 1128px;
   max-width: 100%;
-  margin: 1.5em auto;
+  margin: 24px auto;
 `;
 
 const FooterLogo = styled.img`
@@ -189,27 +188,27 @@ const FooterLinks = styled.nav`
 
   a {
     color: ${props => props.theme.colors.fontGrey};
-    font-size: 0.8125rem;
+    font-size: 13px;
     font-weight: 600;
 
-    &:hover {
-      color: ${props => props.theme.colors.primary};
-      text-decoration: underline;
-    }
-
     .far {
-      margin-left: 0.4615em;
+      margin-left: 6px;
 
       &.inactive {
         display: none;
       }
+    }
+
+    &:hover {
+      color: ${props => props.theme.colors.primary};
+      text-decoration: underline;
     }
   }
 `;
 
 const GoToHelpCenter = styled.article`
   position: relative;
-  top: -1px;
+  top: -2px;
   left: 2px;
 
   grid-column: 4/5;
@@ -223,18 +222,17 @@ const GoToHelpCenter = styled.article`
 
     width: 24px;
     height: 24px;
-    margin-right: 0.2885em;
-
-    font-size: 1.3rem;
+    margin-right: 6px;
+    font-size: 20px;
   }
 
   p {
-    font-size: 0.8125rem;
-    line-height: 1.35em;
+    font-size: 13px;
+    line-height: 1.3;
 
     a {
       color: ${props => props.theme.colors.fontGrey};
-      font-size: 0.9375rem;
+      font-size: 15px;
       font-weight: 600;
 
       &:hover {
@@ -247,7 +245,7 @@ const GoToHelpCenter = styled.article`
 
 const GoToMySettings = styled.article`
   position: relative;
-  top: -4px;
+  top: -5px;
   left: 2px;
 
   grid-column: 4/5;
@@ -258,21 +256,20 @@ const GoToMySettings = styled.article`
   .fas {
     width: 24px;
     height: 24px;
-    margin-right: 0.2885em;
-
-    font-size: 1.3rem;
+    margin-right: 6px;
+    font-size: 21px;
   }
 
   p {
     position: relative;
     top: -2px;
 
-    font-size: 0.8125rem;
-    line-height: 1.35em;
+    font-size: 13px;
+    line-height: 1.3;
 
     a {
       color: ${props => props.theme.colors.fontGrey};
-      font-size: 0.9375rem;
+      font-size: 15px;
       font-weight: 600;
 
       &:hover {
@@ -293,8 +290,8 @@ const SelectLanguage = styled.aside`
   margin-left: auto;
 
   label {
-    margin-bottom: 0.3846em;
-    font-size: 0.8125rem;
+    margin-bottom: 5px;
+    font-size: 13px;
   }
 
   select {
@@ -302,7 +299,7 @@ const SelectLanguage = styled.aside`
     height: 32px;
     border: 1px solid rgba(0, 0, 0, 0.6);
     border-radius: 4px;
-    padding: 0 2.4em 0 0.6em;
+    padding: 0 32px 0 8px;
 
     -webkit-appearance: none;
     background: url('/images/footer_arrow_dropdown.png') no-repeat 98% 50%;
@@ -321,8 +318,8 @@ const CopyRightNotice = styled.p`
   grid-column: 1/4;
   grid-row: 7/8;
 
-  padding-top: 1em;
-  font-size: 0.8125rem;
+  padding-top: 13px;
+  font-size: 13px;
 `;
 
 const ModalBlocker = styled.div`
@@ -332,7 +329,6 @@ const ModalBlocker = styled.div`
 
   width: 100vw;
   height: 100vh;
-
   background-color: transparent;
 
   &.modal {

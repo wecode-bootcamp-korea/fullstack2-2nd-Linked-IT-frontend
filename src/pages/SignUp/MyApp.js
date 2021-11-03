@@ -1,5 +1,4 @@
-import { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -33,8 +32,8 @@ const MODES = {
 
 function MyComponent() {
   const mode = useContext(ModeContext);
-  const user = useContext(UserContext);
   const modeDispatch = useContext(ModeDispatchContext);
+  const user = useContext(UserContext);
   const userDispatch = useContext(UserDispatchContext);
 
   return (
@@ -66,7 +65,7 @@ const Container = styled.div`
 
   background-color: ${props => props.backgroundColor};
   color: ${props => props.color};
-  font-size: 1rem;
+  font-size: 16px;
 `;
 
 const ModeToggler = styled.div`
@@ -80,7 +79,7 @@ const ModeToggler = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2em;
+  font-size: 32px;
   font-weight: 600;
   cursor: pointer;
 `;

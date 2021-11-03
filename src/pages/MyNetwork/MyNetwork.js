@@ -67,6 +67,8 @@ export default function MyNetwork() {
 }
 
 const Page = styled.div`
+  position: relative;
+  top: 52px;
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.bgcBeige};
@@ -81,7 +83,7 @@ const Container = styled.div`
 
 const Management = styled.aside`
   position: sticky;
-  top: 0;
+  top: 60px;
   width: 322px;
   height: 100%;
   border-radius: 10px;
@@ -89,6 +91,8 @@ const Management = styled.aside`
 `;
 
 const Recommendation = styled.div`
+  position: relative;
+  top: 8px;
   width: 782px;
 `;
 

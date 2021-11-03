@@ -124,7 +124,7 @@ const StyledSearchDropdown = styled.div`
     cursor: pointer;
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.backgroundGrey};
+      background-color: ${({ theme }) => theme.colors.bgcGrey};
     }
   }
 `;
@@ -147,7 +147,7 @@ const RecentSearchLine = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.backgroundGrey};
+    background-color: ${({ theme }) => theme.colors.bgcGrey};
   }
 
   p {
@@ -173,7 +173,7 @@ const ResultLine = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.backgroundGrey};
+    background-color: ${({ theme }) => theme.colors.bgcGrey};
   }
 
   img {
