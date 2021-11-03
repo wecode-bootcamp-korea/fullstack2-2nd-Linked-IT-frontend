@@ -237,7 +237,6 @@ const IconList = styled.ul`
   }
 `;
 
-// '간편 지원' 버튼 hover시 navy색으로 변해야되는데 하얗게 변해서 수정했습니다. -성재
 const BtnApply = styled(Button).attrs(({ theme }) => ({
   bgc: theme.colors.primary,
   color: theme.colors.white,

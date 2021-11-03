@@ -18,9 +18,7 @@ const theme = {
     darkGrey: '#5e5e5e',
     btnGrey: '#666666',
     btnLightGrey: '#ebebeb',
-    borderGrey: '#ebebeb',
     boxShadowGrey: '#808080',
-    darkGrey: '#5e5e5e',
 
     //red계
     alarmRed: '#d11e2c',

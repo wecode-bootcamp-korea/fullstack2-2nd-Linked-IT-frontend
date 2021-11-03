@@ -36,8 +36,8 @@ export default function Jobs(props) {
   // };
 
   const getListDataByPageNumber = pageNumber => {
-    const offset = (pageNumber - 1) * 20;
-    const limit = 20;
+    // const offset = (pageNumber - 1) * 20; // API 미구현
+    // const limit = 20; // API 미구현
     const url = `http://localhost:10000/jobs`;
     fetch(url)
       .then(res => res.json())
@@ -48,7 +48,7 @@ export default function Jobs(props) {
   };
 
   const clickCard = jobPostingId => {
-    const newList = listData.map(post => {
+    const newList = listData?.map(post => {
       if (post.jobPostingId === jobPostingId) {
         getDetailDataByPostingId(jobPostingId);
         post.isClicked = true;
@@ -58,6 +58,7 @@ export default function Jobs(props) {
         return post;
       }
     });
+    setListData(newList);
   };
 
   const getDetailDataByPostingId = jobPostingId => {

@@ -130,4 +130,4 @@ const ButtonWrapper = styled.div`
 
 const BtnSave = styled(Button).attrs(({ theme }) => ({
   color: theme.colors.primary,
-}))``; // Warning 떠서 수정했습니다 -성재
+}))``;

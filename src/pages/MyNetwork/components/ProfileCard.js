@@ -23,11 +23,7 @@ export default function ProfileCard(props) {
         <PositionName>{currentPosition}</PositionName>
       </UserInfoWrapper>
       <ButtonWrapper>
-        <Button
-          width="100%"
-          color={({ theme }) => theme.colors.primary}
-          text="1촌 맺기"
-        />
+        <StyledButton text="1촌 맺기" />
       </ButtonWrapper>
     </Container>
   );
@@ -90,3 +86,10 @@ const ButtonWrapper = styled.div`
   width: 80%;
   padding: 20px 0;
 `;
+
+const StyledButton = styled(Button).attrs(({ theme }) => {
+  return {
+    width: '100%',
+    color: theme.colors.primary,
+  };
+})``;
