@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import isKorean from '../../utils/LanguageUtil';
 
-const UserCard = ({ profile, withoutName, relation, type, text }) => {
+export default function UserCard(props) {
+  const { profile, withoutName, relation, type, text } = props;
   const {
     firstName,
     lastName,
@@ -52,7 +53,7 @@ const UserCard = ({ profile, withoutName, relation, type, text }) => {
       </div>
     </StyledUserCard>
   );
-};
+}
 
 const StyledUserCard = styled.div`
   display: flex;
@@ -75,7 +76,7 @@ const StyledName = styled.div`
   display: ${({ withoutName }) => (withoutName === 'true' ? 'none' : 'block')};
   margin: 5px 0;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 600;
 
   .relation {
     display: ${({ relation }) => (relation === 'true' ? 'inline' : 'none')};
@@ -118,5 +119,3 @@ const StyledText = styled.div`
   margin: 2px 0;
   font-size: 18px;
 `;
-
-export default UserCard;

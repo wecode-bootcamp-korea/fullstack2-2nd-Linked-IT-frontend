@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import ProfileBackGround from './ProfileBackGround';
 import ProfileImage from '../ProfileMain/ProfileImage';
 import Detail from './Detail';
-import Carousel from './Carousel/Carousel';
+import Carousel from '../Carousel/Carousel';
 import Button from '../../../components/Button/Button';
-import InterestsDropDown from './DropDown/InterestDropDown';
-import SectionsDropDown from './DropDown/sectionsDropDown';
 
 import theme from '../../../styles/theme';
 import cardData from '../data/cardData'; // fetch 상관없이 필요
-import MoresDropDown from './DropDown/MoresDropDown'; // fetch 상관없이 필요
+import InterestsDropDown from '../DropDown/InterestDropDown'; // fetch 상관없이 필요
+import SectionsDropDown from '../DropDown/sectionsDropDown'; // fetch 상관없이 필요
+import MoresDropDown from '../DropDown/MoresDropDown'; // fetch 상관없이 필요
 
 export default function ProfileMain(props) {
   const [showInterestsDropDown, setShowInterestsDropDown] = useState(false);

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Button from '../../../../../components/Button/Button';
-import theme from '../../../../../styles/theme';
+import Button from '../../../../components/Button/Button';
+import theme from '../../../../styles/theme';
 
 export default function AskCancel(props) {
   const { state, closeAskCancelModal, closeUpperModal } = props;

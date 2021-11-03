@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { addComma } from '../../../../../utils/NumberUtil';
+import { addComma } from '../../../../utils/NumberUtil';
 
 export default function TextArea(props) {
   const [numberOfLetters, setNumberOfLetters] = useState(0);

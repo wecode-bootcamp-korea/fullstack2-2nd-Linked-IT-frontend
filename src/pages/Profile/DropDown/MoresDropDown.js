@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf, faShareSquare } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
 
-import { mores } from '../../data/dropDownData';
+import { mores } from '../data/dropDownData';
 
 export default function MoresDropDown(props) {
   const { showMoresDropDown } = props;

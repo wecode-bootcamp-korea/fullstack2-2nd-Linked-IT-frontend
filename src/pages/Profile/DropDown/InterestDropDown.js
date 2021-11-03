@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
-import { sections } from '../../data/dropDownData';
+import { interests } from '../data/dropDownData';
 
-export default function SectionsDropDown(props) {
-  const { showSectionsDropDown } = props;
-
+export default function InterestsDropDown(props) {
+  const { showInterestsDropDown } = props;
   return (
-    <StyledDropDown showSectionsDropDown={showSectionsDropDown}>
-      {sections.map(list => {
+    <StyledDropDown showInterestsDropDown={showInterestsDropDown}>
+      {interests.map(list => {
         return (
           <li>
             <div>{`${list.title}`}</div>
@@ -22,17 +21,17 @@ export default function SectionsDropDown(props) {
 const StyledDropDown = styled.ul`
   position: absolute;
   top: 60px;
-  left: 95px;
-  width: 200px;
+  left: 10px;
+  width: 170px;
   background-color: whitesmoke;
   box-shadow: 1px 2px 2px;
   border: 1px solid lightgray;
   border-radius: 5px;
   z-index: 1000;
 
-  transform: ${({ showSectionsDropDown }) =>
-    showSectionsDropDown ? 'translateY(-20px)' : 'none'};
-  opacity: ${({ showSectionsDropDown }) => (showSectionsDropDown ? 1 : 0)};
+  transform: ${({ showInterestsDropDown }) =>
+    showInterestsDropDown ? 'translateY(-20px)' : 'none'};
+  opacity: ${({ showInterestsDropDown }) => (showInterestsDropDown ? 1 : 0)};
   transition: all 0.5s ease;
 
   li {
