@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export default function ProfileImage(props) {
-  const { userProfileUrl } = props;
+  const { userProfileUrl, openImgUploadModal } = props;
   return (
     <StyledProfileImage>
-      <div className="profileImgWrapper">
+      <div className="profileImgWrapper" onClick={openImgUploadModal}>
         {userProfileUrl ? (
           <img alt="profile" src={userProfileUrl} />
         ) : (
@@ -27,7 +27,7 @@ const StyledProfileImage = styled.div`
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: transparent;
+    background-color: white;
     cursor: pointer;
     overflow: hidden;
     z-index: 1;

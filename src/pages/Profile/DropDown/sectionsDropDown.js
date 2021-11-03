@@ -9,7 +9,7 @@ export default function SectionsDropDown(props) {
     <StyledDropDown showSectionsDropDown={showSectionsDropDown}>
       {sections.map(list => {
         return (
-          <li>
+          <li key={list.title}>
             <div>{`${list.title}`}</div>
             <span>{`${list.desc}`}</span>
           </li>

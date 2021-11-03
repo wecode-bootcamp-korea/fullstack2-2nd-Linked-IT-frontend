@@ -3,7 +3,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 export default function ProfileBackGround(props) {
-  const { backgroundImg } = props;
+  const { backgroundImg, openImgUploadModal } = props;
   return (
     <StyledProfileBackGround>
       <div className="bgImgWrapper">
@@ -16,9 +16,9 @@ export default function ProfileBackGround(props) {
             src="/images/defaultProfileBg.png"
           />
         )}
-        <div className="cameraIconWrapper">
+        <CameraIconWrapper onClick={openImgUploadModal}>
           <FontAwesomeIcon className="cameraIcon" icon={faCamera} />
-        </div>
+        </CameraIconWrapper>
       </div>
     </StyledProfileBackGround>
   );
@@ -33,28 +33,28 @@ const StyledProfileBackGround = styled.div`
     .bgImg {
       width: 750px;
     }
+  }
+`;
 
-    .cameraIconWrapper {
-      position: absolute;
-      top: 0;
-      right: 5px;
-      transform: translate(-50%, 35%);
-      width: 32px;
-      height: 32px;
-      border-radius: 50px;
-      background-color: white;
-      cursor: pointer;
+const CameraIconWrapper = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  transform: translate(-50%, 35%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
+  background-color: white;
+  cursor: pointer;
 
-      .cameraIcon {
-        display: block;
-        margin: 7px auto;
-        color: ${({ theme }) => theme.colors.primary};
-        cursor: pointer;
+  .cameraIcon {
+    display: block;
+    margin: 7px auto;
+    color: ${({ theme }) => theme.colors.primary};
+    cursor: pointer;
 
-        &:hover {
-          color: black;
-        }
-      }
+    &:hover {
+      color: black;
     }
   }
 `;
