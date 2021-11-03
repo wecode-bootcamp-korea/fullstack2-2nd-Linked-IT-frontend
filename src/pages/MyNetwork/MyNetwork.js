@@ -6,17 +6,30 @@ import StyledSection from './components/StyledSection';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 const TEMP_DATA = new Array(8).fill(0);
 
-export default function MyNetwork(props) {
+const USER_ID = 1; // API 미구현으로 인한 임시 로직
+
+export default function MyNetwork() {
+  const [friendCount, setFriendCount] = useState(0);
   const [myProfileData, setMyProfileData] = useState(0);
+  const [invitationData, setInvitationData] = useState([]);
   const [isLayerOpened, setIsLayerOpened] = useState(false);
   const [clickedCategoryInfo, setClickedCategoryInfo] = useState({});
 
-  const { friendsCount, companyName, education, industryCategory } =
-    myProfileData;
+  const { companyName, education, industryCategory } = myProfileData;
 
   useEffect(() => {
+    getTotalFriendCount();
     getMyProfileData();
+    getFriendListByStatus(USER_ID, 3); // 친구요청 받음
   }, []);
+
+  const getTotalFriendCount = () => {
+    const url = `http://localhost:10000/friend/${USER_ID}/totalCount`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setFriendCount(data))
+      .catch();
+  };
 
   const getMyProfileData = () => {
     const url = `/data/mynetwork/myProfileData.json`;
@@ -25,7 +38,16 @@ export default function MyNetwork(props) {
       .then(res => {
         setMyProfileData(res);
       })
-      .catch();
+      .catch(console.log);
+  };
+
+  const getFriendListByStatus = (userId, friendStatusId) => {
+    const url = `http://localhost:10000/friend/my?userId=${userId}&friendStatusId=${friendStatusId}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setInvitationData(data);
+      });
   };
 
   const showAll = clickedCategoryInfo => {
@@ -38,31 +60,43 @@ export default function MyNetwork(props) {
       {isLayerOpened && <Dim onClick={showAll} />}
       <Container>
         <Management>
-          <Menus connectionsCount={friendsCount} />
+          <Menus connectionsCount={friendCount} />
           <FloatingFooter />
         </Management>
         <Recommendation>
-          <StyledSection category="invitations" onClick={showAll} />
+          <StyledSection
+            category="invitations"
+            cardData={invitationData}
+            onClick={showAll}
+          />
           <StyledSection
             category="company"
             title={companyName}
-            cards={TEMP_DATA}
+            cardData={TEMP_DATA}
             onClick={showAll}
           />
           <StyledSection
             category="education"
             title={education}
-            cards={TEMP_DATA}
+            cardData={TEMP_DATA}
             onClick={showAll}
           />
           <StyledSection
             category="industry"
             title={industryCategory}
-            cards={TEMP_DATA}
+            cardData={TEMP_DATA}
             onClick={showAll}
           />
-          <StyledSection category="page" cards={TEMP_DATA} onClick={showAll} />
-          <StyledSection category="more" cards={TEMP_DATA} onClick={showAll} />
+          <StyledSection
+            category="page"
+            cardData={TEMP_DATA}
+            onClick={showAll}
+          />
+          <StyledSection
+            category="more"
+            cardData={TEMP_DATA}
+            onClick={showAll}
+          />
         </Recommendation>
         {isLayerOpened && (
           <Layer
@@ -79,7 +113,6 @@ export default function MyNetwork(props) {
 const Page = styled.div`
   position: relative;
   top: 52px;
-  /* padding: 20px 0; // TopNav -성재 */
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.bgcBeige};
@@ -95,7 +128,6 @@ const Container = styled.div`
 const Management = styled.aside`
   position: sticky;
   top: 60px;
-  /* top: 72px; // TopNav -성재 */
   width: 322px;
   height: 100%;
   border-radius: 10px;

@@ -25,7 +25,6 @@ export default function Routes() {
           <Route exact path="/search/all" component={MainSearch} />
           <Route exact path="/search/people" component={PeopleSearch} />
           <Route exact path="/feed" component={Feed} />
-          <Route exact path="/mynetwork" component={MyNetwork} />
           <Route exact path="/jobs" component={Jobs} />
           <Route exact path="/profile:id" component={Profile} />
           <Route exact path="/profile" component={Profile} />

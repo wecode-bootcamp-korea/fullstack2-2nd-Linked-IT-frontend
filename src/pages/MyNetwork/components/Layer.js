@@ -23,7 +23,6 @@ export default function Layer(props) {
   useEffect(() => {
     let observer;
     if (infiniteTarget) {
-      console.log('target');
       observer = new IntersectionObserver(callback, options);
       observer.observe(infiniteTarget);
     }

@@ -1,39 +1,58 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ProfileCard from './ProfileCard';
 import UserCard from '../../../components/UserCard/UserCard';
 import Button from '../../../components/Button/Button';
+import { acceptFriendRequest } from '../../Connections/utils/TempAPI';
 
 export default function CardListContainer(props) {
-  const { category, cards, isLayerOpened } = props;
+  const { category, cardData, isLayerOpened } = props;
+  const [cardList, setCardList] = useState([]);
+
+  useEffect(() => {
+    setCardList(cardData);
+  }, [cardData]);
+
+  const clickBtnAccept = async friendId => {
+    await acceptFriendRequest(friendId);
+    alert('친구 요청을 수락하였습니다.');
+    updateCardList(friendId);
+  };
+
+  const updateCardList = friendId => {
+    const newList = cardList.filter(card => card.userId !== friendId);
+    setCardList(newList);
+  };
 
   return (
     <Body>
       {category === 'invitations' &&
-        cards?.map((card, idx) => {
+        cardList?.map((card, idx) => {
+          const { userId, school } = card;
           return (
             <UserCardWrapper
-              key={card.id}
+              key={userId}
               borderTop={idx === 0 ? true : false}
-              borderBottom={idx === cards.length - 1 ? false : true}
+              borderBottom={idx === cardList.length - 1 ? false : true}
             >
               <UserCard
-                key={card.id}
+                key={userId}
                 profile={card}
                 withoutName="false"
                 relation="true"
-                type="location ejob"
+                type={school ? 'education major' : ''}
                 text=""
               />
               <ButtonWrapper>
                 <Button text="모른 척 하기"></Button>
-                <BtnAccept text="수락" />
+                <BtnAccept text="수락" onClick={() => clickBtnAccept(userId)} />
               </ButtonWrapper>
             </UserCardWrapper>
           );
         })}
       {category !== 'invitations' && (
         <Grid isLayerOpened={isLayerOpened}>
-          {cards?.map((card, idx) => {
+          {cardList?.map((card, idx) => {
             return <ProfileCard key={idx} />;
           })}
         </Grid>
