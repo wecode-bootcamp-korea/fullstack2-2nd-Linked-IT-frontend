@@ -4,6 +4,20 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
+const validateInput = user => {
+  const { email, password } = user;
+
+  const validEmail =
+    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const isValidEmail = email.match(validEmail) && email !== '';
+  const isValidPassword = password.length >= 8 && password !== '';
+
+  // Test Code for Checking Functions
+  console.log(isValidEmail, isValidPassword);
+
+  return isValidEmail && isValidPassword;
+};
+
 export default function SignIn() {
   const [user, setUser] = useState({
     email: '',
@@ -18,15 +32,6 @@ export default function SignIn() {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const showPassword = () => {
     setIsPasswordHidden(!isPasswordHidden);
-  };
-
-  const validateInput = () => {
-    const validEmail =
-      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const isValidEmail = user.email.match(validEmail) && user.email !== '';
-    const isValidPassword = user.password.length >= 8 && user.password !== '';
-
-    return isValidEmail && isValidPassword;
   };
 
   const history = useHistory();
@@ -67,7 +72,7 @@ export default function SignIn() {
 
   // Test Code for Checking Functions
   useEffect(() => {
-    console.log(user, validateInput());
+    console.log(user);
   }, [user]);
 
   return (
@@ -82,7 +87,9 @@ export default function SignIn() {
           <h1>로그인하세요</h1>
           <p>업무 관련 소식을 받아보세요</p>
         </SignInMainHead>
-        <SignInMainForm onSubmit={validateInput() ? submitInput : rejectInput}>
+        <SignInMainForm
+          onSubmit={validateInput(user) ? submitInput : rejectInput}
+        >
           <div>
             {/* <label for="email">이메일</label> */}
             <input
@@ -139,6 +146,7 @@ export default function SignIn() {
         LinkedIT이 처음이세요? <Link to="/signup">회원 가입</Link>
       </GoToSignUp>
       <LinearFooter signIn />
+      <SignInBackground />
     </>
   );
 }
@@ -162,6 +170,7 @@ const SignInMain = styled.main`
   box-shadow: 0 4px 12px 0 #dddddd;
   border-radius: 8px;
   padding: 26px 24px 24px;
+  background-color: white;
 
   button {
     border: 1px solid black;
@@ -312,4 +321,15 @@ const GoToSignUp = styled.article`
       text-decoration: underline;
     }
   }
+`;
+
+const SignInBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
 `;

@@ -4,6 +4,27 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
+const validateInput = user => {
+  const { lastName, firstName, email, password } = user;
+
+  const validLastName = /^[가-힣]{1,2}$/;
+  const validFirstName = /^[가-힣]{1,4}$/;
+  const validEmail =
+    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const validPassword =
+    /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+
+  const isValidLastName = lastName.match(validLastName) && lastName !== '';
+  const isValidFirstName = firstName.match(validFirstName) && firstName !== '';
+  const isValidEmail = email.match(validEmail) && email !== '';
+  const isValidPassword = password.match(validPassword) && password !== '';
+
+  // Test Code for Checking Functions
+  console.log(isValidLastName, isValidFirstName, isValidEmail, isValidPassword);
+
+  return isValidLastName && isValidFirstName && isValidEmail && isValidPassword;
+};
+
 export default function SignUp() {
   const [user, setUser] = useState({
     firstName: '',
@@ -20,27 +41,6 @@ export default function SignUp() {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const showPassword = () => {
     setIsPasswordHidden(!isPasswordHidden);
-  };
-
-  const validateInput = () => {
-    const validLastName = /^[가-힣]{1,2}$/;
-    const validFirstName = /^[가-힣]{1,4}$/;
-    const validEmail =
-      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const validPassword =
-      /^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-
-    const isValidLastName =
-      user.lastName.match(validLastName) && user.lastName !== '';
-    const isValidFirstName =
-      user.firstName.match(validFirstName) && user.firstName !== '';
-    const isValidEmail = user.email.match(validEmail) && user.email !== '';
-    const isValidPassword =
-      user.password.match(validPassword) && user.password !== '';
-
-    return (
-      isValidLastName && isValidFirstName && isValidEmail && isValidPassword
-    );
   };
 
   const history = useHistory();
@@ -81,7 +81,7 @@ export default function SignUp() {
 
   // Test Code for Checking Functions
   useEffect(() => {
-    console.log(user, validateInput());
+    console.log(user);
   }, [user]);
 
   return (
@@ -91,7 +91,9 @@ export default function SignUp() {
         <h1>LinkedIn을 활용하여 기회의 문을 넓히세요.</h1>
       </SignUpHeader>
       <SignUpMain>
-        <SignUpMainForm onSubmit={validateInput() ? submitInput : rejectInput}>
+        <SignUpMainForm
+          onSubmit={validateInput(user) ? submitInput : rejectInput}
+        >
           <div>
             <label for="lastName">성</label>
             <input
@@ -169,7 +171,6 @@ export default function SignUp() {
         </GoToSignIn>
       </SignUpMain>
       <LinearFooter signUp />
-      <SignUpBackground />
     </>
   );
 }
@@ -332,15 +333,4 @@ const GoToSignIn = styled.article`
       text-decoration: underline;
     }
   }
-`;
-
-const SignUpBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-
-  width: 100vw;
-  height: 100vh;
-  background-color: ${props => props.theme.colors.bgcBeige};
 `;
