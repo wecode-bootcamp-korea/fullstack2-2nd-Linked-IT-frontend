@@ -8,7 +8,7 @@ export default function InterestsDropDown(props) {
     <StyledDropDown showInterestsDropDown={showInterestsDropDown}>
       {interests.map(list => {
         return (
-          <li>
+          <li key={list.title}>
             <div>{`${list.title}`}</div>
             <span>{`${list.desc}`}</span>
           </li>

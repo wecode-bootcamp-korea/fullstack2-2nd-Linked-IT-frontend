@@ -14,7 +14,7 @@ export default function MayKonwList(props) {
         <ul>
           {mayKnowList.map(list => {
             return (
-              <List>
+              <List key={list.firstName}>
                 <StyledLink href={list.github} target="_blank">
                   <UserCard profile={list} type="ejob" />
                 </StyledLink>

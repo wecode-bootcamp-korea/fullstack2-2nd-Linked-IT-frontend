@@ -11,6 +11,7 @@ import MayKonwList from './MayKnowList';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import PopUpMessage from './Modals/PopUpMessage';
 import { disableScroll, enableScroll } from '../../utils/ModalFunc';
+import ImgUploadModal from './ImgUploadModal';
 
 export default function Profile() {
   const [showBasicEditModal, setShowBasicEditModal] = useState(false);
@@ -22,7 +23,9 @@ export default function Profile() {
   const [selectedEducation, setSelectedEducation] = useState(0);
   const [showCurrentCompany, setShowCurrentCompany] = useState(true);
   const [showEducation, setShowEducation] = useState(true);
+  const [showImgUploadModal, setShowImgUploadModal] = useState(false);
   const [popUpSaved, setPopUpSaved] = useState(true);
+  const [type, setType] = useState('');
 
   const [careers, setCareers] = useState([]);
   const [educations, setEducation] = useState([]);
@@ -30,8 +33,8 @@ export default function Profile() {
   const [mayKnowList, setMayKnowList] = useState([]);
 
   useEffect(() => {
-    fetch('data/profile/profileDataUrl.json')
-      // fetch('data/profileData.json') 이미지 없을 경우
+    // fetch('data/profile/profileDataUrl.json')
+    fetch('data/profile/profileData.json')
       .then(res => res.json())
       .then(data => {
         setProfile(data.PROFILE_DATA);
@@ -55,6 +58,14 @@ export default function Profile() {
         setMayKnowList(data.MAYKNOWLIST_DATA);
       });
   }, []);
+
+  const updateBgImg = img => {
+    setProfile({ ...profile, backgroundImg: img });
+  };
+
+  const updateProfileImg = img => {
+    setProfile({ ...profile, userProfileUrl: img });
+  };
 
   // 기본정보 수정
   const openBasicEditModal = e => {
@@ -121,6 +132,20 @@ export default function Profile() {
     enableScroll();
     setShowEducationEditModal(false);
   };
+
+  // 이미지 업로드
+  const openImgUploadModal = e => {
+    e.preventDefault();
+    disableScroll();
+    setType(e.target.localName);
+    setShowImgUploadModal(true);
+  };
+
+  const closeImgUploadmodal = e => {
+    enableScroll();
+    setShowImgUploadModal(false);
+  };
+
   return (
     <StyledInformation>
       <Container>
@@ -128,6 +153,7 @@ export default function Profile() {
           <ProfileMain
             profile={profile}
             openBasicEditModal={openBasicEditModal}
+            openImgUploadModal={openImgUploadModal}
             showCurrentCompany={showCurrentCompany}
             showEducation={showEducation}
           />
@@ -170,6 +196,13 @@ export default function Profile() {
             setShowCurrentCompany={setShowCurrentCompany}
             showEducation={showEducation}
             setShowEducation={setShowEducation}
+          />
+          <ImgUploadModal
+            type={type}
+            showImgUploadModal={showImgUploadModal}
+            closeImgUploadmodal={closeImgUploadmodal}
+            updateBgImg={updateBgImg}
+            updateProfileImg={updateProfileImg}
           />
         </Main>
         <Aside>

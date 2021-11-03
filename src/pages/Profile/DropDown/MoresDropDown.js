@@ -11,7 +11,7 @@ export default function MoresDropDown(props) {
     <StyledDropDown showMoresDropDown={showMoresDropDown}>
       {mores.map((list, i) => {
         return (
-          <li>
+          <li key={list}>
             <span>{list}</span>
             <FontAwesomeIcon icon={i === 0 ? faShareSquare : faFilePdf} />
           </li>

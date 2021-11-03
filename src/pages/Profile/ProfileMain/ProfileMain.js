@@ -47,14 +47,25 @@ export default function ProfileMain(props) {
   };
 
   const { userProfileUrl, backgroundImg } = props.profile;
-  const { openBasicEditModal, showCurrentCompany, showEducation } = props;
+  const {
+    openBasicEditModal,
+    showCurrentCompany,
+    showEducation,
+    openImgUploadModal,
+  } = props;
 
   return (
     <StyledProfileCard>
       <BoxHeader>
-        <ProfileBackGround backgroundImg={backgroundImg} />
+        <ProfileBackGround
+          backgroundImg={backgroundImg}
+          openImgUploadModal={openImgUploadModal}
+        />
       </BoxHeader>
-      <ProfileImage userProfileUrl={userProfileUrl} />
+      <ProfileImage
+        userProfileUrl={userProfileUrl}
+        openImgUploadModal={openImgUploadModal}
+      />
       <PenIconWrapper>
         <FontAwesomeIcon icon={faPen} onClick={openBasicEditModal} />
       </PenIconWrapper>
