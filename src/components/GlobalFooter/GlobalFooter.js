@@ -117,6 +117,7 @@ const StyledFooter = styled.footer`
   &.modal {
     position: fixed;
     bottom: 0;
+    left: 0;
     z-index: 10000;
 
     height: 282px;

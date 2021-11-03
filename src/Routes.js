@@ -27,7 +27,7 @@ export default function Routes() {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/mynetwork" component={MyNetwork} />
           <Route exact path="/connections" component={Connections} />
-          <Route component={NotFound} />
+          {/* <Route component={NotFound} /> */}
         </>
       </Switch>
     </BrowserRouter>
