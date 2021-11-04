@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import SignInButton from './SignInButton';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 const validateInput = user => {
@@ -12,7 +13,7 @@ const validateInput = user => {
   const isValidEmail = email.match(validEmail) && email !== '';
   const isValidPassword = password.length >= 8 && password !== '';
 
-  // Test Code for Checking Functions
+  // Test Code for Checking Function
   console.log(isValidEmail, isValidPassword);
 
   return isValidEmail && isValidPassword;
@@ -36,26 +37,29 @@ export default function SignIn() {
 
   const history = useHistory();
   const submitInput = event => {
+    const { email, password } = user;
+
     // event.preventDefault();
-    fetch(`user/signin`, {
+    fetch(`http://localhost:10000/user/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email: user.email,
-        password: user.password,
+        email,
+        password,
       }),
-      credentials: 'include',
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res); // 백엔드로부터 토큰을 잘 받았는지 확인
+        console.log(res);
         localStorage.setItem('accessToken', res.access_token);
-        if (res.status === 'SIGNIN_FAILED') {
+        if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
+          alert('로그인에 성공하였습니다.');
+          history.push('/feed');
+        } else if (res.status === 'SIGNIN_FAILED') {
           alert(
             '로그인에 실패하였습니다. 이메일과 비밀번호를 다시 입력해주세요.'
           );
-        } else if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
-          history.push('/feed');
         } else {
           alert(res.status);
         }
@@ -128,19 +132,7 @@ export default function SignIn() {
         <SignInMainSeperator>
           또<br />는
         </SignInMainSeperator>
-        <Button
-          type="submit"
-          bgc={`white`}
-          color={props => props.theme.colors.fontGrey}
-          text={
-            <div>
-              <i class="fab fa-google"></i>
-              <span>구글 계정으로 로그인</span>
-            </div>
-          }
-          width={`100%`}
-          height={`52px`}
-        />
+        <SignInButton />
       </SignInMain>
       <GoToSignUp>
         LinkedIT이 처음이세요? <Link to="/signup">회원 가입</Link>
@@ -165,32 +157,12 @@ const SignInMain = styled.main`
   justify-content: space-between;
 
   width: 352px;
-  height: 485px;
-  margin: 42px auto 36px;
+  height: 545px;
+  margin: 24px auto;
   box-shadow: 0 4px 12px 0 #dddddd;
   border-radius: 8px;
   padding: 26px 24px 24px;
   background-color: white;
-
-  button {
-    border: 1px solid black;
-    border-radius: 28px;
-    font-weight: 600;
-
-    .fab {
-      position: relative;
-      top: 2px;
-
-      margin-right: 12px;
-      color: black;
-      font-size: 21px;
-    }
-
-    &:hover {
-      border: 2px solid ${props => props.theme.colors.darkGrey};
-      background-color: ${props => props.theme.colors.btnLightGrey};
-    }
-  }
 `;
 
 const SignInMainHead = styled.div`
@@ -272,7 +244,9 @@ const SignInMainForm = styled.form`
   button {
     margin-top: 8px;
     border: 0;
+    border-radius: 28px;
     padding-top: 6px;
+    font-weight: 600;
 
     &:hover {
       border: 0;

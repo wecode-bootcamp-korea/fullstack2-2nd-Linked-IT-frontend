@@ -7,7 +7,7 @@ import {
   ModeDispatchContext,
   UserContext,
   UserDispatchContext,
-} from '../../contexts/MyContextProvider';
+} from './MyContextProvider';
 
 export default function MyApp() {
   return (

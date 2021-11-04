@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import SignUpButton from './SignUpButton';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
 
 const validateInput = user => {
@@ -19,7 +20,7 @@ const validateInput = user => {
   const isValidEmail = email.match(validEmail) && email !== '';
   const isValidPassword = password.match(validPassword) && password !== '';
 
-  // Test Code for Checking Functions
+  // Test Code for Checking Function
   console.log(isValidLastName, isValidFirstName, isValidEmail, isValidPassword);
 
   return isValidLastName && isValidFirstName && isValidEmail && isValidPassword;
@@ -45,24 +46,27 @@ export default function SignUp() {
 
   const history = useHistory();
   const submitInput = event => {
+    const { firstName, lastName, email, password } = user;
+
     // event.preventDefault();
-    fetch(`user/signup`, {
+    fetch(`http://localhost:10000/user/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        password: user.password,
+        firstName,
+        lastName,
+        email,
+        password,
       }),
     })
       .then(res => res.json())
       .then(res => {
-        if (res.status === 'SIGNUP_FAILED') {
-          alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
-        } else if (res.status === 'SIGNUP_SUCCESSED') {
+        console.log(res);
+        if (res.status === 'SIGNUP_SUCCESSED') {
           alert('회원가입에 성공하였습니다.');
           history.push('/signin');
+        } else if (res.status === 'SIGNUP_FAILED') {
+          alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
         } else {
           alert(res.status);
         }
@@ -70,7 +74,7 @@ export default function SignUp() {
   };
 
   const rejectInput = () => {
-    alert('회원가입에 실패하였습니다. 유효한 형식으로 다시 입력해주세요.');
+    alert('회원가입에 실패하였습니다. 유효한 형식으로 다시 시도해주세요.');
     setUser({
       firstName: '',
       lastName: '',
@@ -153,22 +157,10 @@ export default function SignUp() {
           />
         </SignUpMainForm>
         <SignUpMainSeperator>또는</SignUpMainSeperator>
-        <Button
-          type="submit"
-          bgc={`white`}
-          color={props => props.theme.colors.primary}
-          text={
-            <div>
-              <i class="fab fa-google"></i>
-              <span>구글 계정으로 가입</span>
-            </div>
-          }
-          width={`100%`}
-          height={`48px`}
-        />
-        <GoToSignIn>
+        <SignUpButton />
+        {/* <GoToSignIn>
           이미 LinkedIT 회원이세요? <Link to="/signin">로그인</Link>하세요.
-        </GoToSignIn>
+        </GoToSignIn> */}
       </SignUpMain>
       <LinearFooter signUp />
     </>
@@ -180,14 +172,14 @@ const SignUpHeader = styled.header`
   text-align: center;
 
   img {
-    width: 135px;
+    width: 125px;
   }
 
   h1 {
-    height: 84px;
-    padding: 20px;
+    height: 70px;
+    padding: 16px 0 10px;
 
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 400;
     line-height: 1.25;
   }
@@ -199,31 +191,11 @@ const SignUpMain = styled.main`
   justify-content: space-between;
 
   width: 400px;
-  height: 530px;
+  height: 550px;
   margin: 0 auto;
   border-radius: 8px;
   padding: 24px 24px 22px;
   background-color: white;
-
-  button {
-    border: 1px solid ${props => props.theme.colors.primary};
-    border-radius: 28px;
-    font-weight: 600;
-
-    .fab {
-      position: relative;
-      top: 2px;
-
-      margin-right: 12px;
-      color: ${props => props.theme.colors.primary};
-      font-size: 21px;
-    }
-
-    &:hover {
-      border: 2px solid ${props => props.theme.colors.primary};
-      background-color: ${props => props.theme.colors.bgcLightBlue};
-    }
-  }
 `;
 
 const SignUpMainForm = styled.form`
@@ -287,7 +259,9 @@ const SignUpMainForm = styled.form`
 
   button {
     border: 0;
+    border-radius: 28px;
     padding-top: 6px;
+    font-weight: 600;
 
     &:hover {
       border: 0;
@@ -317,20 +291,20 @@ const SignUpMainSeperator = styled.span`
   }
 `;
 
-const GoToSignIn = styled.article`
-  margin: 0 auto;
-  font-size: 17px;
-  text-align: center;
+// const GoToSignIn = styled.article`
+//   margin: 4px auto 0;
+//   font-size: 16px;
+//   text-align: center;
 
-  a {
-    display: inline-block;
+//   a {
+//     display: inline-block;
 
-    margin-left: 2px;
-    color: ${props => props.theme.colors.primary};
-    font-weight: 600;
+//     margin-left: 2px;
+//     color: ${props => props.theme.colors.primary};
+//     font-weight: 600;
 
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
+//     &:hover {
+//       text-decoration: underline;
+//     }
+//   }
+// `;
