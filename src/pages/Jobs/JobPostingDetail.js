@@ -5,7 +5,6 @@ import Button from '../../components/Button/Button';
 import UserCard from '../../components/UserCard/UserCard';
 import CompanyProfileCard from '../../components/CompanyProfileCard/CompanyProfileCard';
 import { addComma } from '../../utils/NumberUtil';
-import USER_DATA from '../../components/UserCard/testData';
 
 export default function JobPostingDetail(props) {
   const {
@@ -15,15 +14,36 @@ export default function JobPostingDetail(props) {
     applicantCount,
     isEasyApply,
     employmentType,
-    description,
+    description = '',
     salaryRange,
     salaryInfo,
     companyName,
     companyLocation,
     staffCount,
     companyCategory,
-    companyIntroduction,
+    companyIntroduction = '',
+    authorId,
+    authorFirstName,
+    authorLastName,
+    authorProfileImageUrl,
+    authorPosition,
   } = props;
+
+  const userData = {
+    id: authorId,
+    firstName: authorFirstName,
+    lastName: authorLastName,
+    userProfileUrl: authorProfileImageUrl,
+    companyNameEng: '',
+    companyNameKor: companyName,
+    currentPosition: authorPosition,
+    country: companyLocation,
+    city: '',
+    school: '',
+    major: '',
+    degree: '',
+    inConnection: false,
+  };
 
   const [showToolbar, setShowToolbar] = useState(false);
   const [toggleIntro, setToggleIntro] = useState(false);
@@ -67,11 +87,11 @@ export default function JobPostingDetail(props) {
           </Subtitle>
           <IconList>
             <li>
-              <img alt="ico_briefcase" src="/images/ico_briefcase.svg" />
+              <img alt="briefcase icon" src="/images/ico_briefcase.svg" />
               {employmentType}
             </li>
             <li>
-              <img alt="ico_building" src="/images/ico_building.svg" />
+              <img alt="building icon" src="/images/ico_building.svg" />
               직원 {staffCount}명 &#183; {companyCategory}
             </li>
             <li ref={target}>
@@ -82,14 +102,14 @@ export default function JobPostingDetail(props) {
         </TopSection>
         <Midsection>
           <UserCard
-            profile={USER_DATA}
+            profile={userData}
             withoutName="false"
             relation="true"
             type="location ejob"
             text=""
           />
           <Description>
-            {description.split('\n')?.map((line, idx) => {
+            {description.split('\\n').map((line, idx) => {
               return <p key={idx}>{line}&nbsp;</p>;
             })}
           </Description>
@@ -112,15 +132,10 @@ export default function JobPostingDetail(props) {
                 showBorder={false}
               />
             </CompanyProfileCardWrapper>
-            <Introduction>
-              {!toggleIntro &&
-                companyIntroduction.split('\n').filter((line, idx) => {
-                  return idx < 5 && line;
-                })}
-              {toggleIntro &&
-                companyIntroduction.split('\n')?.map((line, idx) => {
-                  return <p key={idx}>{line}&nbsp;</p>;
-                })}
+            <Introduction toggleIntro={toggleIntro}>
+              {companyIntroduction.split('\\n').map((line, idx) => {
+                return <p key={idx}>{line}&nbsp;</p>;
+              })}
             </Introduction>
             <ToggleIntro onClick={clickToggleIntro}>
               {toggleIntro ? '숨기기' : '더 보기'}
@@ -165,10 +180,7 @@ const BottomSection = styled.section``;
 
 const Toolbar = styled.div`
   position: fixed;
-  top: ${({ showToolbar }) =>
-    showToolbar
-      ? '52px'
-      : '-110px'}; //TopNav관련 '0'을 '52px'로 바꿨습니다 -성재
+  top: ${({ showToolbar }) => (showToolbar ? '52px' : '-110px')};
   width: 625px;
   padding: 15px 20px 30px 23px;
   border-right: 1px solid ${({ theme }) => theme.colors.borderGrey};
@@ -225,7 +237,6 @@ const IconList = styled.ul`
   }
 `;
 
-// '간편 지원' 버튼 hover시 navy색으로 변해야되는데 하얗게 변해서 수정했습니다. -성재
 const BtnApply = styled(Button).attrs(({ theme }) => ({
   bgc: theme.colors.primary,
   color: theme.colors.white,
@@ -293,9 +304,15 @@ const CompanyProfileCardWrapper = styled.div`
 `;
 
 const Introduction = styled.div`
+  height: ${({ toggleIntro }) => (toggleIntro ? '' : '62px')};
   margin: 20px 20px 20px 15px;
   font-size: 15px;
-  line-height: 23px;
+  line-height: 20px;
+  overflow: ${({ toggleIntro }) => (toggleIntro ? 'visible' : 'hidden')};
+
+  p {
+    height: 100%;
+  }
 `;
 
 const ToggleIntro = styled.div`

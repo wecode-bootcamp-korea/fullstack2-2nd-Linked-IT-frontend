@@ -1,118 +1,66 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import UserCard from '../../components/UserCard/UserCard';
-import Button from '../../components/Button/Button';
+import FriendList from './FriendList';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import isKorean from '../../utils/LanguageUtil';
 
-function sortArrayByName(array, sortCriteria) {
-  array.sort(compareName);
-  if (sortCriteria === 'desc') array = array.reverse();
-  return array;
-}
+const USER_ID = 1; // API 미구현으로 인한 임시 로직
 
-function compareName(obj1, obj2) {
-  if (obj1.lastName.toUpperCase() < obj2.lastName.toUpperCase()) {
-    return 1;
-  } else if (obj1.lastName.toUpperCase() === obj2.lastName.toUpperCase()) {
-    if (obj1.firstName.toUpperCase() < obj2.firstName.toUpperCase()) {
-      return 1;
-    } else {
-      return -1;
-    }
-  } else {
-    return -1;
-  }
-}
-
-function searchUserByName(userCardList, searchInput) {
-  return userCardList.filter(card => {
-    const { lastName, firstName } = card;
-    const booleanValue = isKorean(lastName);
-    const name = booleanValue ? lastName + firstName : firstName + lastName;
-    return (
-      name
-        .replaceAll(' ', '')
-        .toUpperCase()
-        .indexOf(searchInput.replaceAll(' ', '').toUpperCase()) > -1
-    );
-  });
-}
-
-export default function Connections(props) {
-  const [userCardList, setUserCardList] = useState([]);
-  const [filteredCardList, setFilteredCardList] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
-  const [sortCriteria, setSortCriteria] = useState('');
+export default function Connections() {
+  const [friendList, setFriendList] = useState([]);
+  const [friendReceiveList, setFriendReceiveList] = useState([]);
+  const [friendRequestList, setFriendRequestList] = useState([]);
+  const [isReloadNeeded, setIsReloadNeeded] = useState(true);
 
   useEffect(() => {
-    const url = `http://localhost:10000/friend/my?userId=${1}`;
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        setUserCardList(res);
-        setFilteredCardList(res);
-      });
+    getFriendListByStatus(USER_ID, 4); // 친구
+    getFriendListByStatus(USER_ID, 2); // 친구요청 보냄
+    getFriendListByStatus(USER_ID, 3); // 친구요청 받음
   }, []);
 
   useEffect(() => {
-    const filteredList = searchUserByName(userCardList, searchInput);
-    setFilteredCardList(filteredList);
-  }, [searchInput]);
+    getFriendListByStatus(USER_ID, 4); // 친구
+    getFriendListByStatus(USER_ID, 2); // 친구요청 보냄
+    getFriendListByStatus(USER_ID, 3); // 친구요청 받음
+    setIsReloadNeeded(false);
+  }, [isReloadNeeded]);
 
-  useEffect(() => {
-    if (filteredCardList.length === 0) return;
-    const sortedList = sortArrayByName(filteredCardList, sortCriteria);
-    setFilteredCardList(sortedList);
-  }, [sortCriteria]);
+  const getFriendListByStatus = (userId, friendStatusId) => {
+    const url = `http://localhost:10000/friend/my?userId=${userId}&friendStatusId=${friendStatusId}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (friendStatusId === 4) {
+          setFriendList(data);
+        } else if (friendStatusId === 2) {
+          setFriendRequestList(data);
+        } else {
+          setFriendReceiveList(data);
+        }
+      });
+  };
+
+  const handleReload = () => {
+    setIsReloadNeeded(true);
+  };
 
   return (
     <Container>
       <Main>
-        <Header>
-          <Title>1촌 {userCardList?.length}명</Title>
-          <AdditionalFeature>
-            <Sort>
-              정렬 기준
-              <StyledSelect onChange={e => setSortCriteria(e.target.value)}>
-                <option value="default">기본</option>
-                <option value="asc">오름차순</option>
-                <option value="desc">내림차순</option>
-              </StyledSelect>
-            </Sort>
-            <Search>
-              <StyledInput
-                placeholder="이름으로 검색"
-                onChange={e => setSearchInput(e.target.value)}
-              ></StyledInput>
-            </Search>
-          </AdditionalFeature>
-        </Header>
-        <UserCardContainer>
-          {filteredCardList?.map((card, idx) => {
-            return (
-              <UserCardWrapper
-                key={card.id}
-                borderBottom={
-                  idx === filteredCardList?.length - 1 ? false : true
-                }
-              >
-                <UserCard
-                  key={card.id}
-                  profile={card}
-                  withoutName="false"
-                  relation="true"
-                  type="education major"
-                  text=""
-                />
-                <ButtonWrapper>
-                  <BtnMessage text="메시지" />
-                  <Button text="1촌 끊기"></Button>
-                </ButtonWrapper>
-              </UserCardWrapper>
-            );
-          })}
-        </UserCardContainer>
+        <FriendList
+          category="3"
+          cardData={friendReceiveList}
+          handleReload={handleReload}
+        />
+        <FriendList
+          category="2"
+          cardData={friendRequestList}
+          handleReload={handleReload}
+        />
+        <FriendList
+          category="4"
+          cardData={friendList}
+          handleReload={handleReload}
+        />
       </Main>
       <FloatingFooter />
     </Container>
@@ -130,65 +78,5 @@ const Container = styled.div`
 
 const Main = styled.main`
   width: 782px;
-  height: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.borderGrey};
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.white};
   overflow: auto;
 `;
-
-const Header = styled.header`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};
-  padding: 15px 20px;
-`;
-
-const Title = styled.h1`
-  margin-bottom: 15px;
-  font-size: 19px;
-`;
-
-const AdditionalFeature = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  * {
-    color: ${({ theme }) => theme.colors.fontGrey};
-    font-size: 16px;
-  }
-`;
-
-const Sort = styled.div``;
-
-const StyledSelect = styled.select`
-  margin-left: 10px;
-  text-align: center;
-`;
-
-const Search = styled.div``;
-
-const StyledInput = styled.input`
-  height: 25px;
-`;
-
-const UserCardContainer = styled.div``;
-
-const UserCardWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: ${({ borderBottom }) => (borderBottom ? '1px' : '0')} solid
-    ${({ theme }) => theme.colors.borderGrey};
-  padding: 15px 20px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-
-  button {
-    margin-left: 10px;
-  }
-`;
-
-const BtnMessage = styled(Button).attrs({
-  color: ({ theme }) => theme.colors.primary,
-})``;

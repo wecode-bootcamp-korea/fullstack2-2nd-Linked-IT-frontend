@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import UserCard from '../../components/UserCard/UserCard';
 import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
-import JOB_POSTING_DATA from '../../components/JobPostingCard/data/JobPostingData';
+// import JOB_POSTING_DATA from '../../components/JobPostingCard/data/JobPostingData';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import { SearchByKeywords } from '../../utils/SearchUtil';
 
@@ -24,9 +24,9 @@ export default function MainSearch({ location }) {
         setPeopleList(
           res.SEARCH_DATA.filter(person => SearchByKeywords(person, keyword))
         );
-        setJobList(
-          JOB_POSTING_DATA.filter(job => SearchByKeywords(job, keyword))
-        );
+        // setJobList(
+        //   JOB_POSTING_DATA.filter(job => SearchByKeywords(job, keyword))
+        // );
       });
   }, [keyword]);
 

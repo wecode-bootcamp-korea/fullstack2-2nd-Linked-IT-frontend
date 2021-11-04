@@ -6,7 +6,7 @@ import { addComma } from '../../utils/NumberUtil';
 export default function CompanyProfileCard(props) {
   const {
     companyId,
-    profileImgUrl,
+    companyProfileImageUrl,
     companyName,
     companyCategory,
     companyLocation,
@@ -24,7 +24,7 @@ export default function CompanyProfileCard(props) {
     <FlexDiv clicked={clicked}>
       <ImgWrapper>
         <Link to={`/company/${companyId}`}>
-          <img alt="profileImg" src={profileImgUrl} />
+          <img alt="profile img" src={companyProfileImageUrl} />
         </Link>
       </ImgWrapper>
       <TextWrapper showBorder={showBorder}>
@@ -121,4 +121,4 @@ const ButtonWrapper = styled.div`
 
 const BtnSave = styled(Button).attrs(({ theme }) => ({
   color: theme.colors.primary,
-}))``; // Warning 떠서 수정했습니다 -성재
+}))``;

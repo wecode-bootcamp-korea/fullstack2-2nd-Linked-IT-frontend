@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { sections } from '../../data/dropDownData';
+import { sections } from '../data/dropDownData';
 
 export default function SectionsDropDown(props) {
   const { showSectionsDropDown } = props;
@@ -9,7 +9,7 @@ export default function SectionsDropDown(props) {
     <StyledDropDown showSectionsDropDown={showSectionsDropDown}>
       {sections.map(list => {
         return (
-          <li>
+          <li key={list.title}>
             <div>{`${list.title}`}</div>
             <span>{`${list.desc}`}</span>
           </li>

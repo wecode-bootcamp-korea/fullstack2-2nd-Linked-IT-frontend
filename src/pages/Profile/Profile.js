@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Informaion from './ProfileMain/Informaion/Information';
-import CareerAddModal from './ProfileMain/Modals/CareerAddModal';
-import EducationAddModal from './ProfileMain/Modals/EducationAddModal';
-import CareerEditModal from './ProfileMain/Modals/CareerEditModal';
-import EducationEditModal from './ProfileMain/Modals/EducationEditModal';
 import ProfileMain from './ProfileMain/ProfileMain';
+import Informaion from './Informaion/Information';
+import CareerAddModal from './Modals/CareerAddModal';
+import EducationAddModal from './Modals/EducationAddModal';
+import CareerEditModal from './Modals/CareerEditModal';
+import EducationEditModal from './Modals/EducationEditModal';
+import BasicEditModal from './Modals/BasicEditModal';
+import MayKonwList from './MayKnowList';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import BasicEditModal from './ProfileMain/Modals/BasicEditModal';
-import PopUpMessage from './ProfileMain/Modals/PopUpMessage';
+import PopUpMessage from './Modals/PopUpMessage';
 import { disableScroll, enableScroll } from '../../utils/ModalFunc';
+import ImgUploadModal from './ImgUploadModal';
 
 export default function Profile() {
   const [showBasicEditModal, setShowBasicEditModal] = useState(false);
@@ -21,32 +23,49 @@ export default function Profile() {
   const [selectedEducation, setSelectedEducation] = useState(0);
   const [showCurrentCompany, setShowCurrentCompany] = useState(true);
   const [showEducation, setShowEducation] = useState(true);
+  const [showImgUploadModal, setShowImgUploadModal] = useState(false);
   const [popUpSaved, setPopUpSaved] = useState(true);
+  const [type, setType] = useState('');
 
   const [careers, setCareers] = useState([]);
   const [educations, setEducation] = useState([]);
   const [profile, setProfile] = useState([]);
+  const [mayKnowList, setMayKnowList] = useState([]);
 
   useEffect(() => {
-    fetch('data/profile/profileDataUrl.json')
-      // fetch('data/profileData.json') 이미지 없을 경우
+    // fetch('data/profile/profileDataUrl.json')
+    fetch('data/profile/profileData.json')
       .then(res => res.json())
       .then(data => {
-        setProfile(data.profileData);
+        setProfile(data.PROFILE_DATA);
       });
-
+    //경력
     fetch('data/profile/careerData.json')
       .then(res => res.json())
       .then(data => {
         setCareers(data.CAREER_DATA);
       });
-
+    //학력
     fetch('data/profile/educationData.json')
       .then(res => res.json())
       .then(data => {
         setEducation(data.EDUCATION_DATA);
       });
+    //알수도있는 사람
+    fetch('data/profile/mayKnowListData.json')
+      .then(res => res.json())
+      .then(data => {
+        setMayKnowList(data.MAYKNOWLIST_DATA);
+      });
   }, []);
+
+  const updateBgImg = img => {
+    setProfile({ ...profile, backgroundImg: img });
+  };
+
+  const updateProfileImg = img => {
+    setProfile({ ...profile, userProfileUrl: img });
+  };
 
   // 기본정보 수정
   const openBasicEditModal = e => {
@@ -113,7 +132,20 @@ export default function Profile() {
     enableScroll();
     setShowEducationEditModal(false);
   };
-  console.log(popUpSaved);
+
+  // 이미지 업로드
+  const openImgUploadModal = e => {
+    e.preventDefault();
+    disableScroll();
+    setType(e.target.localName);
+    setShowImgUploadModal(true);
+  };
+
+  const closeImgUploadmodal = e => {
+    enableScroll();
+    setShowImgUploadModal(false);
+  };
+
   return (
     <StyledInformation>
       <Container>
@@ -121,6 +153,7 @@ export default function Profile() {
           <ProfileMain
             profile={profile}
             openBasicEditModal={openBasicEditModal}
+            openImgUploadModal={openImgUploadModal}
             showCurrentCompany={showCurrentCompany}
             showEducation={showEducation}
           />
@@ -164,8 +197,16 @@ export default function Profile() {
             showEducation={showEducation}
             setShowEducation={setShowEducation}
           />
+          <ImgUploadModal
+            type={type}
+            showImgUploadModal={showImgUploadModal}
+            closeImgUploadmodal={closeImgUploadmodal}
+            updateBgImg={updateBgImg}
+            updateProfileImg={updateProfileImg}
+          />
         </Main>
         <Aside>
+          <MayKonwList mayKnowList={mayKnowList} />
           <FloatingFooter />
         </Aside>
       </Container>

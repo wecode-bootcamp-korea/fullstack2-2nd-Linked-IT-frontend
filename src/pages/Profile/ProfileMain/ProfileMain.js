@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import ProfileBackGround from './ProfileBackGround';
 import ProfileImage from '../ProfileMain/ProfileImage';
 import Detail from './Detail';
-import Carousel from './Carousel/Carousel';
+import Carousel from '../Carousel/Carousel';
 import Button from '../../../components/Button/Button';
-import InterestsDropDown from './DropDown/InterestDropDown';
-import SectionsDropDown from './DropDown/sectionsDropDown';
 
 import theme from '../../../styles/theme';
 import cardData from '../data/cardData'; // fetch 상관없이 필요
-import MoresDropDown from './DropDown/MoresDropDown'; // fetch 상관없이 필요
+import InterestsDropDown from '../DropDown/InterestDropDown'; // fetch 상관없이 필요
+import SectionsDropDown from '../DropDown/sectionsDropDown'; // fetch 상관없이 필요
+import MoresDropDown from '../DropDown/MoresDropDown'; // fetch 상관없이 필요
 
 export default function ProfileMain(props) {
   const [showInterestsDropDown, setShowInterestsDropDown] = useState(false);
@@ -47,14 +47,25 @@ export default function ProfileMain(props) {
   };
 
   const { userProfileUrl, backgroundImg } = props.profile;
-  const { openBasicEditModal, showCurrentCompany, showEducation } = props;
+  const {
+    openBasicEditModal,
+    showCurrentCompany,
+    showEducation,
+    openImgUploadModal,
+  } = props;
 
   return (
     <StyledProfileCard>
       <BoxHeader>
-        <ProfileBackGround backgroundImg={backgroundImg} />
+        <ProfileBackGround
+          backgroundImg={backgroundImg}
+          openImgUploadModal={openImgUploadModal}
+        />
       </BoxHeader>
-      <ProfileImage userProfileUrl={userProfileUrl} />
+      <ProfileImage
+        userProfileUrl={userProfileUrl}
+        openImgUploadModal={openImgUploadModal}
+      />
       <PenIconWrapper>
         <FontAwesomeIcon icon={faPen} onClick={openBasicEditModal} />
       </PenIconWrapper>

@@ -5,22 +5,13 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import isKorean from '../../utils/LanguageUtil';
 import modalUploadBtns from './data/modalUploadBtns';
 
-export default function WritePostModal({
+export default function PostModal({
   myProfileData,
   postData,
-  editPost,
-  addPost,
+  setPostUpdate,
   setIsModalOpen,
 }) {
-  const {
-    id,
-    firstName,
-    lastName,
-    userProfileUrl,
-    companyNameKor,
-    companyNameEng,
-    currentPosition,
-  } = myProfileData;
+  const { firstName, lastName, userProfileUrl } = myProfileData;
   const [activeUploadBtn, setActiveUploadBtn] = useState(false);
   const valueRef = useRef();
 
@@ -34,30 +25,6 @@ export default function WritePostModal({
     } else {
       setActiveUploadBtn(false);
     }
-  };
-
-  const modifyPost = () => {
-    editPost(valueRef.current.value);
-    setIsModalOpen(false);
-  };
-
-  const uploadPost = () => {
-    addPost([
-      {
-        id: 123,
-        userId: id,
-        firstName: firstName,
-        lastName: lastName,
-        userProfileUrl: userProfileUrl,
-        companyNameKor: companyNameKor,
-        companyNameEng: companyNameEng,
-        currentPosition: currentPosition,
-        createdAt: '1일',
-        text: valueRef.current.value,
-        image: '',
-      },
-    ]);
-    setIsModalOpen(false);
   };
 
   const closeModal = () => {
@@ -83,8 +50,44 @@ export default function WritePostModal({
     };
   }, []);
 
+  const addPost = () => {
+    fetch('http://localhost:10000/post/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: valueRef.current.value,
+        postScopeOfPublicId: 1,
+        commentScopeOfPublicId: 1,
+        userId: 1,
+        postAttachmentId: 1,
+      }),
+    })
+      .then(res => res.json())
+      .then(console.log('ADD_POST_SUCCESS'))
+      .catch(console.log('ADD_POST_FAILED'));
+    setPostUpdate(true);
+    setIsModalOpen(false);
+  };
+
+  const editPost = () => {
+    fetch('http://localhost:10000/post/update', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        updateContent: valueRef.current.value,
+        postId: postData.id,
+      }),
+    })
+      .then(res => res.json())
+      .then(console.log('EDIT_POST_SUCCESS'))
+      .catch(console.log('EDIT_POST_FAILED'));
+    setPostUpdate(true);
+    setIsModalOpen(false);
+  };
+
   return (
-    <WriteModalBg>
+    <WriteModal>
+      <WriteModalBg onClick={closeModal} />
       <WriteModalBox>
         <ModalHeader>
           <span>업데이트 쓰기</span>
@@ -106,9 +109,9 @@ export default function WritePostModal({
         <ContentContainer>
           <WriteBox
             placeholder="나누고 싶은 생각이 있으세요?"
-            onChange={handleBtn}
+            defaultValue={postData ? postData.content : ''}
             ref={valueRef}
-            defaultValue={postData ? postData.text : ''}
+            onChange={handleBtn}
           />
           <AddHashTag>해시태그 추가</AddHashTag>
           {handleImgShow(postData) && (
@@ -124,7 +127,7 @@ export default function WritePostModal({
           <TextBox alt="textBox" src="/Images/ico_textBox.svg" />
           <EditPublic>1촌만</EditPublic>
           {activeUploadBtn ? (
-            <AbledButton onClick={postData ? modifyPost : uploadPost}>
+            <AbledButton onClick={postData ? editPost : addPost}>
               올리기
             </AbledButton>
           ) : (
@@ -132,9 +135,18 @@ export default function WritePostModal({
           )}
         </ModalFooter>
       </WriteModalBox>
-    </WriteModalBg>
+    </WriteModal>
   );
 }
+
+const WriteModal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+`;
 
 const WriteModalBg = styled.div`
   position: fixed;
@@ -148,7 +160,7 @@ const WriteModalBg = styled.div`
 
 const WriteModalBox = styled.div`
   position: absolute;
-  top: calc(50vh - 254px);
+  top: calc(50vh - 253px);
   left: calc(50vw - 275px);
   height: 360px;
   width: 550px;
@@ -235,8 +247,8 @@ const ContentContainer = styled.div`
 `;
 
 const WriteBox = styled.textarea`
-  width: 560px;
   min-height: 120px;
+  width: 560px;
   padding: 0 20px;
   border: none;
   font-size: 1.05rem;

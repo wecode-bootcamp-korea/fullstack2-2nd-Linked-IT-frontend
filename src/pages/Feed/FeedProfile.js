@@ -12,28 +12,32 @@ export default function FeedProfile(props) {
   } = props.myProfileData;
 
   return (
-    <Aside>
-      <BackgroundImage>
-        <img src={backgroundImage} alt="backgroundImage" />
-      </BackgroundImage>
-      <ProfileImage>
-        <img src={userProfileUrl} alt="profileImage" />
-      </ProfileImage>
-      <Name>
-        {isKorean(firstName)
-          ? `${lastName}${firstName}`
-          : `${firstName} ${lastName}`}
-      </Name>
-      <WorkPlace>{headline}</WorkPlace>
-      <Count>
-        <Title>1촌(명)</Title>
-        <Value>{firstConnection}</Value>
-      </Count>
-    </Aside>
+    <Link href="/profile">
+      <ProfileWrap>
+        <BackgroundImage>
+          <img src={backgroundImage} alt="backgroundImage" />
+        </BackgroundImage>
+        <ProfileImage>
+          <img src={userProfileUrl} alt="profileImage" />
+        </ProfileImage>
+        <Name>
+          {isKorean(firstName)
+            ? `${lastName}${firstName}`
+            : `${firstName} ${lastName}`}
+        </Name>
+        <WorkPlace>{headline}</WorkPlace>
+        <Count>
+          <Title>1촌(명)</Title>
+          <Value>{firstConnection}</Value>
+        </Count>
+      </ProfileWrap>
+    </Link>
   );
 }
 
-const Aside = styled.div`
+const Link = styled.a``;
+
+const ProfileWrap = styled.div`
   display: inline-block;
   position: sticky;
   top: 60px;

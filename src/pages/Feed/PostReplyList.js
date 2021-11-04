@@ -1,20 +1,27 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import isKorean from '../../utils/LanguageUtil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default function PostReplyList({
-  data,
+  replyData,
   writer,
-  deleteReply,
-  saveEditedReply,
+  setReplyUpdate,
+  myProfileData,
 }) {
-  const { id, headline, image, reply } = data;
-  const inputtedReplyRef = useRef();
+  const { id, firstName, lastName, headline, userProfileUrl, content } =
+    replyData;
   const [editModal, setEditModal] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editBtn, setEditBtn] = useState(false);
   const [replyLike, setReplyLike] = useState(false);
+  const valueRef = useRef();
+  const editReplyModalRef = useRef();
+
+  const name = `${
+    isKorean(firstName) ? `${lastName}${firstName}` : `${firstName} ${lastName}`
+  }`;
 
   const handleReplyModal = () => {
     setEditModal(!editModal);
@@ -25,31 +32,19 @@ export default function PostReplyList({
     setEditModal(false);
   };
 
-  const selectDeleteReply = () => {
-    deleteReply(id);
-  };
-
   const resizeEditingTextArea = () => {
-    inputtedReplyRef.current.style.height = '22px';
-    inputtedReplyRef.current.style.height =
-      inputtedReplyRef.current.scrollHeight + 'px';
+    valueRef.current.style.height = '22px';
+    valueRef.current.style.height = valueRef.current.scrollHeight + 'px';
   };
 
   const activeEditSaveBtn = e => {
     if (e.target.value.length === 0) {
       setEditBtn(false);
-    } else if (e.target.value !== reply) {
+    } else if (e.target.value !== content) {
       setEditBtn(true);
     } else {
       setEditBtn(false);
     }
-  };
-
-  const editedReply = () => {
-    saveEditedReply(id, inputtedReplyRef.current.value);
-    inputtedReplyRef.current.style.height = '20px';
-    setEditing(false);
-    setEditBtn(false);
   };
 
   const cancleEditReply = () => {
@@ -60,38 +55,94 @@ export default function PostReplyList({
     setReplyLike(!replyLike);
   };
 
+  const clickReplyModalOutside = ({ target }) => {
+    if (
+      editModal &&
+      (!editReplyModalRef.current ||
+        !editReplyModalRef.current.contains(target))
+    )
+      setEditModal(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', clickReplyModalOutside);
+    return () => {
+      window.removeEventListener('click', clickReplyModalOutside);
+    };
+  });
+
+  const editReply = () => {
+    fetch('http://localhost:10000/comment/update', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: valueRef.current.value,
+        commentId: replyData.id,
+      }),
+    })
+      .then(res => res.json())
+      .then(console.log('EDIT_POST_SUCCESS'))
+      .catch(error => {
+        console.log(error);
+      });
+    setReplyUpdate(true);
+    setEditing(false);
+    setEditBtn(false);
+    valueRef.current.style.height = '20px';
+  };
+
+  const deleteReply = () => {
+    fetch('http://localhost:10000/comment/delete', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        commentId: replyData.id,
+      }),
+    })
+      .then(res => res.json())
+      .then(console.log('DELETE_REPLY_SUCCESS'))
+      .catch(error => {
+        console.log(error);
+      });
+    setReplyUpdate(true);
+    setEditBtn(false);
+    console.log(replyData);
+  };
+
   return (
     <ReplyContainer>
-      <img alt={writer} src={image} />
+      <img alt={writer} src={userProfileUrl} />
       <ReplyWrap>
         <ReplyButton>
-          <button onClick={handleReplyModal}>⋯</button>
+          {myProfileData.id === replyData.userId && (
+            <button onClick={handleReplyModal}>⋯</button>
+          )}
           {editModal && (
-            <ReplyButtonModal>
+            <ReplyButtonModal ref={editReplyModalRef}>
               <EditReply onClick={handleEditing}>
                 <FontAwesomeIcon icon={faPen} />
                 <span>변경</span>
               </EditReply>
-              <DeleteReply onClick={selectDeleteReply}>
+              <DeleteReply onClick={deleteReply}>
                 <FontAwesomeIcon icon={faTrashAlt} />
                 <span>삭제</span>
               </DeleteReply>
             </ReplyButtonModal>
           )}
         </ReplyButton>
-        <Writer>{writer}</Writer>
+        <Writer>{name}</Writer>
         <WriterHeadline>{headline}</WriterHeadline>
         {editing ? (
           <EditingValue>
             <textarea
               id={id}
-              defaultValue={reply}
+              defaultValue={content}
               onKeyDown={resizeEditingTextArea}
-              ref={inputtedReplyRef}
+              ref={valueRef}
               onChange={activeEditSaveBtn}
             />
             {editBtn ? (
-              <SaveBtnActived onClick={editedReply}>
+              <SaveBtnActived onClick={editReply}>
                 <span>변경 사항 저장</span>
               </SaveBtnActived>
             ) : (
@@ -104,7 +155,7 @@ export default function PostReplyList({
             </CancleBtn>
           </EditingValue>
         ) : (
-          <ReplyValue>{reply}</ReplyValue>
+          <ReplyValue>{content}</ReplyValue>
         )}
       </ReplyWrap>
       <ButtonWrap>

@@ -2,11 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import EndInput from './components/EndInput';
 import StartInput from './components/StartInput';
-import Button from '../../../../components/Button/Button';
+import Button from '../../../components/Button/Button';
 import TextInput from './components/TextInput';
 import TextArea from './components/TextArea';
 import AskCancel from './components/AskCancelModal';
-import theme from '../../../../styles/theme';
+import theme from '../../../styles/theme';
 
 export default function EducationAddModal(props) {
   const [showAskCancelModal, setShowAskCancelModal] = useState(false);

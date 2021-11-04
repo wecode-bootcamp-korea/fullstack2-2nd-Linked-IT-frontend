@@ -4,20 +4,7 @@ import icons from './data/Images/socialIcons';
 
 export default function LikeBtnAndModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [thumbIcon, setThumbIcon] = useState(false);
-
-  const iconList = icons.map(data => {
-    return (
-      <Icons
-        key={data.id}
-        alt={data.alt}
-        src={data.src}
-        onClick={() => {
-          selectIcon(data.src);
-        }}
-      />
-    );
-  });
+  const [isLike, setIsLike] = useState(false);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -28,11 +15,11 @@ export default function LikeBtnAndModal() {
   };
 
   const selectIcon = e => {
-    thumbIcon === e ? setThumbIcon(false) : setThumbIcon(e);
+    isLike === e ? setIsLike(false) : setIsLike(e);
   };
 
   const handleLike = () => {
-    thumbIcon ? setThumbIcon(false) : setThumbIcon(icons[0].src);
+    isLike ? setIsLike(false) : setIsLike(icons[0].src);
   };
 
   return (
@@ -44,13 +31,24 @@ export default function LikeBtnAndModal() {
       >
         <LikeIcon
           alt="thumbDefault"
-          src={thumbIcon ? thumbIcon : '/Images/ico_thumb.svg'}
+          src={isLike ? isLike : '/Images/ico_thumb.svg'}
         />
         <span>추천</span>
       </Button>
       {isModalOpen && (
         <IconsWrap onMouseEnter={showModal} onMouseLeave={hideModal}>
-          {iconList}
+          {icons.map(data => {
+            return (
+              <Icons
+                key={data.id}
+                alt={data.alt}
+                src={data.src}
+                onClick={() => {
+                  selectIcon(data.src);
+                }}
+              />
+            );
+          })}
         </IconsWrap>
       )}
     </>
@@ -73,7 +71,7 @@ const Button = styled.button`
 
 const IconsWrap = styled.div`
   position: absolute;
-  top: -38px;
+  top: -36px;
   left: -30px;
   height: 46px;
   width: 300px;

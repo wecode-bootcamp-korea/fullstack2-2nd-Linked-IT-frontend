@@ -2,17 +2,79 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import JobPostingDetail from './JobPostingDetail';
 import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
-import JOB_POSTING_DATA from '../../components/JobPostingCard/data/JobPostingData';
-import JOB_POSTING_DETAIL_DATA from './data/JobPostingDetailData';
+import Button from '../../components/Button/Button';
 
 export default function Jobs(props) {
   const { searchLocation = '대한민국', searchKeyword = 'React' } = props;
 
-  const [jobPostingList, setJobPostingList] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [listData, setListData] = useState([]);
+  const [detailData, setDetailData] = useState({});
+  const [clickedPageNumber, setClickedPageNumber] = useState(1);
 
   useEffect(() => {
-    setJobPostingList(JOB_POSTING_DATA);
+    // getTotalCount(); // API 미구현
+    getListDataByPageNumber(1);
   }, []);
+
+  useEffect(() => {
+    if (detailData.jobPostingId === undefined) {
+      if (listData.length > 0) {
+        clickCard(listData[0].jobPostingId);
+      }
+    }
+  }, [listData]);
+
+  // API 미구현
+  // const getTotalCount = () => {
+  //   const url = ``;
+  //   fetch(url)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setListData(data || []);
+  //     });
+  // };
+
+  const getListDataByPageNumber = pageNumber => {
+    // const offset = (pageNumber - 1) * 20; // API 미구현
+    // const limit = 20; // API 미구현
+    const url = `http://localhost:10000/jobs`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setTotalCount((data || []).length); // getTotalCount API 미구현으로 인한 임시 로직
+        setListData(data || []);
+      });
+  };
+
+  const clickCard = jobPostingId => {
+    const newList = listData?.map(post => {
+      if (post.jobPostingId === jobPostingId) {
+        getDetailDataByPostingId(jobPostingId);
+        post.isClicked = true;
+        return post;
+      } else {
+        post.isClicked = false;
+        return post;
+      }
+    });
+    setListData(newList);
+  };
+
+  const getDetailDataByPostingId = jobPostingId => {
+    const url = `http://localhost:10000/jobs/${jobPostingId}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setDetailData(data || {});
+      })
+      .catch(console.log);
+  };
+
+  const clickPageNumber = pageNumber => {
+    setClickedPageNumber(pageNumber);
+    getListDataByPageNumber(pageNumber);
+  };
 
   return (
     <Container>
@@ -21,38 +83,66 @@ export default function Jobs(props) {
           <p className="searchKeyword">
             {searchLocation} {searchKeyword}
           </p>
-          <p className="searchResult">결과 {jobPostingList.length}</p>
+          <p className="searchResult">결과 {totalCount}</p>
         </SearchResultSummary>
         <CardWrapper>
-          {jobPostingList?.map(post => (
+          {listData?.map((post, idx) => (
             <JobPostingCard
               key={post.jobPostingId}
               {...post}
               isMain={false}
               showBtn={false}
-              showBorder={false}
+              showBorder={idx === listData.length - 1 ? false : true}
+              onClick={clickCard}
             />
           ))}
         </CardWrapper>
+        <Pagination>
+          {listData.length > 0 &&
+            new Array(Math.ceil(totalCount / 20)).fill(0).map((el, idx) => {
+              return (
+                <ButtonWrapper
+                  key={idx}
+                  onClick={() => clickPageNumber(idx + 1)}
+                >
+                  <Button
+                    bgc={({ theme }) =>
+                      clickedPageNumber === idx + 1
+                        ? theme.colors.primary
+                        : theme.colors.white
+                    }
+                    color={({ theme }) =>
+                      clickedPageNumber === idx + 1
+                        ? theme.colors.white
+                        : theme.colors.primary
+                    }
+                    text={idx + 1}
+                  />
+                </ButtonWrapper>
+              );
+            })}
+        </Pagination>
       </ListSection>
       <DetailSection>
-        <JobPostingDetail {...JOB_POSTING_DETAIL_DATA} />
+        {detailData.jobPostingId > 0 && <JobPostingDetail {...detailData} />}
       </DetailSection>
     </Container>
   );
 }
 
 const Container = styled.div`
-  position: relative; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  position: relative;
+  top: 52px;
   display: flex;
-  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
   width: 1128px;
   margin: 0 auto;
+  background-color: ${({ theme }) => theme.colors.white};
+  overflow: hidden;
 `;
 
 const StyledSection = styled.section`
   position: relative;
-  height: 826px;
+  height: 885px;
   overflow: scroll;
 `;
 
@@ -68,12 +158,12 @@ const DetailSection = styled(StyledSection)`
 
 const SearchResultSummary = styled.div`
   position: fixed;
-  top: 52px; //TopNav관련 temp 솔루션으로 추가했습니다 -성재
+  top: 52px;
   width: 501px;
   height: 56px;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary};
-  z-index: 1; // TopNav랑 겹쳐서 1로 낮췄습니다. -성재
+  z-index: 5;
 
   .searchKeyword {
     margin: 11px 0 6px 10px;
@@ -87,6 +177,15 @@ const SearchResultSummary = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  position: absolute;
-  top: 56px;
+  margin-top: 56px;
+`;
+
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid ${({ theme }) => theme.colors.borderGrey}; ;
+`;
+
+const ButtonWrapper = styled.span`
+  padding: 15px 5px;
 `;
