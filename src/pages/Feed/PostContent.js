@@ -2,8 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 export default function PostContent({ postData }) {
-  const { createdAt, text, image } = postData;
-
+  const { createdAt, content, image } = postData;
   const [isShowMoreClicked, setIsShowMoreClicked] = useState('');
 
   const contentShow = () => {
@@ -16,8 +15,8 @@ export default function PostContent({ postData }) {
         <span>{createdAt}</span>
       </CreatedAt>
       <TextWrap>
-        <Text name={isShowMoreClicked}>{text}</Text>
-        {text.length > 220 && (
+        <Text name={isShowMoreClicked}>{content}</Text>
+        {content.length > 220 && (
           <MoreBtn name={isShowMoreClicked} onClick={contentShow}>
             ...더보기
           </MoreBtn>

@@ -1,5 +1,5 @@
 const MY_PROFILE_DATA = {
-  id: 11,
+  id: 1,
   firstName: '지훈',
   lastName: '한',
   userProfileUrl: '/images/pchan.jpeg',
