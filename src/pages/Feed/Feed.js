@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import FeedProfile from './FeedProfile';
 import WritePost from './WritePost';
@@ -11,7 +12,16 @@ import MY_PROFILE_DATA from './data/MyProfileData';
 const QUERY_LIMIT = 4;
 const options = { rootMargin: '0px', threshold: 1 };
 
-export default function Feed() {
+export default function Feed({ match }) {
+  const { app } = match.params;
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  const code = useQuery().get('code');
+
+  // Test Code for Checking Variables
+  console.log(app, code);
+
   const { ...myProfileData } = MY_PROFILE_DATA;
   const [postList, setPostList] = useState([]);
   const [postListOnScreen, setPostListOnScreen] = useState([]);
