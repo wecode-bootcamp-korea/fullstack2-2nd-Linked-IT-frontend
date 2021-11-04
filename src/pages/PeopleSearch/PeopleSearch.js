@@ -8,17 +8,21 @@ import { SearchByKeywords } from '../../utils/SearchUtil';
 
 export default function PeopleSearch({ location }) {
   const [allPeopleList, setAllPeopleList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
   const { keyword } = location.state;
   const history = useHistory();
 
   useEffect(() => {
-    // fetch(`${API}/${location.search}`);
-    fetch('/data/peopleData.json')
+    fetch(
+      `http://localhost:10000/user${location.search}&limit=${postsPerPage}&offset=${currentPage}`
+    )
       .then(res => res.json())
       .then(res => {
-        setAllPeopleList(
-          res.SEARCH_DATA.filter(person => SearchByKeywords(person, keyword))
-        );
+        setAllPeopleList(res);
+        // setAllPeopleList(
+        //   res.SEARCH_DATA.filter(person => SearchByKeywords(person, keyword))
+        // );
       });
   }, []);
 
@@ -31,13 +35,14 @@ export default function PeopleSearch({ location }) {
     <Body>
       <MainWrapper>
         <SearchResultsWrapper>
-          {location.search && <h1>query param: {location.search}</h1>}
-          {keyword && <h1>Search input: {keyword}</h1>}
+          {/* {location.search && <h1>query param: {location.search}</h1>}
+          {keyword && <h1>Search input: {keyword}</h1>} */}
           {<h1>{allPeopleList.length} results</h1>}
           <SectionWrapper>
             <SectionHeader>People</SectionHeader>
             <CardList>
               {allPeopleList.map(person => {
+                console.log('person:', person);
                 return (
                   <div key={person.id}>
                     <CardItem>
@@ -61,6 +66,11 @@ export default function PeopleSearch({ location }) {
               })}
             </CardList>
           </SectionWrapper>
+          {/* <PaginationWrapper>
+            <button>Num</button>
+            <button>Num</button>
+            <button>Num</button>
+          </PaginationWrapper> */}
         </SearchResultsWrapper>
         <SubWrapper>
           <FloatingFooterWrapper>
@@ -154,4 +164,13 @@ const NoResultsFound = styled.div`
   align-items: center;
   /* background-color: red; */
   font-size: 50px;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  border: 1px solid black;
 `;
