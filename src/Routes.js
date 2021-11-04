@@ -3,6 +3,7 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import SignUp from './pages/SignUp/SignUp';
 import SignIn from './pages/SignIn/SignIn';
+import Auth from './pages/Auth/Auth';
 import TopNav from './components/TopNav/TopNav';
 import MainSearch from './pages/MainSearch/MainSearch';
 import PeopleSearch from './pages/PeopleSearch/PeopleSearch';
@@ -20,6 +21,7 @@ export default function Routes() {
         <Route exact path="/" component={Home} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup/auth/:app" component={Auth} />
         <>
           <TopNav />
           <Route exact path="/search/all" component={MainSearch} />
