@@ -49,7 +49,7 @@ export default function SignUp() {
     const { firstName, lastName, email, password } = user;
 
     // event.preventDefault();
-    fetch(`http://localhost:8080/user/signup`, {
+    fetch(`http://localhost:10000/user/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

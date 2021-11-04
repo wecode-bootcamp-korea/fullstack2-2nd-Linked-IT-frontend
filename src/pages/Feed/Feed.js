@@ -21,6 +21,9 @@ export default function Feed({ match }) {
 
   // Test Code for Checking Variables
   console.log(app, code);
+  useEffect(() => {
+    console.log(code);
+  }, []);
 
   const { ...myProfileData } = MY_PROFILE_DATA;
   const [postList, setPostList] = useState([]);
