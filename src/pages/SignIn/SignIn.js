@@ -13,7 +13,7 @@ const validateInput = user => {
   const isValidEmail = email.match(validEmail) && email !== '';
   const isValidPassword = password.length >= 8 && password !== '';
 
-  // Test Code for Checking Functions
+  // Test Code for Checking Function
   console.log(isValidEmail, isValidPassword);
 
   return isValidEmail && isValidPassword;
@@ -39,26 +39,27 @@ export default function SignIn() {
   const submitInput = event => {
     const { email, password } = user;
 
-    // event.preventDefault();
-    fetch(`user/signin`, {
+    event.preventDefault(); // Test Code for Checking API
+    fetch(`/user/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email,
         password,
       }),
-      credentials: 'include',
     })
       .then(res => res.json())
       .then(res => {
         console.log(res);
         localStorage.setItem('accessToken', res.access_token);
-        if (res.status === 'SIGNIN_FAILED') {
+        if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
+          alert('로그인에 성공하였습니다.');
+          history.push('/feed');
+        } else if (res.status === 'SIGNIN_FAILED') {
           alert(
             '로그인에 실패하였습니다. 이메일과 비밀번호를 다시 입력해주세요.'
           );
-        } else if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
-          history.push('/feed');
         } else {
           alert(res.status);
         }
