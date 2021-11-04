@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
+import { faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import { disableScroll } from '../../../utils/ModalFunc';
 
 export default function SearchDropDown({
@@ -13,27 +14,42 @@ export default function SearchDropDown({
   addToSearchHistory,
 }) {
   const [matchingResults, setMatchingResults] = useState([]);
-  // console.log('matchingResults:', matchingResults);
-  // const [isLoading, setIsLoading] = useState(true);
   const searchHistory = JSON.parse(localStorage.getItem('searchHistory')); //렌더링 too much
-  // console.log('searchHistory:', searchHistory);
-
   useEffect(() => {
-    // fetch(`${API}/${location.search}/?limit=10`);
-    fetch('/data/peopleData.json')
+    // console.log('FETCH');
+    fetch(`http://localhost:10000/search/?keyword=${searchInput}`)
       .then(res => res.json())
       .then(res => {
-        setMatchingResults(
-          res.PEOPLE_DATA.filter(person =>
-            person.name.toLowerCase().includes(searchInput.toLowerCase())
-          )
-        );
+        // console.log('RES:', res);
+        setMatchingResults(res);
       })
       .catch(err => console.error(err));
   }, [searchInput]);
 
   // if nothing in search history and nothing typed in search input
-  if (!searchHistory && !searchInput) return null;
+  if (!searchHistory && !searchInput)
+    return (
+      <StyledSearchDropdown>
+        <TopLine>
+          <span>Try searching for</span>
+        </TopLine>
+        <RecentSearchLine
+          to={{
+            pathname: '/search/all/',
+            search: `?keyword=Kim`,
+            state: { keyword: 'Kim' },
+          }}
+          onClick={() => {
+            addToSearchHistory('Kim');
+            setSearchInput('Kim');
+            setDropdownVisible(false);
+          }}
+        >
+          <FaIcon icon={faLaptopCode} />
+          <p>Kim</p>
+        </RecentSearchLine>
+      </StyledSearchDropdown>
+    );
   if (!searchInput || !searchInput.replace(/\s/g, '').length) {
     // FIX right side of 'IF STATEMENT LOGIC'
     return (
@@ -56,7 +72,7 @@ export default function SearchDropDown({
               key={keyword}
               to={{
                 pathname: '/search/all/',
-                search: `?keywords=${keyword}`,
+                search: `?keyword=${keyword}`,
                 state: { keyword },
               }}
               onClick={() => {
@@ -76,38 +92,76 @@ export default function SearchDropDown({
   return (
     <StyledSearchDropdown>
       {matchingResults.map(result => {
-        const { id, name, imageUrl, relation, company } = result;
-        return (
-          <ResultLine
-            key={id}
-            to={{
-              pathname: '/search/all/',
-              search: `?keywords=${name}`,
-              state: { keyword: name },
-            }}
-            onClick={() => {
-              addToSearchHistory(name);
-              setDropdownVisible(false);
-              setSearchInput(name);
-            }}
-          >
-            <img
-              alt={`${name}'s profile'`}
-              src={imageUrl || 'https://robohash.org/no-image'}
-            />
-            <p>{name}</p>
-            <span>&#183; {relation} &#183;</span>
-            <span>
-              {company.position} at {company.name}
-            </span>
-          </ResultLine>
-        );
+        const {
+          id,
+          firstName,
+          lastName,
+          userProfileUrl,
+          currentPosition,
+          userCompanyName,
+          companyName,
+          companyLocation,
+          companyProfileImageUrl,
+          relation = '1st',
+        } = result;
+        if (firstName) {
+          const fullName = `${firstName} ${lastName}`;
+          return (
+            <ResultLine
+              key={fullName}
+              to={{
+                pathname: '/search/all/',
+                search: `?keyword=${fullName}`,
+                state: { keyword: fullName },
+              }}
+              onClick={() => {
+                addToSearchHistory(fullName);
+                setDropdownVisible(false);
+                setSearchInput(fullName);
+              }}
+            >
+              <img
+                alt={`${fullName}'s profile'`}
+                src={userProfileUrl || 'https://robohash.org/no-image'}
+              />
+              <p>{fullName}</p>
+              <span>&#183; {relation} &#183;</span>
+              <span>
+                {currentPosition} at {userCompanyName}
+              </span>
+            </ResultLine>
+          );
+        } else {
+          return (
+            <ResultLine
+              key={id}
+              to={{
+                pathname: '/search/all/',
+                search: `?keyword=${companyName}`,
+                state: { keyword: companyName },
+              }}
+              onClick={() => {
+                addToSearchHistory(companyName);
+                setDropdownVisible(false);
+                setSearchInput(companyName);
+              }}
+            >
+              <img
+                alt={`${companyName}'s profile'`}
+                src={companyProfileImageUrl || 'https://robohash.org/no-image'}
+              />
+              <p>{companyName}</p>
+              <span>&#183; Company &#183;</span>
+              <span>{companyLocation}</span>
+            </ResultLine>
+          );
+        }
       })}
       <ResultLine
         $seeAllResults
         to={{
           pathname: '/search/all/',
-          search: `?keywords=${searchInput}`,
+          search: `?keyword=${searchInput}`,
           state: { keyword: searchInput },
         }}
         onClick={() => {
@@ -192,9 +246,11 @@ const ResultLine = styled(Link)`
   }
 
   img {
-    height: 80%;
+    height: 35.19px;
+    width: 35.19px;
     border: 1px solid lightgrey;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   p {
