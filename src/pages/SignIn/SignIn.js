@@ -39,8 +39,8 @@ export default function SignIn() {
   const submitInput = event => {
     const { email, password } = user;
 
-    event.preventDefault(); // Test Code for Checking API
-    fetch(`/user/signin`, {
+    // event.preventDefault();
+    fetch(`http://localhost:8080/user/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },

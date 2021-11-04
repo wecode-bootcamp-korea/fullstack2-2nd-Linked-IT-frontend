@@ -1,47 +1,12 @@
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
-import { KAKAO_AUTH_URL, GITHUB_AUTH_URL } from './SignUpOAuth';
-
-const { Kakao } = window;
+import { KAKAO_AUTH_URL, GITHUB_AUTH_URL } from '../Auth/authData';
 
 export default function SignUpButton() {
-  const history = useHistory();
-  const handleSignUpWithKakao = () => {
-    Kakao.Auth.login({
-      scope: 'account_email, birthday, profile_image, story_permalink',
-      success: function (authObj) {
-        console.log('소셜 로그인 성공!?', authObj);
-        fetch(`/user/signup/kakao`, {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-            Authorization: authObj.access_token,
-          },
-        })
-          .then(res => res.json())
-          .then(res => {
-            console.log(res);
-            localStorage.setItem('kakaoToken', res.access_token);
-            if (res.access_token) {
-              // history.push('/feed');
-              history.push(KAKAO_AUTH_URL);
-            }
-          });
-      },
-      fail: function (err) {
-        alert(JSON.stringify(err));
-      },
-    });
-  };
-
   return (
     <>
-      {/* <KakaoSignUp href={KAKAO_AUTH_URL}> */}
-      <KakaoSignUp>
+      <KakaoSignUp href={KAKAO_AUTH_URL}>
         <Button
-          onClick={handleSignUpWithKakao}
           type="button"
           bgc={`#fde500`}
           color={`black`}

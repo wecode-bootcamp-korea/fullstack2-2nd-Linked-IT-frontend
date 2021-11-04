@@ -48,8 +48,8 @@ export default function SignUp() {
   const submitInput = event => {
     const { firstName, lastName, email, password } = user;
 
-    event.preventDefault(); // Test Code for Checking API
-    fetch(`/user/signup`, {
+    // event.preventDefault();
+    fetch(`http://localhost:8080/user/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

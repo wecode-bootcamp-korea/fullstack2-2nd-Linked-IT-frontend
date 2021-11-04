@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
-import { KAKAO_AUTH_URL, GITHUB_AUTH_URL } from './SignInOAuth';
+import { KAKAO_AUTH_URL, GITHUB_AUTH_URL } from '../Auth/authData';
 
 export default function SignInButton() {
   return (
     <>
-      <KakaoSignIn>
+      <KakaoSignIn href={KAKAO_AUTH_URL}>
         <Button
           type="button"
           bgc={`#fde500`}
@@ -22,7 +20,7 @@ export default function SignInButton() {
           height={`52px`}
         />
       </KakaoSignIn>
-      <GithubSignIn>
+      <GithubSignIn href={GITHUB_AUTH_URL}>
         <Button
           type="button"
           bgc={`white`}
