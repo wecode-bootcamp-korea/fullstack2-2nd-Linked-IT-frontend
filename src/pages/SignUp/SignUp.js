@@ -20,7 +20,7 @@ const validateInput = user => {
   const isValidEmail = email.match(validEmail) && email !== '';
   const isValidPassword = password.match(validPassword) && password !== '';
 
-  // Test Code for Checking Functions
+  // Test Code for Checking Function
   console.log(isValidLastName, isValidFirstName, isValidEmail, isValidPassword);
 
   return isValidLastName && isValidFirstName && isValidEmail && isValidPassword;
@@ -48,8 +48,8 @@ export default function SignUp() {
   const submitInput = event => {
     const { firstName, lastName, email, password } = user;
 
-    // event.preventDefault();
-    fetch(`user/signup`, {
+    event.preventDefault(); // Test Code for Checking API
+    fetch(`/user/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -62,11 +62,11 @@ export default function SignUp() {
       .then(res => res.json())
       .then(res => {
         console.log(res);
-        if (res.status === 'SIGNUP_FAILED') {
-          alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
-        } else if (res.status === 'SIGNUP_SUCCESSED') {
+        if (res.status === 'SIGNUP_SUCCESSED') {
           alert('회원가입에 성공하였습니다.');
           history.push('/signin');
+        } else if (res.status === 'SIGNUP_FAILED') {
+          alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
         } else {
           alert(res.status);
         }
@@ -74,7 +74,7 @@ export default function SignUp() {
   };
 
   const rejectInput = () => {
-    alert('회원가입에 실패하였습니다. 유효한 형식으로 다시 입력해주세요.');
+    alert('회원가입에 실패하였습니다. 유효한 형식으로 다시 시도해주세요.');
     setUser({
       firstName: '',
       lastName: '',

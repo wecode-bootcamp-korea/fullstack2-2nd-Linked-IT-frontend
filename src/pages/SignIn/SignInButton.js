@@ -1,13 +1,15 @@
-import { Link, useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
+import { KAKAO_AUTH_URL, GITHUB_AUTH_URL } from './SignInOAuth';
 
 export default function SignInButton() {
   return (
     <>
       <KakaoSignIn>
         <Button
-          type="submit"
+          type="button"
           bgc={`#fde500`}
           color={`black`}
           text={
@@ -22,7 +24,7 @@ export default function SignInButton() {
       </KakaoSignIn>
       <GithubSignIn>
         <Button
-          type="submit"
+          type="button"
           bgc={`white`}
           color={`black`}
           text={
@@ -39,7 +41,7 @@ export default function SignInButton() {
   );
 }
 
-const KakaoSignIn = styled.div`
+const KakaoSignIn = styled.a`
   button {
     border: 0;
     border-radius: 28px;
@@ -60,7 +62,7 @@ const KakaoSignIn = styled.div`
   }
 `;
 
-const GithubSignIn = styled.div`
+const GithubSignIn = styled.a`
   button {
     border: 1px solid ${props => props.theme.colors.btnHoverBlack};
     border-radius: 28px;
@@ -77,7 +79,7 @@ const GithubSignIn = styled.div`
 
     &:hover {
       border: 1px solid ${props => props.theme.colors.darkGrey};
-      background-color: ${props => props.theme.colors.bgcGrey};
+      background-color: ${props => props.theme.colors.btnLightGrey};
     }
   }
 `;
