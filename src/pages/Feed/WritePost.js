@@ -1,26 +1,16 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import uploadBtns from './data/UploadBtns';
-import WritePostModal from './WritePostModal';
 
-export default function WritePost({ myProfileData, addPost }) {
+export default function WritePost({ myProfileData, setIsModalOpen }) {
   const { userProfileUrl } = myProfileData;
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
   return (
     <WritePostContainer>
-      {isModalOpen && (
-        <WritePostModal
-          myProfileData={myProfileData}
-          addPost={addPost}
-          setIsModalOpen={setIsModalOpen}
-        />
-      )}
-      <WritePostBtn onClick={handleModal}>
+      <WritePostBtn onClick={openModal}>
         <img alt="myProfileImg" src={userProfileUrl} />
         <div>
           <span>글 올리기</span>

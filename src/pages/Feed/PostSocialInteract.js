@@ -1,16 +1,25 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import LikeBtnAndModal from './LikeBtnAndModal';
+import PostReply from './PostReply';
 
-export default function PostSocialInteract({ handleReply, numOfReplys }) {
+export default function PostSocialInteract({ myProfileData, postData }) {
+  const [isReplyOpen, setIsReplyOpen] = useState(false);
+
+  const handleReplyOepn = () => {
+    setIsReplyOpen(!isReplyOpen);
+  };
+
   return (
     <article>
       <Header>
-        <span>댓글 {numOfReplys}</span>
+        <span>좋아요 {postData.likeCount}</span>
+        <span>댓글 {postData.commentCount}</span>
       </Header>
       <Interact>
         <BtnWrap>
-          <LikeBtnAndModal />
-          <button onClick={handleReply}>
+          <LikeBtnAndModal myProfileData={myProfileData} postData={postData} />
+          <button onClick={handleReplyOepn}>
             <img alt="reply" src="/Images/ico_reply.svg" />
             <span>댓글</span>
           </button>
@@ -23,12 +32,17 @@ export default function PostSocialInteract({ handleReply, numOfReplys }) {
             <span>보내기</span>
           </button>
         </BtnWrap>
+        {isReplyOpen && (
+          <PostReply myProfileData={myProfileData} postData={postData} />
+        )}
       </Interact>
     </article>
   );
 }
 
 const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin: 0 20px;
   padding: 10px 5px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderGrey};

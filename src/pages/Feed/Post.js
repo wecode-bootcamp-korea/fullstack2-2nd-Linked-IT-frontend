@@ -1,19 +1,17 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import PostProfile from './PostProfile';
 import PostContent from './PostContent';
 import PostSocialInteract from './PostSocialInteract';
-import PostReply from './PostReply';
-import WritePostModal from './WritePostModal';
+import PostModal from './PostModal';
 
-export default function Post({ myProfileData, postData, deletePost }) {
-  const [isReplyOpen, setIsReplyOpen] = useState(false);
+export default function Post({ myProfileData, postData, setPostUpdate }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [deleteConfirmMsg, setDeleteConfirmMsg] = useState(false);
-  const [numOfReplys, setNumOfReplys] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const editPostModalRef = useRef();
 
   const handleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
@@ -30,38 +28,41 @@ export default function Post({ myProfileData, postData, deletePost }) {
     setIsEditModalOpen(false);
   };
 
-  const editPost = postValue => {
-    postData.text = postValue;
-  };
-
-  const selectDeletingPost = () => {
-    deletePost(postData.id);
+  const deletePost = () => {
+    fetch('http://localhost:10000/post/delete', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        postId: postData.id,
+      }),
+    })
+      .then(res => res.json())
+      .then(console.log('DELETE_POST_SUCCESS'))
+      .catch(error => {
+        console.log(error);
+      });
+    setPostUpdate(true);
+    setIsModalOpen(false);
   };
 
   const closeDeleteMsg = () => {
     setDeleteConfirmMsg(false);
   };
 
-  const handleReplyOepn = () => {
-    setIsReplyOpen(!isReplyOpen);
+  const clickPostModalOutside = ({ target }) => {
+    if (
+      isEditModalOpen &&
+      (!editPostModalRef.current || !editPostModalRef.current.contains(target))
+    )
+      setIsEditModalOpen(false);
   };
 
-  const clickWriteBtn = () => {
-    const url = ``;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: ``,
-        text: ``,
-      }),
-    })
-      .then(res => res.json())
-      .then(console.log)
-      .catch(console.log);
-  };
+  useEffect(() => {
+    window.addEventListener('click', clickPostModalOutside);
+    return () => {
+      window.removeEventListener('click', clickPostModalOutside);
+    };
+  });
 
   return (
     <PostWrap>
@@ -71,7 +72,7 @@ export default function Post({ myProfileData, postData, deletePost }) {
         </EditBtn>
       )}
       {isEditModalOpen && (
-        <EditModal>
+        <EditModal ref={editPostModalRef}>
           <EditPost onClick={openEditModal}>
             <FontAwesomeIcon icon={faPen} />
             <span>변경</span>
@@ -83,33 +84,23 @@ export default function Post({ myProfileData, postData, deletePost }) {
         </EditModal>
       )}
       {isModalOpen && (
-        <WritePostModal
+        <PostModal
           myProfileData={myProfileData}
           postData={postData}
+          setPostUpdate={setPostUpdate}
           setIsModalOpen={setIsModalOpen}
-          editPost={editPost}
         />
       )}
       {deleteConfirmMsg && (
         <DeleteMsg>
           <span>삭제하시겠습니까?</span>
-          <DeleteBtn onClick={selectDeletingPost}>삭제</DeleteBtn>
+          <DeleteBtn onClick={deletePost}>삭제</DeleteBtn>
           <CancelBtn onClick={closeDeleteMsg}>취소</CancelBtn>
         </DeleteMsg>
       )}
       <PostProfile postData={postData} />
       <PostContent postData={postData} />
-      <PostSocialInteract
-        handleReply={handleReplyOepn}
-        numOfReplys={numOfReplys}
-      />
-      {isReplyOpen && (
-        <PostReply
-          myProfileData={myProfileData}
-          postData={postData}
-          numOfReplys={setNumOfReplys}
-        />
-      )}
+      <PostSocialInteract myProfileData={myProfileData} postData={postData} />
     </PostWrap>
   );
 }

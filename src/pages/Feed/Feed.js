@@ -3,91 +3,84 @@ import styled from 'styled-components';
 import FeedProfile from './FeedProfile';
 import WritePost from './WritePost';
 import Post from './Post';
+import PostModal from './PostModal';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import Loader from '../../components/Loader/Loader';
 import MY_PROFILE_DATA from './data/MyProfileData';
-import POST_DATA from './data/PostData';
-import POST_DATA2 from './data/PostData2';
+
+const QUERY_LIMIT = 4;
+const options = { rootMargin: '0px', threshold: 1 };
 
 export default function Feed() {
   const { ...myProfileData } = MY_PROFILE_DATA;
-  const [postList, setPostList] = useState(POST_DATA);
+  const [postList, setPostList] = useState([]);
+  const [postListOnScreen, setPostListOnScreen] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [infiniteTarget, setTarget] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [postUpdate, setPostUpdate] = useState(false);
 
-  //Post 게시글 추가
-  const addPost = newPostData => {
-    const addedList = [...postList].concat(newPostData);
-    setPostList(addedList);
-  };
+  // useEffect(() => {
+  //   let observer;
+  //   if (infiniteTarget) {
+  //     observer = new IntersectionObserver(callback, options);
+  //     observer.observe(infiniteTarget);
+  //   }
+  //   return () => observer && observer.disconnect();
+  // }, [infiniteTarget]);
 
-  //Post 게시글 삭제
-  const deletePost = deletePostId => {
-    const deletedList = [...postList].filter(el => el.id !== deletePostId);
-    setPostList(deletedList);
-  };
+  // useEffect(() => {}, [postList]);
 
-  const reversedPostList = [...postList].reverse();
+  // async function callback([entry], observer) {
+  //   if (entry.isIntersecting && !isLoading) {
+  //     observer.unobserve(entry.target);
+  //     await getMoreItem(postList.length, QUERY_LIMIT);
+  //     observer.observe(entry.target);
+  //   }
+  // }
 
-  //Infinte Scroll 구현
-  const QUERY_LIMIT = 8;
-
-  const options = { rootMargin: '0px', threshold: 1 };
-
-  async function callback([entry], observer) {
-    console.log('callback'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-
-    if (entry.isIntersecting && !isLoading) {
-      observer.unobserve(entry.target);
-      await getMoreItem(postList.length, QUERY_LIMIT);
-      observer.observe(entry.target);
-    }
-  }
-
-  async function getMoreItem() {
-    console.log('getMoreItem', postList); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-
-    setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 500));
-    setPostList(postList => postList.concat(POST_DATA2));
-    setIsLoading(false);
-  }
-
-  console.log(postList);
+  // async function getMoreItem(offset, limit) {
+  //   setIsLoading(true);
+  //   await new Promise(resolve => setTimeout(resolve, 500));
+  //   setPostList(postList => postList.concat(new Array(limit).fill(offset)));
+  //   setIsLoading(false);
+  // }
 
   useEffect(() => {
-    console.log('infiniteTarget effect'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
+    fetch('http://localhost:10000/post/read')
+      .then(res => res.json())
+      .then(res => setPostList(res))
+      .then(console.log('GET_FEED_SECCESS'))
+      .catch(error => {
+        console.log(error);
+      });
+    setPostUpdate(false);
+  }, [postUpdate]);
 
-    let observer;
-    if (infiniteTarget) {
-      console.log('target');
-      observer = new IntersectionObserver(callback, options);
-      observer.observe(infiniteTarget);
-    }
-    return () => observer && observer.disconnect();
-  }, [infiniteTarget]);
-
-  useEffect(() => {
-    console.log('postList effect'); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-    console.log(postList); // API 연결 때를 위해 남겨두었습니다. 양해 부탁드립니다.
-  }, [postList]);
-
+  //render
   return (
     <Body>
       <FeedProfile myProfileData={myProfileData} />
       <PostWrap>
+        {isModalOpen && (
+          <PostModal
+            myProfileData={myProfileData}
+            setPostUpdate={setPostUpdate}
+            setIsModalOpen={setIsModalOpen}
+          />
+        )}
         <WritePost
           myProfileData={myProfileData}
           postList={postList}
-          addPost={addPost}
+          setIsModalOpen={setIsModalOpen}
         />
-        {reversedPostList.map(data => {
+        {postList.reverse().map(data => {
           return (
             <Post
               key={data.id}
               postData={data}
               myProfileData={myProfileData}
-              deletePost={deletePost}
+              setPostUpdate={setPostUpdate}
             />
           );
         })}

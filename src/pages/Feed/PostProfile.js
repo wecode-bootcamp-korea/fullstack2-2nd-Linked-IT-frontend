@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import UserCard from '../../components/UserCard/UserCard';
 
-export default function PostProfile(props) {
-  const { ...postData } = props.postData;
-
+export default function PostProfile({ postData }) {
   return (
     <Writer>
       <UserCard profile={postData} relation="true" type="kjob" />

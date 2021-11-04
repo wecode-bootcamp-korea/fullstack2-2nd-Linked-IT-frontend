@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import PostReplyList from './PostReplyList';
 import isKorean from './../../utils/LanguageUtil';
 
-export default function PostReply({ myProfileData, numOfReplys }) {
-  const { firstName, lastName, headline, userProfileUrl } = myProfileData;
-  const replyInputRef = useRef();
-
+export default function PostReply({ myProfileData, postData }) {
+  const { firstName, lastName, userProfileUrl } = myProfileData;
   const [replyValue, setReplyValue] = useState('');
-  const [replyId, setReplyId] = useState(1);
   const [replyList, setReplyList] = useState([]);
+  const [replyUpdate, setReplyUpdate] = useState(false);
+  const replyInputRef = useRef();
 
   const name = `${
     isKorean(firstName) ? `${lastName}${firstName}` : `${firstName} ${lastName}`
@@ -19,63 +18,43 @@ export default function PostReply({ myProfileData, numOfReplys }) {
     setReplyValue(e.target.value);
   };
 
-  const pushReply = () => {
-    setReplyId(replyId + 1);
-    setReplyList([
-      ...replyList,
-      {
-        id: replyId,
-        writer: name,
-        headline: headline,
-        image: userProfileUrl,
-        reply: replyValue,
-      },
-    ]);
-    replyInputRef.current.value = '';
-    replyInputRef.current.style.height = '44px';
-    setReplyValue('');
-  };
-
   const resizeReplyTextArea = () => {
     replyInputRef.current.style.height = '44px';
     replyInputRef.current.style.height =
       replyInputRef.current.scrollHeight + 'px';
   };
 
-  const deleteReply = id => {
-    const deletedReplyList = [...replyList].filter(el => id !== el.id);
-    setReplyList(deletedReplyList);
+  const addReply = () => {
+    fetch('http://localhost:10000/comment/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: replyInputRef.current.value,
+        postId: postData.id,
+        userId: myProfileData.id,
+      }),
+    })
+      .then(res => res.json())
+      .then(console.log('ADD_REPLY_SUCCESS'))
+      .catch(error => {
+        console.log(error);
+      });
+    setReplyUpdate(true);
+    setReplyValue('');
+    replyInputRef.current.value = '';
+    replyInputRef.current.style.height = '44px';
   };
 
   useEffect(() => {
-    numOfReplys(replyList.length);
-  });
-
-  const saveEditedReply = (id, editedReply) => {
-    const editedReplyList = [...replyList].map(el => {
-      if (el.id === id) {
-        el.reply = editedReply;
-        return el;
-      } else {
-        return el;
-      }
-    });
-    setReplyList(editedReplyList);
-  };
-
-  const reverseReplyList = [...replyList].reverse();
-
-  const replys = reverseReplyList.map(data => {
-    return (
-      <PostReplyList
-        key={data.id}
-        data={data}
-        writer={name}
-        deleteReply={deleteReply}
-        saveEditedReply={saveEditedReply}
-      />
-    );
-  });
+    fetch('http://localhost:10000/comment/')
+      .then(res => res.json())
+      .then(res => setReplyList(res))
+      .then(console.log('GET_REPLY_SECCESS'))
+      .catch(error => {
+        console.log(error);
+      });
+    setReplyUpdate(false);
+  }, [replyUpdate]);
 
   return (
     <article>
@@ -87,9 +66,23 @@ export default function PostReply({ myProfileData, numOfReplys }) {
           onKeyDown={resizeReplyTextArea}
           ref={replyInputRef}
         />
-        {replyValue ? <button onClick={pushReply}>올리기</button> : ''}
+        {replyValue ? <button onClick={() => addReply()}>올리기</button> : ''}
       </InputReply>
-      <ReplyContainer>{replys}</ReplyContainer>
+      <ReplyContainer>
+        {replyList
+          .filter(el => el.postId === postData.id)
+          .map(data => {
+            return (
+              <PostReplyList
+                key={data.id}
+                replyData={data}
+                writer={name}
+                setReplyUpdate={setReplyUpdate}
+                myProfileData={myProfileData}
+              />
+            );
+          })}
+      </ReplyContainer>
     </article>
   );
 }
@@ -130,6 +123,7 @@ const InputReply = styled.div`
     background-color: ${({ theme }) => theme.colors.btnNavy};
     color: ${({ theme }) => theme.colors.white};
     font-weight: 600;
+    cursor: pointer;
   }
 `;
 
