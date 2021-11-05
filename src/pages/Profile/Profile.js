@@ -5,13 +5,14 @@ import Informaion from './Informaion/Information';
 import CareerAddModal from './Modals/CareerAddModal';
 import EducationAddModal from './Modals/EducationAddModal';
 import CareerEditModal from './Modals/CareerEditModal';
+import MayKonwList from './MayKnowList';
+import ImgUploadModal from './ImgUploadModal';
 import EducationEditModal from './Modals/EducationEditModal';
 import BasicEditModal from './Modals/BasicEditModal';
-import MayKonwList from './MayKnowList';
-import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import PopUpMessage from './Modals/PopUpMessage';
+import TopNav from '../../components/TopNav/TopNav';
+import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import { disableScroll, enableScroll } from '../../utils/ModalFunc';
-import ImgUploadModal from './ImgUploadModal';
 
 export default function Profile(props) {
   const [showBasicEditModal, setShowBasicEditModal] = useState(false);
@@ -188,76 +189,79 @@ export default function Profile(props) {
   };
 
   return (
-    <StyledInformation>
-      <Container>
-        <Main>
-          <ProfileMain
-            profile={profile}
-            careers={careers}
-            openBasicEditModal={openBasicEditModal}
-            openImgUploadModal={openImgUploadModal}
-            showCurrentCompany={showCurrentCompany}
-            showEducation={showEducation}
-          />
-          <Informaion
-            title="경력사항"
-            cards={careers}
-            openCareerAddModal={openCareerAddModal}
-            openCareerEditModal={openCareerEditModal}
-          />
-          <Informaion
-            title="학력"
-            cards={educations}
-            openEducationAddModal={openEducationAddModal}
-            openEducationEditModal={openEducationEditModal}
-          />
+    <>
+      <TopNav />
+      <StyledInformation>
+        <Container>
+          <Main>
+            <ProfileMain
+              profile={profile}
+              careers={careers}
+              openBasicEditModal={openBasicEditModal}
+              openImgUploadModal={openImgUploadModal}
+              showCurrentCompany={showCurrentCompany}
+              showEducation={showEducation}
+            />
+            <Informaion
+              title="경력사항"
+              cards={careers}
+              openCareerAddModal={openCareerAddModal}
+              openCareerEditModal={openCareerEditModal}
+            />
+            <Informaion
+              title="학력"
+              cards={educations}
+              openEducationAddModal={openEducationAddModal}
+              openEducationEditModal={openEducationEditModal}
+            />
 
-          <CareerAddModal
-            currentCareer={careers}
-            showCareerAddModal={showCareerAddModal}
-            closeCareerAddModal={closeCareerAddModal}
-            addNewCareer={addNewCareer}
-          />
-          <CareerEditModal
-            selectedCareer={careers[selectedCareer]}
-            showCareerEditModal={showCareerEditModal}
-            closeCareerEditModal={closeCareerEditModal}
-          />
-          <EducationAddModal
-            showEducationAddModal={showEducationAddModal}
-            closeEducationAddModal={closeEducationAddModal}
-          />
-          <EducationEditModal
-            education={educations[selectedEducation]}
-            showEducationEditModal={showEducationEditModal}
-            closeEducationEditModal={closeEducationEditModal}
-          />
-          <BasicEditModal
-            profile={profile}
-            showBasicEditModal={showBasicEditModal}
-            closeBasicEditModal={closeBasicEditModal}
-            showCurrentCompany={showCurrentCompany}
-            setShowCurrentCompany={setShowCurrentCompany}
-            showEducation={showEducation}
-            setShowEducation={setShowEducation}
-          />
-          <ImgUploadModal
-            type={type}
-            showImgUploadModal={showImgUploadModal}
-            closeImgUploadmodal={closeImgUploadmodal}
-            updateBgImg={updateBgImg}
-            updateProfileImg={updateProfileImg}
-          />
-        </Main>
-        <Aside>
-          <MayKonwList mayKnowList={mayKnowList} />
-          <FloatingFooter />
-        </Aside>
-      </Container>
-      {popUpSaved && (
-        <PopUpMessage popUpSaved={popUpSaved} text="저장되었습니다." />
-      )}
-    </StyledInformation>
+            <CareerAddModal
+              currentCareer={careers}
+              showCareerAddModal={showCareerAddModal}
+              closeCareerAddModal={closeCareerAddModal}
+              addNewCareer={addNewCareer}
+            />
+            <CareerEditModal
+              selectedCareer={careers[selectedCareer]}
+              showCareerEditModal={showCareerEditModal}
+              closeCareerEditModal={closeCareerEditModal}
+            />
+            <EducationAddModal
+              showEducationAddModal={showEducationAddModal}
+              closeEducationAddModal={closeEducationAddModal}
+            />
+            <EducationEditModal
+              education={educations[selectedEducation]}
+              showEducationEditModal={showEducationEditModal}
+              closeEducationEditModal={closeEducationEditModal}
+            />
+            <BasicEditModal
+              profile={profile}
+              showBasicEditModal={showBasicEditModal}
+              closeBasicEditModal={closeBasicEditModal}
+              showCurrentCompany={showCurrentCompany}
+              setShowCurrentCompany={setShowCurrentCompany}
+              showEducation={showEducation}
+              setShowEducation={setShowEducation}
+            />
+            <ImgUploadModal
+              type={type}
+              showImgUploadModal={showImgUploadModal}
+              closeImgUploadmodal={closeImgUploadmodal}
+              updateBgImg={updateBgImg}
+              updateProfileImg={updateProfileImg}
+            />
+          </Main>
+          <Aside>
+            <MayKonwList mayKnowList={mayKnowList} />
+            <FloatingFooter />
+          </Aside>
+        </Container>
+        {popUpSaved && (
+          <PopUpMessage popUpSaved={popUpSaved} text="저장되었습니다." />
+        )}
+      </StyledInformation>
+    </>
   );
 }
 

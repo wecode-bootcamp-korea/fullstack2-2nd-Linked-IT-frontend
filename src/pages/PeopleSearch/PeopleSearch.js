@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import TopNav from '../../components/TopNav/TopNav';
 import Button from '../../components/Button/Button';
 import UserCard from '../../components/UserCard/UserCard';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
@@ -32,53 +33,56 @@ export default function PeopleSearch({ location }) {
   };
 
   return (
-    <Body>
-      <MainWrapper>
-        <SearchResultsWrapper>
-          {/* {location.search && <h1>query param: {location.search}</h1>}
+    <>
+      <TopNav />
+      <Body>
+        <MainWrapper>
+          <SearchResultsWrapper>
+            {/* {location.search && <h1>query param: {location.search}</h1>}
           {keyword && <h1>Search input: {keyword}</h1>} */}
-          {<h1>{allPeopleList.length} results</h1>}
-          <SectionWrapper>
-            <SectionHeader>People</SectionHeader>
-            <CardList>
-              {allPeopleList.map(person => {
-                console.log('person:', person);
-                return (
-                  <div key={person.id}>
-                    <CardItem>
-                      <UserCardWrapper
-                        onClick={() => goToUserProfilePage(person.id)}
-                      >
-                        <UserCard
-                          profile={person}
-                          withoutName="false"
-                          relation="true"
-                          type="location education ejob-l"
-                        />
-                      </UserCardWrapper>
-                      <StyledButton text="1촌 신청" />
-                    </CardItem>
-                    {person !== allPeopleList[allPeopleList.length - 1] && (
-                      <BottomBorder />
-                    )}
-                  </div>
-                );
-              })}
-            </CardList>
-          </SectionWrapper>
-          {/* <PaginationWrapper>
+            {<h1>{allPeopleList.length} results</h1>}
+            <SectionWrapper>
+              <SectionHeader>People</SectionHeader>
+              <CardList>
+                {allPeopleList.map(person => {
+                  console.log('person:', person);
+                  return (
+                    <div key={person.id}>
+                      <CardItem>
+                        <UserCardWrapper
+                          onClick={() => goToUserProfilePage(person.id)}
+                        >
+                          <UserCard
+                            profile={person}
+                            withoutName="false"
+                            relation="true"
+                            type="location education ejob-l"
+                          />
+                        </UserCardWrapper>
+                        <StyledButton text="1촌 신청" />
+                      </CardItem>
+                      {person !== allPeopleList[allPeopleList.length - 1] && (
+                        <BottomBorder />
+                      )}
+                    </div>
+                  );
+                })}
+              </CardList>
+            </SectionWrapper>
+            {/* <PaginationWrapper>
             <button>Num</button>
             <button>Num</button>
             <button>Num</button>
           </PaginationWrapper> */}
-        </SearchResultsWrapper>
-        <SubWrapper>
-          <FloatingFooterWrapper>
-            <FloatingFooter />
-          </FloatingFooterWrapper>
-        </SubWrapper>
-      </MainWrapper>
-    </Body>
+          </SearchResultsWrapper>
+          <SubWrapper>
+            <FloatingFooterWrapper>
+              <FloatingFooter />
+            </FloatingFooterWrapper>
+          </SubWrapper>
+        </MainWrapper>
+      </Body>
+    </>
   );
 }
 
