@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import TopNav from '../../components/TopNav/TopNav';
 import Button from '../../components/Button/Button';
 import UserCard from '../../components/UserCard/UserCard';
 // import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
-import { SearchByKeywords } from '../../utils/SearchUtil';
 import CompanyProfileCard from '../../components/CompanyProfileCard/CompanyProfileCard';
+import { SearchByKeywords } from '../../utils/SearchUtil';
 
 export default function MainSearch({ location }) {
   const [peopleList, setPeopleList] = useState([]);
@@ -68,95 +69,97 @@ export default function MainSearch({ location }) {
   // };
 
   return (
-    <Page>
-      <MainWrapper>
-        <SearchResultsWrapper>
-          {/* {location.search && <h1>query param: {location.search}</h1>}
+    <>
+      <TopNav />
+      <Page>
+        <MainWrapper>
+          <SearchResultsWrapper>
+            {/* {location.search && <h1>query param: {location.search}</h1>}
           {location.state && <h1>Search input: {keyword}</h1>} */}
-          {peopleList.length > 0 && (
-            <SectionWrapper>
-              <SectionHeader>People</SectionHeader>
-              <CardList>
-                {peopleList.map(person => {
-                  const { firstName, lastName, companyLocation } = person;
-                  return (
-                    <div key={`${firstName} ${lastName}`}>
-                      <CardItem>
-                        <CardWrapper
-                          onClick={() =>
-                            goToUserProfilePage(`${firstName}-${lastName}`)
-                          }
-                        >
-                          <UserCard
-                            profile={person}
-                            withoutName="false"
-                            relation="true"
-                            type="ejob-l"
-                            text={companyLocation}
-                          />
-                        </CardWrapper>
-                        <StyledButton text="1촌 신청" />
-                      </CardItem>
-                      {person !== peopleList[peopleList.length - 1] && (
-                        <BottomBorder />
-                      )}
-                    </div>
-                  );
-                })}
-              </CardList>
-              {peopleList[0].userCount > 3 && (
-                <SeeAllResultsButton onClick={goToPeopleResults}>
-                  See all people results
-                </SeeAllResultsButton>
-              )}
-            </SectionWrapper>
-          )}
-
-          {companyList.length > 0 && (
-            <SectionWrapper>
-              <SectionHeader>Companies</SectionHeader>
-              <CardList>
-                {companyList.map(company => {
-                  const {
-                    id,
-                    companyName,
-                    companyLocation,
-                    companyProfileImageUrl,
-                    companyCategory,
-                  } = company;
-                  return (
-                    <div key={id}>
-                      <CardItem>
-                        <CardWrapper>
-                          <CompanyProfileCard
-                            companyId={id}
-                            companyProfileImageUrl={
-                              companyProfileImageUrl ||
-                              'http://robohash.org/company'
+            {peopleList.length > 0 && (
+              <SectionWrapper>
+                <SectionHeader>People</SectionHeader>
+                <CardList>
+                  {peopleList.map(person => {
+                    const { firstName, lastName, companyLocation } = person;
+                    return (
+                      <div key={`${firstName} ${lastName}`}>
+                        <CardItem>
+                          <CardWrapper
+                            onClick={() =>
+                              goToUserProfilePage(`${firstName}-${lastName}`)
                             }
-                            companyName={companyName}
-                            companyCategory={companyCategory}
-                            companyLocation={companyLocation}
-                            showBorder={false}
-                          />
-                        </CardWrapper>
-                      </CardItem>
-                      {company !== companyList[companyList.length - 1] && (
-                        <BottomBorder />
-                      )}
-                    </div>
-                  );
-                })}
-              </CardList>
-              {companyList[0].companiesCount > 3 && (
-                <SeeAllResultsButton>
-                  See all company results
-                </SeeAllResultsButton>
-              )}
-            </SectionWrapper>
-          )}
+                          >
+                            <UserCard
+                              profile={person}
+                              withoutName="false"
+                              relation="true"
+                              type="ejob-l"
+                              text={companyLocation}
+                            />
+                          </CardWrapper>
+                          <StyledButton text="1촌 신청" />
+                        </CardItem>
+                        {person !== peopleList[peopleList.length - 1] && (
+                          <BottomBorder />
+                        )}
+                      </div>
+                    );
+                  })}
+                </CardList>
+                {peopleList[0].userCount > 3 && (
+                  <SeeAllResultsButton onClick={goToPeopleResults}>
+                    See all people results
+                  </SeeAllResultsButton>
+                )}
+              </SectionWrapper>
+            )}
 
-          {/* {jobList.length > 0 && (
+            {companyList.length > 0 && (
+              <SectionWrapper>
+                <SectionHeader>Companies</SectionHeader>
+                <CardList>
+                  {companyList.map(company => {
+                    const {
+                      id,
+                      companyName,
+                      companyLocation,
+                      companyProfileImageUrl,
+                      companyCategory,
+                    } = company;
+                    return (
+                      <div key={id}>
+                        <CardItem>
+                          <CardWrapper>
+                            <CompanyProfileCard
+                              companyId={id}
+                              companyProfileImageUrl={
+                                companyProfileImageUrl ||
+                                'http://robohash.org/company'
+                              }
+                              companyName={companyName}
+                              companyCategory={companyCategory}
+                              companyLocation={companyLocation}
+                              showBorder={false}
+                            />
+                          </CardWrapper>
+                        </CardItem>
+                        {company !== companyList[companyList.length - 1] && (
+                          <BottomBorder />
+                        )}
+                      </div>
+                    );
+                  })}
+                </CardList>
+                {companyList[0].companiesCount > 3 && (
+                  <SeeAllResultsButton>
+                    See all company results
+                  </SeeAllResultsButton>
+                )}
+              </SectionWrapper>
+            )}
+
+            {/* {jobList.length > 0 && (
             <SectionWrapper>
               <SectionHeader>Jobs</SectionHeader>
               <CardList>
@@ -196,17 +199,18 @@ export default function MainSearch({ location }) {
               )}
             </SectionWrapper>
           )} */}
-          {!peopleList.length && !companyList.length && (
-            <NoResultsFound>No results found</NoResultsFound>
-          )}
-        </SearchResultsWrapper>
-        <SubWrapper>
-          <FloatingFooterWrapper>
-            <FloatingFooter />
-          </FloatingFooterWrapper>
-        </SubWrapper>
-      </MainWrapper>
-    </Page>
+            {!peopleList.length && !companyList.length && (
+              <NoResultsFound>No results found</NoResultsFound>
+            )}
+          </SearchResultsWrapper>
+          <SubWrapper>
+            <FloatingFooterWrapper>
+              <FloatingFooter />
+            </FloatingFooterWrapper>
+          </SubWrapper>
+        </MainWrapper>
+      </Page>
+    </>
   );
 }
 
