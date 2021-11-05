@@ -4,6 +4,7 @@ import FeedProfile from './FeedProfile';
 import WritePost from './WritePost';
 import Post from './Post';
 import PostModal from './PostModal';
+import TopNav from '../../components/TopNav/TopNav';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import Loader from '../../components/Loader/Loader';
 import MY_PROFILE_DATA from './data/MyProfileData';
@@ -59,36 +60,39 @@ export default function Feed() {
 
   //render
   return (
-    <Body>
-      <FeedProfile myProfileData={myProfileData} />
-      <PostWrap>
-        {isModalOpen && (
-          <PostModal
-            myProfileData={myProfileData}
-            setPostUpdate={setPostUpdate}
-            setIsModalOpen={setIsModalOpen}
-          />
-        )}
-        <WritePost
-          myProfileData={myProfileData}
-          postList={postList}
-          setIsModalOpen={setIsModalOpen}
-        />
-        {postList.reverse().map(data => {
-          return (
-            <Post
-              key={data.id}
-              postData={data}
+    <>
+      <TopNav />
+      <Body>
+        <FeedProfile myProfileData={myProfileData} />
+        <PostWrap>
+          {isModalOpen && (
+            <PostModal
               myProfileData={myProfileData}
               setPostUpdate={setPostUpdate}
+              setIsModalOpen={setIsModalOpen}
             />
-          );
-        })}
-        <InfiniteDiv ref={setTarget} />
-      </PostWrap>
-      <FloatingFooter />
-      {isLoading && <Loader />}
-    </Body>
+          )}
+          <WritePost
+            myProfileData={myProfileData}
+            postList={postList}
+            setIsModalOpen={setIsModalOpen}
+          />
+          {postList.reverse().map(data => {
+            return (
+              <Post
+                key={data.id}
+                postData={data}
+                myProfileData={myProfileData}
+                setPostUpdate={setPostUpdate}
+              />
+            );
+          })}
+          <InfiniteDiv ref={setTarget} />
+        </PostWrap>
+        <FloatingFooter />
+        {isLoading && <Loader />}
+      </Body>
+    </>
   );
 }
 

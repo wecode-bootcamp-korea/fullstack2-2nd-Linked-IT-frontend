@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FriendList from './FriendList';
+import TopNav from '../../components/TopNav/TopNav';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 
 const USER_ID = 1; // API 미구현으로 인한 임시 로직
@@ -44,26 +45,29 @@ export default function Connections() {
   };
 
   return (
-    <Container>
-      <Main>
-        <FriendList
-          category="3"
-          cardData={friendReceiveList}
-          handleReload={handleReload}
-        />
-        <FriendList
-          category="2"
-          cardData={friendRequestList}
-          handleReload={handleReload}
-        />
-        <FriendList
-          category="4"
-          cardData={friendList}
-          handleReload={handleReload}
-        />
-      </Main>
-      <FloatingFooter />
-    </Container>
+    <>
+      <TopNav />
+      <Container>
+        <Main>
+          <FriendList
+            category="3"
+            cardData={friendReceiveList}
+            handleReload={handleReload}
+          />
+          <FriendList
+            category="2"
+            cardData={friendRequestList}
+            handleReload={handleReload}
+          />
+          <FriendList
+            category="4"
+            cardData={friendList}
+            handleReload={handleReload}
+          />
+        </Main>
+        <FloatingFooter />
+      </Container>
+    </>
   );
 }
 

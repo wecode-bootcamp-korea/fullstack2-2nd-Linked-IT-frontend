@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Menus from './components/Menus';
 import Layer from './components/Layer';
 import StyledSection from './components/StyledSection';
+import TopNav from '../../components/TopNav/TopNav';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 const TEMP_DATA = new Array(8).fill(0);
 
@@ -56,57 +57,60 @@ export default function MyNetwork() {
   };
 
   return (
-    <Page>
-      {isLayerOpened && <Dim onClick={showAll} />}
-      <Container>
-        <Management>
-          <Menus connectionsCount={friendCount} />
-          <FloatingFooter />
-        </Management>
-        <Recommendation>
-          <StyledSection
-            category="invitations"
-            cardData={invitationData}
-            onClick={showAll}
-          />
-          <StyledSection
-            category="company"
-            title={companyName}
-            cardData={TEMP_DATA}
-            onClick={showAll}
-          />
-          <StyledSection
-            category="education"
-            title={education}
-            cardData={TEMP_DATA}
-            onClick={showAll}
-          />
-          <StyledSection
-            category="industry"
-            title={industryCategory}
-            cardData={TEMP_DATA}
-            onClick={showAll}
-          />
-          <StyledSection
-            category="page"
-            cardData={TEMP_DATA}
-            onClick={showAll}
-          />
-          <StyledSection
-            category="more"
-            cardData={TEMP_DATA}
-            onClick={showAll}
-          />
-        </Recommendation>
-        {isLayerOpened && (
-          <Layer
-            {...clickedCategoryInfo}
-            isLayerOpened={isLayerOpened}
-            onClick={showAll}
-          />
-        )}
-      </Container>
-    </Page>
+    <>
+      <TopNav />
+      <Page>
+        {isLayerOpened && <Dim onClick={showAll} />}
+        <Container>
+          <Management>
+            <Menus connectionsCount={friendCount} />
+            <FloatingFooter />
+          </Management>
+          <Recommendation>
+            <StyledSection
+              category="invitations"
+              cardData={invitationData}
+              onClick={showAll}
+            />
+            <StyledSection
+              category="company"
+              title={companyName}
+              cardData={TEMP_DATA}
+              onClick={showAll}
+            />
+            <StyledSection
+              category="education"
+              title={education}
+              cardData={TEMP_DATA}
+              onClick={showAll}
+            />
+            <StyledSection
+              category="industry"
+              title={industryCategory}
+              cardData={TEMP_DATA}
+              onClick={showAll}
+            />
+            <StyledSection
+              category="page"
+              cardData={TEMP_DATA}
+              onClick={showAll}
+            />
+            <StyledSection
+              category="more"
+              cardData={TEMP_DATA}
+              onClick={showAll}
+            />
+          </Recommendation>
+          {isLayerOpened && (
+            <Layer
+              {...clickedCategoryInfo}
+              isLayerOpened={isLayerOpened}
+              onClick={showAll}
+            />
+          )}
+        </Container>
+      </Page>
+    </>
   );
 }
 

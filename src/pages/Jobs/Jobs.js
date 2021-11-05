@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import JobPostingDetail from './JobPostingDetail';
-import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
+import TopNav from '../../components/TopNav/TopNav';
 import Button from '../../components/Button/Button';
+import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
 
 export default function Jobs(props) {
   const { searchLocation = '대한민국', searchKeyword = 'React' } = props;
@@ -77,56 +78,59 @@ export default function Jobs(props) {
   };
 
   return (
-    <Container>
-      <ListSection>
-        <SearchResultSummary>
-          <p className="searchKeyword">
-            {searchLocation} {searchKeyword}
-          </p>
-          <p className="searchResult">결과 {totalCount}</p>
-        </SearchResultSummary>
-        <CardWrapper>
-          {listData?.map((post, idx) => (
-            <JobPostingCard
-              key={post.jobPostingId}
-              {...post}
-              isMain={false}
-              showBtn={false}
-              showBorder={idx === listData.length - 1 ? false : true}
-              onClick={clickCard}
-            />
-          ))}
-        </CardWrapper>
-        <Pagination>
-          {listData.length > 0 &&
-            new Array(Math.ceil(totalCount / 20)).fill(0).map((el, idx) => {
-              return (
-                <ButtonWrapper
-                  key={idx}
-                  onClick={() => clickPageNumber(idx + 1)}
-                >
-                  <Button
-                    bgc={({ theme }) =>
-                      clickedPageNumber === idx + 1
-                        ? theme.colors.primary
-                        : theme.colors.white
-                    }
-                    color={({ theme }) =>
-                      clickedPageNumber === idx + 1
-                        ? theme.colors.white
-                        : theme.colors.primary
-                    }
-                    text={idx + 1}
-                  />
-                </ButtonWrapper>
-              );
-            })}
-        </Pagination>
-      </ListSection>
-      <DetailSection>
-        {detailData.jobPostingId > 0 && <JobPostingDetail {...detailData} />}
-      </DetailSection>
-    </Container>
+    <>
+      <TopNav />
+      <Container>
+        <ListSection>
+          <SearchResultSummary>
+            <p className="searchKeyword">
+              {searchLocation} {searchKeyword}
+            </p>
+            <p className="searchResult">결과 {totalCount}</p>
+          </SearchResultSummary>
+          <CardWrapper>
+            {listData?.map((post, idx) => (
+              <JobPostingCard
+                key={post.jobPostingId}
+                {...post}
+                isMain={false}
+                showBtn={false}
+                showBorder={idx === listData.length - 1 ? false : true}
+                onClick={clickCard}
+              />
+            ))}
+          </CardWrapper>
+          <Pagination>
+            {listData.length > 0 &&
+              new Array(Math.ceil(totalCount / 20)).fill(0).map((el, idx) => {
+                return (
+                  <ButtonWrapper
+                    key={idx}
+                    onClick={() => clickPageNumber(idx + 1)}
+                  >
+                    <Button
+                      bgc={({ theme }) =>
+                        clickedPageNumber === idx + 1
+                          ? theme.colors.primary
+                          : theme.colors.white
+                      }
+                      color={({ theme }) =>
+                        clickedPageNumber === idx + 1
+                          ? theme.colors.white
+                          : theme.colors.primary
+                      }
+                      text={idx + 1}
+                    />
+                  </ButtonWrapper>
+                );
+              })}
+          </Pagination>
+        </ListSection>
+        <DetailSection>
+          {detailData.jobPostingId > 0 && <JobPostingDetail {...detailData} />}
+        </DetailSection>
+      </Container>
+    </>
   );
 }
 
