@@ -16,7 +16,7 @@ export default function PostContent({ postData }) {
       </CreatedAt>
       <TextWrap>
         <Text name={isShowMoreClicked}>{content}</Text>
-        {content.length > 220 && (
+        {content.length > 120 && (
           <MoreBtn name={isShowMoreClicked} onClick={contentShow}>
             ...더보기
           </MoreBtn>
