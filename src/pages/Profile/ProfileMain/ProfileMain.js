@@ -52,6 +52,7 @@ export default function ProfileMain(props) {
     showCurrentCompany,
     showEducation,
     openImgUploadModal,
+    careers,
   } = props;
 
   return (
@@ -71,6 +72,7 @@ export default function ProfileMain(props) {
       </PenIconWrapper>
       <Detail
         profile={props.profile}
+        careers={careers}
         showCurrentCompany={showCurrentCompany}
         showEducation={showEducation}
       />

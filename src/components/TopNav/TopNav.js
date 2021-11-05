@@ -49,7 +49,7 @@ export default function TopNav() {
     setDropdownVisible(false);
     history.push({
       pathname: '/search/all/',
-      search: `?keywords=${searchInput}`, // query string
+      search: `?keyword=${searchInput}`, // query string
       state: { keyword: searchInput },
     });
     inputRef.current.blur();

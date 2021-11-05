@@ -3,119 +3,174 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import UserCard from '../../components/UserCard/UserCard';
-import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
-// import JOB_POSTING_DATA from '../../components/JobPostingCard/data/JobPostingData';
+// import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import { SearchByKeywords } from '../../utils/SearchUtil';
+import CompanyProfileCard from '../../components/CompanyProfileCard/CompanyProfileCard';
 
 export default function MainSearch({ location }) {
   const [peopleList, setPeopleList] = useState([]);
-  const [jobList, setJobList] = useState([]);
+  const [companyList, setCompanyList] = useState([]);
+  // const [jobList, setJobList] = useState([]);
   const history = useHistory();
   const { keyword } = location.state;
-
+  // console.log('location.search', location.search);
   useEffect(() => {
-    // fetch(`${API}/${location.search}`);
-    fetch('/data/peopleData.json', {
-      method: 'GET',
-    })
+    fetch(`http://localhost:10000/user${location.search}&limit=3`)
       .then(res => res.json())
       .then(res => {
-        setPeopleList(
-          res.SEARCH_DATA.filter(person => SearchByKeywords(person, keyword))
-        );
-        // setJobList(
-        //   JOB_POSTING_DATA.filter(job => SearchByKeywords(job, keyword))
+        // console.log('USER res:', res);
+        // setPeopleList(
+        //   res.SEARCH_DATA.filter(person => SearchByKeywords(person, keyword))
         // );
+        setPeopleList(res);
       });
-  }, [keyword]);
+
+    fetch(`http://localhost:10000/company/${location.search}&limit=3`)
+      .then(res => res.json())
+      .then(res => {
+        // console.log('COMPANY res:', res);
+        setCompanyList(res);
+      });
+
+    // fetch(`http://localhost:10000/jobs/${location.search}&limit=3`)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     console.log('JOB res:', res);
+    //     // setPeopleList(
+    //     //   res.SEARCH_DATA.filter(person => SearchByKeywords(person, keyword))
+    //     // );
+    //     setJobList(res);
+    //   });
+  }, [location.search]);
 
   const goToUserProfilePage = id => {
-    console.log('goToUserProfilePage');
+    // console.log('goToUserProfilePage');
     history.push({ pathname: `/profile/${id}` });
   };
 
   const goToPeopleResults = () => {
-    console.log('goToPeopleResults');
+    // console.log('goToPeopleResults');
     history.push({
       pathname: '/search/people/',
-      search: `?keywords=${keyword}&limit=SOMETHING&offset=SOMETHING`, // query string
+      search: `${location.search}`, // query string
+      // search: `${location.search}&limit=SOMETHING&offset=SOMETHING`, // query string
       state: { keyword },
     });
   };
 
-  const goToJobBoard = () => {
-    console.log('goToJobBoard');
-    history.push({
-      pathname: '/jobs/',
-      search: `?keywords=${keyword}`, // query string
-      // state: {
-      //   // location state
-      //   // update: true,
-      //   keyword: searchInput,
-      // },
-    });
-  };
+  // const goToJobBoard = () => {
+  //   console.log('goToJobBoard');
+  //   history.push({
+  //     pathname: '/jobs/',
+  //     search: `?keyword=${keyword}`, // query string
+  //   });
+  // };
 
   return (
     <Page>
       <MainWrapper>
         <SearchResultsWrapper>
-          {location.search && <h1>query param: {location.search}</h1>}
-          {location.state && <h1>Search input: {keyword}</h1>}
+          {/* {location.search && <h1>query param: {location.search}</h1>}
+          {location.state && <h1>Search input: {keyword}</h1>} */}
           {peopleList.length > 0 && (
             <SectionWrapper>
               <SectionHeader>People</SectionHeader>
               <CardList>
-                {peopleList
-                  .filter(
-                    (person, index) => index === 0 || index === 1 || index === 2
-                  )
-                  .map(person => {
-                    return (
-                      <div key={person.id}>
-                        <CardItem>
-                          <UserCardWrapper
-                            onClick={() => goToUserProfilePage(person.id)}
-                          >
-                            <UserCard
-                              profile={person}
-                              withoutName="false"
-                              relation="true"
-                              type="location education ejob-l"
-                            />
-                          </UserCardWrapper>
-                          <StyledButton text="1촌 신청" />
-                        </CardItem>
-                        {person !== peopleList[peopleList.length - 1] && (
-                          <BottomBorder />
-                        )}
-                      </div>
-                    );
-                  })}
+                {peopleList.map(person => {
+                  const { firstName, lastName, companyLocation } = person;
+                  return (
+                    <div key={`${firstName} ${lastName}`}>
+                      <CardItem>
+                        <CardWrapper
+                          onClick={() =>
+                            goToUserProfilePage(`${firstName}-${lastName}`)
+                          }
+                        >
+                          <UserCard
+                            profile={person}
+                            withoutName="false"
+                            relation="true"
+                            type="ejob-l"
+                            text={companyLocation}
+                          />
+                        </CardWrapper>
+                        <StyledButton text="1촌 신청" />
+                      </CardItem>
+                      {person !== peopleList[peopleList.length - 1] && (
+                        <BottomBorder />
+                      )}
+                    </div>
+                  );
+                })}
               </CardList>
-              {peopleList.length > 3 && (
+              {peopleList[0].userCount > 3 && (
                 <SeeAllResultsButton onClick={goToPeopleResults}>
                   See all people results
                 </SeeAllResultsButton>
               )}
             </SectionWrapper>
           )}
-          {jobList.length > 0 && (
+
+          {companyList.length > 0 && (
+            <SectionWrapper>
+              <SectionHeader>Companies</SectionHeader>
+              <CardList>
+                {companyList.map(company => {
+                  const {
+                    id,
+                    companyName,
+                    companyLocation,
+                    companyProfileImageUrl,
+                    companyCategory,
+                  } = company;
+                  return (
+                    <div key={id}>
+                      <CardItem>
+                        <CardWrapper>
+                          <CompanyProfileCard
+                            companyId={id}
+                            companyProfileImageUrl={
+                              companyProfileImageUrl ||
+                              'http://robohash.org/company'
+                            }
+                            companyName={companyName}
+                            companyCategory={companyCategory}
+                            companyLocation={companyLocation}
+                            showBorder={false}
+                          />
+                        </CardWrapper>
+                      </CardItem>
+                      {company !== companyList[companyList.length - 1] && (
+                        <BottomBorder />
+                      )}
+                    </div>
+                  );
+                })}
+              </CardList>
+              {companyList[0].companiesCount > 3 && (
+                <SeeAllResultsButton>
+                  See all company results
+                </SeeAllResultsButton>
+              )}
+            </SectionWrapper>
+          )}
+
+          {/* {jobList.length > 0 && (
             <SectionWrapper>
               <SectionHeader>Jobs</SectionHeader>
               <CardList>
                 {jobList
-                  .filter(
-                    (job, index) => index === 0 || index === 1 || index === 2
-                  )
+                  // .filter(
+                  //   (job, index) => index === 0 || index === 1 || index === 2
+                  // )
                   .map(job => {
                     return (
                       <JobPostingCard
                         // onClick={goToJobBoard}
                         key={job.jobPostingId}
                         jobPostingId={job.jobPostingId}
-                        profileImgUrl={job.profileImgUrl}
+                        profileImgUrl={job.companyProfileImgUrl}
                         jobPostingTitle={job.jobPostingTitle}
                         companyId={job.companyId}
                         companyName={job.companyName}
@@ -140,8 +195,8 @@ export default function MainSearch({ location }) {
                 </SeeAllResultsButton>
               )}
             </SectionWrapper>
-          )}
-          {!peopleList.length && !jobList.length && (
+          )} */}
+          {!peopleList.length && !companyList.length && (
             <NoResultsFound>No results found</NoResultsFound>
           )}
         </SearchResultsWrapper>
@@ -203,7 +258,7 @@ const CardItem = styled.li`
   padding: 10px 16px;
 `;
 
-const UserCardWrapper = styled.div`
+const CardWrapper = styled.div`
   cursor: pointer;
   flex: 1; // temp -성재
 `;

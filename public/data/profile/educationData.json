@@ -7,10 +7,12 @@
       "degree": "학사",
       "major": "치킨제조학과",
       "gpa": "4.5",
-      "startDate": "2017년",
-      "endDate": "2018년",
+      "startMonth": "3",
+      "startYear": "2015",
+      "endMonth": "2",
+      "endYear": "2017",
       "activity": "밴드동아리",
-      "desc": "왜 대학졸업하는데 4년이나 필요함? 싸게싸게 2년컷"
+      "description": "왜 대학졸업하는데 4년이나 필요함? 싸게싸게 2년컷"
     },
     {
       "id": 2,
@@ -19,10 +21,12 @@
       "degree": "Bachelar of Art(BA)",
       "major": "치킨경영학과",
       "gpa": "4.5",
-      "startDate": "2018년",
-      "endDate": "2019년",
-      "activity": "밴드동아리",
-      "desc": "하버드에서 대장먹고 돌아왔습니다."
+      "startMonth": "3",
+      "startYear": "2017",
+      "endMonth": "2",
+      "endYear": "2019",
+      "activity": "미국에서 교촌치킨 경영",
+      "description": "하버드에서 대장먹고 돌아왔습니다."
     }
   ]
 }

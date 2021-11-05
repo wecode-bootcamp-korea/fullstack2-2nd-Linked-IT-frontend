@@ -1,6 +1,21 @@
 {
   "CAREER_DATA": [
     {
+      "id": 1,
+      "companyLogo": "https://media-exp1.licdn.com/dms/image/C560BAQGuGPu5c4Rmmw/company-logo_100_100/0/1605766502615?e=1643241600&v=beta&t=TtAaOV7Gp7wnfRUrpaY7musGWlQuhfS5GCEIxRYPFtg",
+      "position": "F/E 엔지니어",
+      "companyName": "비바리퍼블리카(토스)",
+      "employmentType": "정규직",
+      "startMonth": "1",
+      "startYear": "2021",
+      "endMonth": "0",
+      "endYear": "0",
+      "country": "대한민국",
+      "industry": "IT",
+      "description": "쉬운 금융을 실현하기 위해 노력합니다.",
+      "isWorkingNow": true
+    },
+    {
       "id": 2,
       "companyLogo": "https://media-exp1.licdn.com/dms/image/C510BAQFh_R_8BB6CwA/company-logo_100_100/0/1526533379832?e=1643241600&v=beta&t=5WuqDyG1nJjEj0II2afusiQ-gRb2-d7BbEmsi3lCRDg",
       "position": "디자이너",
