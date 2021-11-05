@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PostReplyList from './PostReplyList';
 import isKorean from './../../utils/LanguageUtil';
 
-export default function PostReply({ myProfileData, postData }) {
+export default function PostReply({ myProfileData, postData, setPostUpdate }) {
   const { firstName, lastName, userProfileUrl } = myProfileData;
   const [replyValue, setReplyValue] = useState('');
   const [replyList, setReplyList] = useState([]);
@@ -39,6 +39,7 @@ export default function PostReply({ myProfileData, postData }) {
       .catch(error => {
         console.log(error);
       });
+    setPostUpdate(true);
     setReplyUpdate(true);
     setReplyValue('');
     replyInputRef.current.value = '';
@@ -77,8 +78,9 @@ export default function PostReply({ myProfileData, postData }) {
                 key={data.id}
                 replyData={data}
                 writer={name}
-                setReplyUpdate={setReplyUpdate}
                 myProfileData={myProfileData}
+                setPostUpdate={setPostUpdate}
+                setReplyUpdate={setReplyUpdate}
               />
             );
           })}
