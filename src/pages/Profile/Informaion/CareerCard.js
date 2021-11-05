@@ -25,11 +25,13 @@ export default function CareerCard(props) {
     position,
     companyName,
     employmentType,
-    startDate,
-    endDate,
+    startMonth,
+    startYear,
+    endMonth,
+    endYear,
     country,
     city,
-    desc,
+    description,
   } = props.career;
 
   return (
@@ -52,9 +54,14 @@ export default function CareerCard(props) {
       <InfoWrapper>
         <h3>{position}</h3>
         <FirstLine>{`${companyName} • ${employmentType}`}</FirstLine>
-        <SecondLine>{`${startDate} ~ ${endDate}`}</SecondLine>
-        <ThirdLine>{`${country} ${city}`}</ThirdLine>
-        <FourthLine>{desc}</FourthLine>
+        <SecondLine>
+          <span>{`${startYear}년 ${startMonth}월 ~`}</span>
+          {!isNaN(endYear) && endYear !== '0' && (
+            <span>{` ${endYear}년 ${endMonth}월`}</span>
+          )}
+        </SecondLine>
+        <ThirdLine>{`${country} ${city || ''}`}</ThirdLine>
+        <FourthLine>{description}</FourthLine>
       </InfoWrapper>
     </StyledCareerCard>
   );
@@ -87,7 +94,6 @@ const EditBtnWrapper = styled.div`
     text-align: center;
 
     &:hover {
-      background-color: black;
       opacity: 0.5;
     }
 
@@ -117,13 +123,15 @@ const InfoWrapper = styled.div`
   margin-left: 25px;
 
   h3 {
-    padding-bottom: 5px;
+    padding-bottom: 7px;
     font-size: 15px;
     font-weight: 600;
   }
 `;
 
 const FirstLine = styled.p`
+  padding-bottom: 3px;
+
   color: black;
   font-size: 13px;
 `;
@@ -141,7 +149,7 @@ const ThirdLine = styled.p`
 `;
 
 const FourthLine = styled.p`
-  padding: 10px 0;
+  padding: 5px 0 15px 0;
   color: black;
   font-size: 13px;
   font-weight: 500;

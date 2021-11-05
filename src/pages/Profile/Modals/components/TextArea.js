@@ -15,7 +15,20 @@ export default function TextArea(props) {
     setNumberOfLetters(+e.target.value.length);
   };
 
-  const { title, name, rows, textLimit, warningText, defaultValue } = props;
+  const inputValue = e => {
+    setState[num](e.target.value);
+  };
+
+  const {
+    setState,
+    num,
+    title,
+    name,
+    rows,
+    textLimit,
+    warningText,
+    defaultValue,
+  } = props;
 
   return (
     <StyledTextarea>
@@ -26,7 +39,8 @@ export default function TextArea(props) {
         rows={rows}
         defaultValue={defaultValue}
         textLimit={textLimit}
-        onChange={getNumberOfLetters}
+        onKeyUp={getNumberOfLetters}
+        onChange={inputValue}
       />
       <LetterCount
         numberOfLetters={numberOfLetters}

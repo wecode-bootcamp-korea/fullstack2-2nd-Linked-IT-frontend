@@ -14,13 +14,17 @@ export default function EndInput(props) {
     else setIsYearNull(false);
   };
 
+  const inputValue = e => {
+    if (e.target.value.includes('월')) setState[num](parseInt(e.target.value));
+    else setState[num + 1](parseInt(e.target.value));
+  };
+
   const THISYEAR = new Date().getFullYear();
   const SERVICEYEAR = new Date().getFullYear() - 1920;
 
-  const { title, defaultValue, state } = props;
-  const SELECTEDMONTH = defaultValue && defaultValue.slice(6);
-  const SELECTEDYEAR = defaultValue && defaultValue.slice(0, 5);
-
+  const { title, defaultValue, state, setState, num } = props;
+  const SELECTEDMONTH = defaultValue && defaultValue[0] + '월';
+  const SELECTEDYEAR = defaultValue && defaultValue[1] + '년';
   return (
     <StyledStartInput>
       <div className="end">{title}</div>
@@ -30,6 +34,7 @@ export default function EndInput(props) {
           defaultValue={SELECTEDMONTH}
           disabled={state}
           onBlur={checkIsNulls}
+          onChange={inputValue}
         >
           <option defaultValue>월</option>
           {[...Array(12)].map((x, i) => {
@@ -41,6 +46,7 @@ export default function EndInput(props) {
           defaultValue={SELECTEDYEAR}
           disabled={state}
           onBlur={checkIsNulls}
+          onChange={inputValue}
         >
           <option defaultValue>연도</option>
           {[...Array(SERVICEYEAR)].map((x, i) => {
