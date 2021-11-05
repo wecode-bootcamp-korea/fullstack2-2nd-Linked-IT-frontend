@@ -9,13 +9,12 @@ import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import Loader from '../../components/Loader/Loader';
 import MY_PROFILE_DATA from './data/MyProfileData';
 
-const QUERY_LIMIT = 4;
+const QUERY_LIMIT = 3;
 const options = { rootMargin: '0px', threshold: 1 };
 
 export default function Feed() {
   const { ...myProfileData } = MY_PROFILE_DATA;
   const [postList, setPostList] = useState([]);
-  const [postListOnScreen, setPostListOnScreen] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [infiniteTarget, setTarget] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +47,7 @@ export default function Feed() {
   // }
 
   useEffect(() => {
-    fetch('http://localhost:10000/post/read')
+    fetch(`http://localhost:10000/post/read/`)
       .then(res => res.json())
       .then(res => setPostList(res))
       .then(console.log('GET_FEED_SECCESS'))
@@ -58,7 +57,6 @@ export default function Feed() {
     setPostUpdate(false);
   }, [postUpdate]);
 
-  //render
   return (
     <>
       <TopNav />
