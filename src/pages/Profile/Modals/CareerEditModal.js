@@ -17,7 +17,8 @@ export default function CareerEditModal(props) {
 
   useEffect(() => {
     // 현재 직책 종료 여부 초기화
-    if (!workingCurrently) setIsWorkingNow(workingCurrently);
+    if (workingCurrently) setIsWorkingNow(workingCurrently);
+    // setIsWorkingNow(workingCurrently);
   }, []);
 
   const openAskCancelModal = e => {
@@ -51,10 +52,12 @@ export default function CareerEditModal(props) {
     country,
     city,
     isWorkingNow: workingCurrently,
-    startDate,
-    endDate,
+    startMonth,
+    startYear,
+    endMonth,
+    endYear,
     industry,
-    desc,
+    description,
   } = props.selectedCareer || {};
 
   return (
@@ -122,7 +125,7 @@ export default function CareerEditModal(props) {
                     title="지역"
                     name="region"
                     textLimit={100}
-                    defaultValue={`${country} ${city}`}
+                    defaultValue={`${country} ${city || ''}`}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={true}
                   />
@@ -137,10 +140,13 @@ export default function CareerEditModal(props) {
                   />
                 </CheckBoxWrapper>
                 <StartAndEndWrapper>
-                  <StartInput title="시작일" defaultValue={startDate} />
+                  <StartInput
+                    title="시작일"
+                    defaultValue={[startMonth, startYear]}
+                  />
                   <EndInput
                     title="종료일"
-                    defaultValue={endDate}
+                    defaultValue={[endMonth, endYear]}
                     state={isWorkingNow}
                   />
                 </StartAndEndWrapper>
@@ -167,7 +173,7 @@ export default function CareerEditModal(props) {
                     title="설명"
                     name="description"
                     rows={3}
-                    defaultValue={desc}
+                    defaultValue={description}
                     textLimit={2000}
                     warningText="설명은 2,000자를 넘을 수 없습니다."
                   />

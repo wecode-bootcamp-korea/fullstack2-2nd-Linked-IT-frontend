@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import isKorean from '../../../utils/LanguageUtil';
 
 export default function Detail(props) {
-  const { showCurrentCompany, showEducation } = props;
+  const { showCurrentCompany, showEducation, careers } = props || {};
   const {
     firstName,
     lastName,
@@ -16,6 +16,7 @@ export default function Detail(props) {
     schoolName,
   } = props.profile;
 
+  console.log(careers[0]);
   return (
     <StyledDetail>
       <StyledBasicInfo>
@@ -33,10 +34,10 @@ export default function Detail(props) {
       </StyledBasicInfo>
 
       <StyledAdditionalInfo>
-        {showCurrentCompany && companyName && (
+        {showCurrentCompany && careers[0] && (
           <div className="companyCardWrapper">
-            <img alt="companyLogo" src={companyLogo} />
-            <span>{companyName}</span>
+            <img alt="companyLogo" src={careers[0].companyLogo} />
+            <span>{careers[0].companyName}</span>
           </div>
         )}
         {showEducation && schoolName && (

@@ -3,11 +3,17 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import CareerCard from './CareerCard';
 import EducationCard from './EducationCard';
+import { useEffect, useState } from 'react/cjs/react.development';
 
 export default function Information(props) {
+  const [cardData, setCardData] = useState([]);
+
+  useEffect(() => {
+    setCardData(props.cards);
+  }, [props]);
+
   const {
     title,
-    cardData,
     openCareerAddModal,
     openCareerEditModal,
     openEducationAddModal,
@@ -29,7 +35,7 @@ export default function Information(props) {
               {cardData.map((career, idx) => {
                 return (
                   <CareerCard
-                    key={career.id}
+                    key={career.companyName}
                     idx={idx}
                     career={career}
                     openCareerEditModal={openCareerEditModal}
@@ -57,7 +63,7 @@ export default function Information(props) {
               {cardData.map((education, idx) => {
                 return (
                   <EducationCard
-                    key={education.id}
+                    key={education.schoolName}
                     idx={idx}
                     education={education}
                     openEducationEditModal={openEducationEditModal}

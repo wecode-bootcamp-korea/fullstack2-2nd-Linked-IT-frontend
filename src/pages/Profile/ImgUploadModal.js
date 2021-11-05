@@ -50,7 +50,7 @@ export default function ImgUploadModal(props) {
     updateBgImg,
     updateProfileImg,
   } = props;
-  console.log(type);
+
   return (
     <StyledImgUploadModal>
       {showImgUploadModal && (

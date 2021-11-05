@@ -8,12 +8,121 @@ import CheckBox from './components/CheckBox';
 import TextArea from './components/TextArea';
 import AskCancel from './components/AskCancelModal';
 import theme from '../../../styles/theme';
+import SectionInput from './components/sectionInput';
 
 export default function CareerAddModal(props) {
-  const [isWorkingNow, setIsWorkingNow] = useState(true);
+  const [isWorkingNow, setIsWorkingNow] = useState(false);
   const [isPositionClosed, setIsPositionClosed] = useState(false);
   const [showAskCancelModal, setShowAskCancelModal] = useState(false);
   const [hasChanged, setHasChanged] = useState(false);
+  //inputs
+  const [positionInput, setPositionInput] = useState('');
+  const [employmenntTypeInput, setEmploymentTypeInput] = useState('');
+  const [companyInput, setCompanyInput] = useState('');
+  const [regionNameInput, setRegionNameInput] = useState('');
+  const [startMonthInput, setStartMonthInput] = useState('');
+  const [startYearInput, setStartYearInput] = useState('');
+  const [endMonthInput, setEndMonthInput] = useState('');
+  const [endYearInput, setEndYearInput] = useState('');
+  const [industryInput, setIndustryInput] = useState('');
+  const [descriptionInput, setDescriptionInput] = useState('');
+
+  const setStates = [
+    setPositionInput,
+    setEmploymentTypeInput,
+    setCompanyInput,
+    setRegionNameInput,
+    setStartMonthInput,
+    setStartYearInput,
+    setEndMonthInput,
+    setEndYearInput,
+    setIndustryInput,
+    setDescriptionInput,
+  ];
+
+  // const createNewCareer = () => {
+  //   if (!positionInput) return alert('필수정보를 입력하지 않으셨습니다.');
+  //   if (!employmenntTypeInput)
+  //     return alert('필수정보를 입력하지 않으셨습니다.');
+  //   if (!CompanyNameInput) return alert('필수정보를 입력하지 않으셨습니다.');
+  //   if (!startMonthInput) return alert('필수정보를 입력하지 않으셨습니다.');
+  //   if (!startYearInput) return alert('필수정보를 입력하지 않으셨습니다.');
+  //   if (!industryInput) return alert('필수정보를 입력하지 않으셨습니다.');
+  //   alert('fetch 시작!');
+  //   fetch('/user/1/career', {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       isCurrentPosition: 1,
+  //       isEndCurrentPosition: 0,
+  //       startMonth: startMonthInput,
+  //       startYear: startYearInput,
+  //       endMonth: endMonthInput,
+  //       endYear: endYearInput,
+  //       description: descriptionInput,
+  //       positionId: 'artist',
+  //       companyName: '토스',
+  //       industry: industryInput,
+  //       userId: 1,
+  //       employmentTypeId: employmenntTypeInput,
+  //       scopeOfPublicId: 1,
+  //     }),
+  //   })
+  //     .then(res => res.json())
+  //     .then(result => {
+  //       const newCareer = {
+  //         companyLogo:
+  //           'https://media-exp1.licdn.com/dms/image/C560BAQGuGPu5c4Rmmw/company-logo_100_100/0/1605766502615?e=1643241600&v=beta&t=TtAaOV7Gp7wnfRUrpaY7musGWlQuhfS5GCEIxRYPFtg',
+  //         position: positionInput,
+  //         companyName: CompanyNameInput,
+  //         employmentType: employmenntTypeInput,
+  //         startMonth: startMonthInput,
+  //         startYear: startYearInput,
+  //         endMonth: endMonthInput,
+  //         endYear: endYearInput,
+  //         country: '대한민국',
+  //         city: regionNameInput,
+  //         industry: industryInput,
+  //         description: descriptionInput,
+  //       };
+  //       addNewCareer(newCareer);
+  //       closeCareerAddModal();
+  //     })
+  //     .catch(e => console.log(e));
+  // };
+
+  //비상시
+  const createNewCareer = e => {
+    e.preventDefault();
+    if (!positionInput) return alert('필수정보를 입력하지 않으셨습니다.');
+    // if (!employmenntTypeInput)
+    // return alert('필수정보를 입력하지 않으셨습니다.');
+    if (!CompanyNameInput) return alert('필수정보를 입력하지 않으셨습니다.');
+    if (!startMonthInput) return alert('필수정보를 입력하지 않으셨습니다.');
+    if (!startYearInput) return alert('필수정보를 입력하지 않으셨습니다.');
+    if (!industryInput) return alert('필수정보를 입력하지 않으셨습니다.');
+
+    const newCareer = {
+      id: 1,
+      companyLogo:
+        'https://media-exp1.licdn.com/dms/image/C560BAQGuGPu5c4Rmmw/company-logo_100_100/0/1605766502615?e=1643241600&v=beta&t=TtAaOV7Gp7wnfRUrpaY7musGWlQuhfS5GCEIxRYPFtg',
+      position: positionInput,
+      companyName: companyInput,
+      employmoentType: employmenntTypeInput,
+      startMonth: startMonthInput,
+      startYear: startYearInput,
+      endMonth: endMonthInput,
+      endYear: endYearInput,
+      country: regionNameInput,
+      description: descriptionInput,
+      isWorkingNow: isWorkingNow,
+    };
+
+    addNewCareer(newCareer);
+    closeCareerAddModal();
+  };
 
   const openAskCancelModal = e => {
     e.preventDefault();
@@ -38,7 +147,12 @@ export default function CareerAddModal(props) {
     setHasChanged(true);
   };
 
-  const { currentCareer, showCareerAddModal, closeCareerAddModal } = props;
+  const {
+    currentCareer,
+    showCareerAddModal,
+    closeCareerAddModal,
+    addNewCareer,
+  } = props;
 
   return (
     <StyledCareerAddModal showCareerAddModal={showCareerAddModal}>
@@ -64,20 +178,23 @@ export default function CareerAddModal(props) {
               <form method="POST">
                 <PositionInput>
                   <TextInput
-                    title="직책"
+                    title="직책*"
                     name="position"
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
+                    setState={setStates}
+                    num={0}
                   />
                 </PositionInput>
                 <EmploymentTypeInput>
-                  <TextInput
-                    title="고용형태"
-                    name="employmentType"
-                    textLimit={100}
-                    warningText="100자를 초과할 수 없습니다."
-                    isNullable={false}
+                  <SectionInput
+                    title="고용형태*"
+                    name="employmenntType"
+                    defaultValue="고용형태"
+                    placeHolder="고용형태"
+                    setState={setStates}
+                    num={1}
                   />
                   <EmploymentMoreInfo>국가별 고용형태</EmploymentMoreInfo>
                   <a
@@ -90,11 +207,13 @@ export default function CareerAddModal(props) {
                 </EmploymentTypeInput>
                 <CompanyNameInput>
                   <TextInput
-                    title="회사이름"
+                    title="회사이름*"
                     name="companyName"
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={false}
+                    setState={setStates}
+                    num={2}
                   />
                 </CompanyNameInput>
                 <RegionInput>
@@ -104,6 +223,8 @@ export default function CareerAddModal(props) {
                     textLimit={100}
                     warningText="100자를 초과할 수 없습니다."
                     isNullable={true}
+                    setState={setStates}
+                    num={3}
                   />
                 </RegionInput>
                 <CheckBoxWrapper isWorkingNow={isWorkingNow}>
@@ -111,13 +232,18 @@ export default function CareerAddModal(props) {
                     id="cbIsWorking"
                     name="isWorkingNow"
                     state={isWorkingNow}
-                    text="현재 이 업무로 근무 중"
+                    text="종료일 미입력"
                     onClick={toggleIsWorkingNow}
                   />
                 </CheckBoxWrapper>
                 <StartAndEndWrapper>
-                  <StartInput title="시작일" />
-                  <EndInput title="종료일" state={isWorkingNow} />
+                  <StartInput title="시작일*" setState={setStates} num={4} />
+                  <EndInput
+                    title="종료일"
+                    state={isWorkingNow}
+                    setState={setStates}
+                    num={6}
+                  />
                 </StartAndEndWrapper>
                 {isWorkingNow && (
                   <CheckBoxWrapper isPositionClosed={isPositionClosed}>
@@ -131,7 +257,12 @@ export default function CareerAddModal(props) {
                   </CheckBoxWrapper>
                 )}
                 <IndustryInput>
-                  <TextInput title="업계" name="industry" />
+                  <TextInput
+                    title="업계*"
+                    name="industry"
+                    setState={setStates}
+                    num={8}
+                  />
                 </IndustryInput>
                 <DescInput>
                   <TextArea
@@ -140,6 +271,8 @@ export default function CareerAddModal(props) {
                     rows={3}
                     textLimit={2000}
                     warningText="설명은 2,000자를 넘을 수 없습니다."
+                    setState={setStates}
+                    num={9}
                   />
                 </DescInput>
               </form>
@@ -165,7 +298,7 @@ export default function CareerAddModal(props) {
                   bgc={theme.colors.primary}
                   color={theme.colors.white}
                   text="저장"
-                  onClick={closeCareerAddModal}
+                  onClick={createNewCareer}
                 />
               </SaveBtnWrapper>
             </BoxTail>
@@ -253,11 +386,14 @@ const PositionInput = styled.div`
 `;
 
 const EmploymentTypeInput = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-top: 40px;
   color: grey;
   font-size: 15px;
 
   a {
+    padding-top: 5px;
     font-size: 16px;
   }
 `;

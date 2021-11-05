@@ -26,10 +26,12 @@ export default function EducationCard(props) {
     degree,
     major,
     gpa,
-    startDate,
-    endDate,
+    startMonth,
+    startYear,
+    endMonth,
+    endYear,
     activity,
-    desc,
+    description,
   } = props.education;
 
   return (
@@ -52,9 +54,9 @@ export default function EducationCard(props) {
       <InfoWrapper>
         <h3>{schoolName}</h3>
         <FirstLine>{`${degree}, ${major}, ${gpa}`}</FirstLine>
-        <SecondLine>{`${startDate} ~ ${endDate}`}</SecondLine>
+        <SecondLine>{`${startYear}년 ${startMonth}월 ~ ${endYear}년 ${endMonth}월`}</SecondLine>
         <ThirdLine>{`동아리와 학회 : ${activity}`}</ThirdLine>
-        <FourthLine>{desc}</FourthLine>
+        <FourthLine>{description}</FourthLine>
       </InfoWrapper>
     </StyledEducationCard>
   );
@@ -87,7 +89,6 @@ const EditBtnWrapper = styled.div`
     text-align: center;
 
     &:hover {
-      background-color: black;
       opacity: 0.5;
     }
 
@@ -117,13 +118,14 @@ const InfoWrapper = styled.div`
   margin-left: 25px;
 
   h3 {
-    padding-bottom: 5px;
+    padding-bottom: 7px;
     font-size: 15px;
     font-weight: 600;
   }
 `;
 
 const FirstLine = styled.p`
+  padding-bottom: 3px;
   color: black;
   font-size: 13px;
 `;
@@ -141,7 +143,7 @@ const ThirdLine = styled.p`
 `;
 
 const FourthLine = styled.p`
-  padding: 10px 0;
+  padding: 5px 0 15px 0;
   color: black;
   font-size: 13px;
   font-weight: 500;

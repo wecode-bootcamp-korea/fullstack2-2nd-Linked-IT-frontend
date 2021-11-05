@@ -28,8 +28,16 @@ export default function EducationEditModal(props) {
   };
 
   const { showEducationEditModal, closeEducationEditModal } = props;
-  const { schoolName, degree, major, startDate, endDate, gpa, activity, desc } =
-    props.education || {};
+  const {
+    schoolName,
+    degree,
+    major,
+    startDate,
+    endDate,
+    gpa,
+    activity,
+    description,
+  } = props.education || {};
 
   return (
     <StyledEducationEditModal showEducationEditModal={showEducationEditModal}>
@@ -111,7 +119,7 @@ export default function EducationEditModal(props) {
                   <TextArea
                     title="설명"
                     name="description"
-                    defaultValue={desc}
+                    defaultValue={description}
                     rows={3}
                     textLimit={1000}
                     warningText="설명은 1,000자를 넘을 수 없습니다."

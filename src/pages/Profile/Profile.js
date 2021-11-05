@@ -13,7 +13,7 @@ import PopUpMessage from './Modals/PopUpMessage';
 import { disableScroll, enableScroll } from '../../utils/ModalFunc';
 import ImgUploadModal from './ImgUploadModal';
 
-export default function Profile() {
+export default function Profile(props) {
   const [showBasicEditModal, setShowBasicEditModal] = useState(false);
   const [showCareerAddModal, setShowCareerAddModal] = useState(false);
   const [showCareerEditModal, setShowCareerEditModal] = useState(false);
@@ -33,6 +33,13 @@ export default function Profile() {
   const [mayKnowList, setMayKnowList] = useState([]);
 
   useEffect(() => {
+    //api
+    // const id = props.location.search.slice(4);
+    // getProfileData(id);
+    // getCareerData(id);
+    // getEducationData(id);
+
+    //mock
     // fetch('data/profile/profileDataUrl.json')
     fetch('data/profile/profileData.json')
       .then(res => res.json())
@@ -51,13 +58,47 @@ export default function Profile() {
       .then(data => {
         setEducation(data.EDUCATION_DATA);
       });
-    //알수도있는 사람
+    //알수도 있는 사람
     fetch('data/profile/mayKnowListData.json')
       .then(res => res.json())
       .then(data => {
-        setMayKnowList(data.MAYKNOWLIST_DATA);
+        setMayKnowList(data.MAYKNOWLIST_DATA || []);
       });
   }, []);
+
+  // useEffect(() => {}, [careers]);
+
+  // const getProfileData = async id => {
+  //   await fetch(`user/${id}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       const [profile] = data;
+  //       // console.log(profile);
+  //       setProfile(profile || {});
+  //     });
+  // };
+
+  // const getCareerData = async id => {
+  //   await fetch(`user/${id}/career`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setCareers(data || []);
+  //     });
+  // };
+
+  // const getEducationData = async id => {
+  //   await fetch(`user/${id}/Education`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setEducation(data || []);
+  //     });
+  // };
+
+  const addNewCareer = obj => {
+    const newCareer = [...careers];
+    newCareer.unshift(obj);
+    setCareers(newCareer);
+  };
 
   const updateBgImg = img => {
     setProfile({ ...profile, backgroundImg: img });
@@ -89,7 +130,7 @@ export default function Profile() {
   };
 
   const closeCareerAddModal = e => {
-    e.preventDefault();
+    // e.preventDefault();
     enableScroll();
     setShowCareerAddModal(false);
   };
@@ -152,6 +193,7 @@ export default function Profile() {
         <Main>
           <ProfileMain
             profile={profile}
+            careers={careers}
             openBasicEditModal={openBasicEditModal}
             openImgUploadModal={openImgUploadModal}
             showCurrentCompany={showCurrentCompany}
@@ -159,20 +201,22 @@ export default function Profile() {
           />
           <Informaion
             title="경력사항"
-            cardData={careers}
+            cards={careers}
             openCareerAddModal={openCareerAddModal}
             openCareerEditModal={openCareerEditModal}
           />
           <Informaion
             title="학력"
-            cardData={educations}
+            cards={educations}
             openEducationAddModal={openEducationAddModal}
             openEducationEditModal={openEducationEditModal}
           />
+
           <CareerAddModal
             currentCareer={careers}
             showCareerAddModal={showCareerAddModal}
             closeCareerAddModal={closeCareerAddModal}
+            addNewCareer={addNewCareer}
           />
           <CareerEditModal
             selectedCareer={careers[selectedCareer]}
