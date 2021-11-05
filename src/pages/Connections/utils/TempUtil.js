@@ -25,7 +25,7 @@ export function searchUserByName(userCardList, searchInput) {
     const { lastName, firstName } = card;
     const booleanValue = isKorean(lastName);
     const name = booleanValue
-      ? lastName + ' ' + firstName
+      ? lastName + firstName
       : firstName + ' ' + lastName;
     return name.toUpperCase().indexOf(searchInput.toUpperCase()) > -1;
   });
