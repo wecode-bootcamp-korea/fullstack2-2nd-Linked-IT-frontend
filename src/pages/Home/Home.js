@@ -91,8 +91,8 @@ export default function Home() {
             type="submit"
             bgc={`white`}
             color={props => props.theme.colors.fontGrey}
-            text={`회원가입`}
-            width={`90px`}
+            text={`회원 가입`}
+            width={`100%`}
             height={`40px`}
           />
           <Button
@@ -101,15 +101,14 @@ export default function Home() {
             bgc={`white`}
             color={props => props.theme.colors.primary}
             text={`로그인`}
-            width={`90px`}
+            width={`100%`}
             height={`40px`}
           />
         </div>
       </HomeHeader>
       <HomeMain>
         <HomeMainHead>
-          <h1>로그인하세요</h1>
-          <p>업무 관련 소식을 받아보세요</p>
+          <h1>프로를 위한 커뮤니티</h1>
         </HomeMainHead>
         <HomeMainForm
           onSubmit={validateInput(user) ? submitInput : rejectInput}
@@ -154,16 +153,13 @@ export default function Home() {
         </HomeMainSeperator>
         <SignInButton />
       </HomeMain>
-      <GoToSignUp>
-        LinkedIT이 처음이세요? <Link to="/signup">회원 가입</Link>
-      </GoToSignUp>
-      <GlobalFooter isDefault />
       <HomeBackground>
         <img
           alt="LinkedIT Home Page Background"
           src="/images/home_background_custom.png"
         />
       </HomeBackground>
+      <GlobalFooter isDefault />
     </>
   );
 }
@@ -173,7 +169,7 @@ const HomeHeader = styled.header`
   justify-content: space-between;
 
   width: 1128px;
-  margin: 16px auto 0;
+  margin: 15px auto 0;
 
   img {
     width: 136px;
@@ -186,12 +182,12 @@ const HomeHeader = styled.header`
     width: 210px;
 
     button {
-      margin-left: 12px;
       border-radius: 28px;
-      padding-top: 6px;
+      padding-top: 8px;
       font-weight: 600;
 
       &:first-child {
+        margin-left: 22px;
         border-radius: 4px;
 
         &:hover {
@@ -214,26 +210,29 @@ const HomeMain = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 
-  width: 352px;
-  height: 545px;
-  margin: 24px auto;
+  width: 1128px;
+  height: 560px;
+  margin: 15px auto 45px;
   border-radius: 8px;
-  padding: 26px 24px 24px;
-  background-color: white;
+  padding: 26px 0;
+
+  button {
+    width: 400px;
+    padding-top: 9px;
+
+    font-size: 20px;
+    font-weight: 400;
+  }
 `;
 
 const HomeMainHead = styled.div`
   h1 {
-    font-size: 32px;
-    font-weight: 600;
+    color: #8f5849;
+    font-size: 56px;
+    font-weight: 200;
     line-height: 1.25;
-  }
-
-  p {
-    margin-top: 4px;
-    font-size: 15px;
   }
 `;
 
@@ -243,7 +242,8 @@ const HomeMainForm = styled.form`
   justify-content: space-between;
   align-content: flex-start;
 
-  height: 236px;
+  width: 400px;
+  height: 230px;
 
   div {
     position: relative;
@@ -272,8 +272,7 @@ const HomeMainForm = styled.form`
       top: 28px;
       right: 12px;
 
-      color: ${props => props.theme.colors.primary};
-      font-size: 14px;
+      color: ${props => props.theme.colors.fontGrey};
       font-weight: 600;
       cursor: pointer;
 
@@ -286,15 +285,15 @@ const HomeMainForm = styled.form`
   p {
     display: block;
 
-    width: 150px;
-    margin-top: 4px;
+    width: 160px;
+    margin-top: 8px;
 
     a {
-      color: ${props => props.theme.colors.primary};
-      font-weight: 600;
+      color: ${props => props.theme.colors.fontGrey};
+      font-size: 17px;
 
       &:hover {
-        background-color: ${props => props.theme.colors.bgcLightBlue};
+        color: ${props => props.theme.colors.primary};
         text-decoration: underline;
       }
     }
@@ -305,7 +304,6 @@ const HomeMainForm = styled.form`
     border: 0;
     border-radius: 28px;
     padding-top: 6px;
-    font-weight: 600;
 
     &:hover {
       border: 0;
@@ -318,6 +316,7 @@ const HomeMainSeperator = styled.span`
   display: flex;
   align-items: center;
 
+  width: 400px;
   margin-top: 2px;
 
   color: ${props => props.theme.colors.fontGrey};
@@ -331,28 +330,8 @@ const HomeMainSeperator = styled.span`
     flex-grow: 1;
 
     height: 1px;
-    margin: 0 10px;
+    margin: 0 12px;
     background: #c4c4c4;
-  }
-`;
-
-const GoToSignUp = styled.article`
-  margin: 0 auto;
-  font-size: 17px;
-  text-align: center;
-
-  a {
-    display: inline-block;
-
-    margin-left: 2px;
-    color: ${props => props.theme.colors.primary};
-    font-size: 16px;
-    font-weight: 600;
-
-    &:hover {
-      background-color: ${props => props.theme.colors.bgcLightBlue};
-      text-decoration: underline;
-    }
   }
 `;
 
@@ -368,8 +347,8 @@ const HomeBackground = styled.div`
 
   img {
     position: absolute;
-    top: 120px;
-    right: -20px;
+    top: 95px;
+    right: -10px;
 
     width: 700px;
   }
