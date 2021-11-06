@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a {
+    color: ${props => props.theme.colors.fontGrey};
     text-decoration: none;
   }
 
