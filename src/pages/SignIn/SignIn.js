@@ -137,8 +137,8 @@ export default function SignIn() {
       <GoToSignUp>
         LinkedIT이 처음이세요? <Link to="/signup">회원 가입</Link>
       </GoToSignUp>
-      <LinearFooter signIn />
       <SignInBackground />
+      <LinearFooter signIn />
     </>
   );
 }
