@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
@@ -27,12 +28,11 @@ const validateInput = user => {
 };
 
 export default function SignUp() {
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
+  // Test Code for Checking UserContext
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const handleInput = event => {
     const { name, value } = event.target;
@@ -63,7 +63,7 @@ export default function SignUp() {
       .then(res => {
         console.log(res);
         if (res.status === 'SIGNUP_SUCCESSED') {
-          alert('회원가입에 성공하였습니다.');
+          alert('회원가입에 성공하였습니다!');
           history.push('/signin');
         } else if (res.status === 'SIGNUP_FAILED') {
           alert('다른 사람이 이미 사용 중인 이메일 주소입니다.');
@@ -82,11 +82,6 @@ export default function SignUp() {
       password: '',
     });
   };
-
-  // Test Code for Checking Functions
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <>

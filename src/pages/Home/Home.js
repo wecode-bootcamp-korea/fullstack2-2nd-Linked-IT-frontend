@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
@@ -20,10 +21,11 @@ const validateInput = user => {
 };
 
 export default function Home() {
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
+  // Test Code for Checking UserContext
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const handleInput = event => {
     const { name, value } = event.target;
@@ -73,11 +75,6 @@ export default function Home() {
       password: '',
     });
   };
-
-  // Test Code for Checking Functions
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <>
