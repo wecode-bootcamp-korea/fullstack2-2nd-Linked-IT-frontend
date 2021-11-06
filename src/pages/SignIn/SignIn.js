@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
@@ -20,10 +21,11 @@ const validateInput = user => {
 };
 
 export default function SignIn() {
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
+  // Test Code for Checking UserContext
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const handleInput = event => {
     const { name, value } = event.target;
@@ -54,7 +56,7 @@ export default function SignIn() {
         console.log(res);
         localStorage.setItem('accessToken', res.access_token);
         if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
-          alert('로그인에 성공하였습니다.');
+          alert('로그인에 성공하였습니다!');
           history.push('/feed');
         } else if (res.status === 'SIGNIN_FAILED') {
           alert(
@@ -73,11 +75,6 @@ export default function SignIn() {
       password: '',
     });
   };
-
-  // Test Code for Checking Functions
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <>

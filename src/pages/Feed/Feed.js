@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import styled from 'styled-components';
 import FeedProfile from './FeedProfile';
 import WritePost from './WritePost';
@@ -13,6 +14,12 @@ const QUERY_LIMIT = 3;
 const options = { rootMargin: '0px', threshold: 1 };
 
 export default function Feed() {
+  // Test Code for Checking UserContext
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   const { ...myProfileData } = MY_PROFILE_DATA;
   const [postList, setPostList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
