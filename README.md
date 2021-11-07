@@ -10,6 +10,13 @@
 
 2021.10.25 ~ 2021.11.05 (12일)
 
+### 🛠 기술
+
+---
+
+- `Front-end`: React, React-Hooks, React-Router, Styled-Component
+- `Back-end`: Node.js, Express, MySQL, Prisma, Bcrypt, JWT, Jest
+
 ### 👨‍👩‍👧‍👦 Team Front-end
 
 ---
@@ -20,12 +27,13 @@
 - [한승완](https://github.com/han0gu) : MyNetwork(인맥) & Jobs(채용공고) 페이지, Company Card 컴포넌트
 - [한지훈](https://github.com/JivenHan) : Feed(타임라인) 페이지, Floating Footer 컴포넌트
 
-### 🛠 Skills
+### 👨‍👩‍👧‍👦 Team Back-end
 
 ---
 
-- `Front-end`: React, React-Hooks, React-Router, Styled-Component
-- `Back-end`: Node.js, Express, MySQL, Prisma, Bcrypt, JWT, Jest
+- [김민재](https://github.com/minjamie) : Database Model 구성 및 TopNav & Jobs API 구현
+- [김재원](https://github.com/jambottle) : SignUp/SignIn API 및 소셜 로그인 구현
+- [김진성](https://github.com/jsung1103) : Prisma Schema 작성 및 MyProfile API 구현
 
 ### 🤝 Back-end Repository
 
