@@ -79,9 +79,7 @@ export default function Home() {
   return (
     <>
       <HomeHeader>
-        <Link to="/">
-          <img alt="LinkedIT Logo" src="/images/common_logo_full.png" />
-        </Link>
+        <img alt="LinkedIT Logo" src="/images/common_logo_full.png" />
         <div>
           <Button
             onClick={() => history.push('/signup')}
@@ -170,13 +168,15 @@ const HomeHeader = styled.header`
 
   img {
     width: 136px;
+    height: 34px;
   }
 
   div {
     display: flex;
     justify-content: space-between;
 
-    width: 210px;
+    width: 190px;
+    margin-top: -2px;
 
     button {
       border-radius: 28px;
@@ -184,7 +184,7 @@ const HomeHeader = styled.header`
       font-weight: 600;
 
       &:first-child {
-        margin-left: 22px;
+        margin-right: 10px;
         border-radius: 4px;
 
         &:hover {
@@ -211,7 +211,7 @@ const HomeMain = styled.main`
 
   width: 1128px;
   height: 560px;
-  margin: 15px auto 45px;
+  margin: 15px auto 85px;
   border-radius: 8px;
   padding: 26px 0;
 
