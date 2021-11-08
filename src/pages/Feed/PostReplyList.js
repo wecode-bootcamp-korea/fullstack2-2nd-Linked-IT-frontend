@@ -108,7 +108,6 @@ export default function PostReplyList({
     setPostUpdate(true);
     setReplyUpdate(true);
     setEditBtn(false);
-    console.log(replyData);
   };
 
   return (
