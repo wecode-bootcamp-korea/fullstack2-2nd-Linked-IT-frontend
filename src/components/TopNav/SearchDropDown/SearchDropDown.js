@@ -122,7 +122,10 @@ export default function SearchDropDown({
             >
               <img
                 alt={`${fullName}'s profile'`}
-                src={userProfileUrl || 'https://robohash.org/no-image'}
+                src={
+                  userProfileUrl ||
+                  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+                }
               />
               <p>{fullName}</p>
               <span>&#183; {relation} &#183;</span>
@@ -148,7 +151,10 @@ export default function SearchDropDown({
             >
               <img
                 alt={`${companyName}'s profile'`}
-                src={companyProfileImageUrl || 'https://robohash.org/no-image'}
+                src={
+                  companyProfileImageUrl ||
+                  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+                }
               />
               <p>{companyName}</p>
               <span>&#183; Company &#183;</span>

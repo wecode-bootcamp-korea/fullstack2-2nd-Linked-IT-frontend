@@ -100,7 +100,11 @@ export default function Post({ myProfileData, postData, setPostUpdate }) {
       )}
       <PostProfile postData={postData} />
       <PostContent postData={postData} />
-      <PostSocialInteract myProfileData={myProfileData} postData={postData} />
+      <PostSocialInteract
+        myProfileData={myProfileData}
+        postData={postData}
+        setPostUpdate={setPostUpdate}
+      />
     </PostWrap>
   );
 }

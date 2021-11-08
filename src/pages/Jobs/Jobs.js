@@ -37,8 +37,8 @@ export default function Jobs(props) {
   // };
 
   const getListDataByPageNumber = pageNumber => {
-    // const offset = (pageNumber - 1) * 20; // API 미구현
-    // const limit = 20; // API 미구현
+    // const offset = (pageNumber - 1) * 10; // API 미구현
+    // const limit = 10; // API 미구현
     const url = `http://localhost:10000/jobs`;
     fetch(url)
       .then(res => res.json())
@@ -167,7 +167,7 @@ const SearchResultSummary = styled.div`
   height: 56px;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.primary};
-  z-index: 5;
+  // z-index: 5;
 
   .searchKeyword {
     margin: 11px 0 6px 10px;

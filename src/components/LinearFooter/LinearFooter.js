@@ -7,11 +7,11 @@ import {
 } from './linearFooterData';
 
 export default function LinearFooter(props) {
-  const { home, signUp, signIn } = props;
+  const { signUp, signIn } = props;
 
   return (
     <>
-      {(home || signUp) && (
+      {signUp && (
         <SignUpFooter>
           <ul>
             <li>

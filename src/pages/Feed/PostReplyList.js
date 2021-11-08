@@ -7,6 +7,7 @@ import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 export default function PostReplyList({
   replyData,
   writer,
+  setPostUpdate,
   setReplyUpdate,
   myProfileData,
 }) {
@@ -104,9 +105,9 @@ export default function PostReplyList({
       .catch(error => {
         console.log(error);
       });
+    setPostUpdate(true);
     setReplyUpdate(true);
     setEditBtn(false);
-    console.log(replyData);
   };
 
   return (

@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,6 +54,25 @@ export default function TopNav() {
       state: { keyword: searchInput },
     });
     inputRef.current.blur();
+  };
+
+  // Test Code for Checking UserContext
+  const { user, setUser } = useContext(UserContext);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  // Function Code for Signing Out Event
+  const setSignOut = () => {
+    setUser({
+      firstName: 'Guest',
+      lastName: '',
+      email: '',
+      password: '',
+    });
+    history.push({
+      pathname: '/signin',
+    });
   };
 
   return (

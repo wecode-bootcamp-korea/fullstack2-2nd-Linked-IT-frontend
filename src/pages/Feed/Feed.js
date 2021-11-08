@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import FeedProfile from './FeedProfile';
 import WritePost from './WritePost';
@@ -9,56 +9,73 @@ import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import Loader from '../../components/Loader/Loader';
 import MY_PROFILE_DATA from './data/MyProfileData';
 
-const QUERY_LIMIT = 4;
-const options = { rootMargin: '0px', threshold: 1 };
+const QUERY_LIMIT = 3;
 
 export default function Feed() {
   const { ...myProfileData } = MY_PROFILE_DATA;
   const [postList, setPostList] = useState([]);
-  const [postListOnScreen, setPostListOnScreen] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [infiniteTarget, setTarget] = useState(null);
+  const [postStart, setPostStart] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [postUpdate, setPostUpdate] = useState(false);
-
-  // useEffect(() => {
-  //   let observer;
-  //   if (infiniteTarget) {
-  //     observer = new IntersectionObserver(callback, options);
-  //     observer.observe(infiniteTarget);
-  //   }
-  //   return () => observer && observer.disconnect();
-  // }, [infiniteTarget]);
-
-  // useEffect(() => {}, [postList]);
-
-  // async function callback([entry], observer) {
-  //   if (entry.isIntersecting && !isLoading) {
-  //     observer.unobserve(entry.target);
-  //     await getMoreItem(postList.length, QUERY_LIMIT);
-  //     observer.observe(entry.target);
-  //   }
-  // }
-
-  // async function getMoreItem(offset, limit) {
-  //   setIsLoading(true);
-  //   await new Promise(resolve => setTimeout(resolve, 500));
-  //   setPostList(postList => postList.concat(new Array(limit).fill(offset)));
-  //   setIsLoading(false);
-  // }
+  const [morePost, setMorePost] = useState(false);
+  const observerRef = useRef(
+    new IntersectionObserver(entries => {
+      const first = entries[0];
+      if (first.isIntersecting) {
+        setMorePost(true);
+      }
+    })
+  );
+  const [element, setElement] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:10000/post/read')
+    fetch(`http://localhost:10000/post/read?offset=0&limit=${postList.length}`)
       .then(res => res.json())
-      .then(res => setPostList(res))
-      .then(console.log('GET_FEED_SECCESS'))
+      .then(res => {
+        setPostList(res);
+      })
       .catch(error => {
         console.log(error);
       });
     setPostUpdate(false);
   }, [postUpdate]);
 
-  //render
+  useEffect(() => {
+    fetch(
+      `http://localhost:10000/post/read?offset=${postStart}&limit=${QUERY_LIMIT}`
+    )
+      .then(res => res.json())
+      .then(res => {
+        getMorePost(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    setMorePost(false);
+    setPostStart(postList.length);
+  }, [morePost]);
+
+  async function getMorePost(el) {
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 500));
+    setPostList(postList.concat(el));
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    const currentElement = element;
+    const currentObserver = observerRef.current;
+    if (currentElement) {
+      currentObserver.observe(currentElement);
+    }
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [element]);
+
   return (
     <>
       <TopNav />
@@ -77,7 +94,7 @@ export default function Feed() {
             postList={postList}
             setIsModalOpen={setIsModalOpen}
           />
-          {postList.reverse().map(data => {
+          {postList.map(data => {
             return (
               <Post
                 key={data.id}
@@ -87,7 +104,7 @@ export default function Feed() {
               />
             );
           })}
-          <InfiniteDiv ref={setTarget} />
+          <ObserverDiv ref={setElement} />
         </PostWrap>
         <FloatingFooter />
         {isLoading && <Loader />}
@@ -115,4 +132,4 @@ const PostWrap = styled.div`
   max-width: 760px;
 `;
 
-const InfiniteDiv = styled.div``;
+const ObserverDiv = styled.div``;

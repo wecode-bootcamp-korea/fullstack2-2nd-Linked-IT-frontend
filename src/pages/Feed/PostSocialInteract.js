@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LikeBtnAndModal from './LikeBtnAndModal';
 import PostReply from './PostReply';
 
-export default function PostSocialInteract({ myProfileData, postData }) {
+export default function PostSocialInteract({
+  myProfileData,
+  postData,
+  setPostUpdate,
+}) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
 
   const handleReplyOepn = () => {
@@ -33,7 +37,11 @@ export default function PostSocialInteract({ myProfileData, postData }) {
           </button>
         </BtnWrap>
         {isReplyOpen && (
-          <PostReply myProfileData={myProfileData} postData={postData} />
+          <PostReply
+            myProfileData={myProfileData}
+            postData={postData}
+            setPostUpdate={setPostUpdate}
+          />
         )}
       </Interact>
     </article>

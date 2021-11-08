@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 export default function PostContent({ postData }) {
   const { createdAt, content, image } = postData;
   const [isShowMoreClicked, setIsShowMoreClicked] = useState('');
+  const textRef = useRef();
 
   const contentShow = () => {
     setIsShowMoreClicked('show');
@@ -14,9 +15,9 @@ export default function PostContent({ postData }) {
       <CreatedAt>
         <span>{createdAt}</span>
       </CreatedAt>
-      <TextWrap>
+      <TextWrap ref={textRef}>
         <Text name={isShowMoreClicked}>{content}</Text>
-        {content.length > 220 && (
+        {content.length > 120 && (
           <MoreBtn name={isShowMoreClicked} onClick={contentShow}>
             ...더보기
           </MoreBtn>
@@ -24,7 +25,7 @@ export default function PostContent({ postData }) {
       </TextWrap>
       {image && (
         <Image>
-          <img alt="contentImg" src={image} />
+          <img name={isShowMoreClicked} alt="contentImg" src={image} />
         </Image>
       )}
     </div>
@@ -75,6 +76,11 @@ const MoreBtn = styled.button`
 `;
 
 const Image = styled.div`
+  display: flex;
+  align-items: center;
+  height: ${props => (props.name !== 'show' ? '300px' : 'auto')};
+  overflow: hidden;
+
   img {
     width: 100%;
   }
