@@ -64,7 +64,9 @@ export default function PostModal({
     })
       .then(res => res.json())
       .then(console.log('ADD_POST_SUCCESS'))
-      .catch(console.log('ADD_POST_FAILED'));
+      .catch(error => {
+        console.log(error);
+      });
     setPostUpdate(true);
     setIsModalOpen(false);
   };
@@ -80,7 +82,9 @@ export default function PostModal({
     })
       .then(res => res.json())
       .then(console.log('EDIT_POST_SUCCESS'))
-      .catch(console.log('EDIT_POST_FAILED'));
+      .catch(error => {
+        console.log(error);
+      });
     setPostUpdate(true);
     setIsModalOpen(false);
   };

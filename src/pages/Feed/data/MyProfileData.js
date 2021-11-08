@@ -1,9 +1,9 @@
 const MY_PROFILE_DATA = {
   id: 1,
-  firstName: '지훈',
-  lastName: '한',
+  firstName: 'Jihoon',
+  lastName: 'Han',
   userProfileUrl: '/images/pchan.jpeg',
-  backgroundImage: '/images/chimtudio.jpg',
+  backgroundImage: '/images/defaultProfileBg.png',
   headline: 'Fullstack 2기',
   firstConnection: '7',
   companyNameKor: '위코드',
