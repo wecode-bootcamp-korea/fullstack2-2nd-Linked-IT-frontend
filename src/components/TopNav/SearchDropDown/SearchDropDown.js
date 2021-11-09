@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
-import { faLaptopCode } from '@fortawesome/free-solid-svg-icons';
 import { disableScroll } from '../../../utils/ModalFunc';
 
 export default function SearchDropDown({
@@ -27,29 +26,7 @@ export default function SearchDropDown({
   }, [searchInput]);
 
   // if nothing in search history and nothing typed in search input
-  if (!searchHistory && !searchInput)
-    return (
-      <StyledSearchDropdown>
-        <TopLine>
-          <span>Try searching for</span>
-        </TopLine>
-        <RecentSearchLine
-          to={{
-            pathname: '/search/all/',
-            search: `?keyword=Kim`,
-            state: { keyword: 'Kim' },
-          }}
-          onClick={() => {
-            addToSearchHistory('Kim');
-            setSearchInput('Kim');
-            setDropdownVisible(false);
-          }}
-        >
-          <FaIcon icon={faLaptopCode} />
-          <p>Kim</p>
-        </RecentSearchLine>
-      </StyledSearchDropdown>
-    );
+  if (!searchHistory && !searchInput) return null;
   if (!searchInput || !searchInput.replace(/\s/g, '').length) {
     // FIX right side of 'IF STATEMENT LOGIC'
     return (
