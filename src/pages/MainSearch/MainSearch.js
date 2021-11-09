@@ -15,6 +15,7 @@ export default function MainSearch({ location }) {
   const history = useHistory();
   const { keyword } = location.state;
 
+  console.log('anything');
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:10000/user${location.search}&limit=3`)
