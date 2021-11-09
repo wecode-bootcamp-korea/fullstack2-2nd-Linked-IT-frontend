@@ -50,7 +50,7 @@ export default function TopNav() {
     setDropdownVisible(false);
     history.push({
       pathname: '/search/all/',
-      search: `?keyword=${searchInput}`, // query string
+      search: `?keyword=${searchInput}`,
       state: { keyword: searchInput },
     });
     inputRef.current.blur();
@@ -136,10 +136,8 @@ export default function TopNav() {
                   />
                 </ModalLine>
                 <ModalLine fontSize="16px">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Nobis exercitationem iure iusto laborum, tempore ex. Debitis
-                  expedita quia iste laudantium nobis ratione possimus, dolore
-                  deserunt tempora nam harum? Doloremque, quam.
+                  Your search history is only visible to you, and it helps us to
+                  show you better results. Are you sure you want to clear it?
                 </ModalLine>
                 <ModalLine isButtons>
                   <StyledButton
@@ -153,7 +151,6 @@ export default function TopNav() {
                   <StyledButton
                     text="Clear History"
                     onClick={() => {
-                      console.log('Clear search history (localstorage)');
                       clearSearchHistory();
                       setModalVisible(false);
                       enableScroll();
