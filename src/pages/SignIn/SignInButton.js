@@ -12,7 +12,7 @@ export default function SignInButton() {
           color={`black`}
           text={
             <div>
-              <i class="fas fa-comment"></i>
+              <i className="fas fa-comment"></i>
               <span>카카오 계정으로 로그인</span>
             </div>
           }
@@ -27,7 +27,7 @@ export default function SignInButton() {
           color={`black`}
           text={
             <div>
-              <i class="fab fa-github"></i>
+              <i className="fab fa-github"></i>
               <span>GitHub 계정으로 로그인</span>
             </div>
           }

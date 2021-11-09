@@ -3,7 +3,6 @@ import {
   faUserFriends,
   faBriefcase,
   faUser,
-  faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 const NAV_LINK_DATA = [
@@ -30,12 +29,6 @@ const NAV_LINK_DATA = [
     title: '나',
     url: '/profile',
     icon: faUser,
-  },
-  {
-    id: 5,
-    title: '로그아웃',
-    url: '/signin',
-    icon: faSignOutAlt,
   },
 ];
 
