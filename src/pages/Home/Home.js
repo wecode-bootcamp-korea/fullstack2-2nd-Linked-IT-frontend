@@ -211,7 +211,7 @@ const HomeMain = styled.main`
 
   width: 1128px;
   height: 560px;
-  margin: 15px auto 85px;
+  margin: 35px auto;
   border-radius: 8px;
   padding: 26px 0;
 
@@ -241,6 +241,7 @@ const HomeMainForm = styled.form`
 
   width: 400px;
   height: 230px;
+  margin-top: 10px;
 
   div {
     position: relative;
@@ -256,12 +257,12 @@ const HomeMainForm = styled.form`
 
     input {
       width: 100%;
-      height: 52px;
+      height: 48px;
       margin-top: 8px;
       border: 1px solid black;
       border-radius: 4px;
       padding: 2px 0 0 12px;
-      font-size: 19px;
+      font-size: 17px;
     }
 
     span {
@@ -283,7 +284,7 @@ const HomeMainForm = styled.form`
     display: block;
 
     width: 160px;
-    margin-top: 8px;
+    margin: 10px 0;
 
     a {
       color: ${props => props.theme.colors.fontGrey};
@@ -333,7 +334,7 @@ const HomeMainSeperator = styled.span`
 `;
 
 const HomeBackground = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
