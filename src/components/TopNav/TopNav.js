@@ -3,7 +3,11 @@ import { UserContext } from '../../contexts/UserContext';
 import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSearch,
+  faTimes,
+  faSignOutAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import SearchDropDown from './SearchDropDown/SearchDropDown';
 import Button from '../Button/Button';
 import useClickOutside from '../../hooks/useClickOutside';
@@ -177,6 +181,10 @@ export default function TopNav() {
                 </StyledNavLink>
               );
             })}
+            <StyledNavLink to="/signin" onClick={setSignOut}>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <span>로그아웃</span>
+            </StyledNavLink>
           </NavList>
         </RightWrapper>
       </MainWrapper>
