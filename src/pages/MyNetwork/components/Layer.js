@@ -56,8 +56,8 @@ export default function Layer(props) {
           {cardList?.map((card, idx) => {
             return <ProfileCard key={idx} {...card} />;
           })}
+          <InfiniteDiv ref={setTarget} />
         </Grid>
-        <InfiniteDiv ref={setTarget} />
       </Container>
       {isLoading && <Loader />}
     </>
@@ -70,7 +70,7 @@ const Container = styled.div`
   left: 50%;
   transform: translate(-50%);
   width: 744px;
-  height: 770px;
+  height: 80%;
   border: 1px solid ${({ theme }) => theme.colors.borderGrey};
   border-radius: 10px;
   margin-top: 10px;
