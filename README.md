@@ -10,11 +10,13 @@
 
 2021.10.25 ~ 2021.11.05 (12일)
 
+<br/>
+
 ### 🛠 기술
 
 ---
 
-#### Front-end
+### `Front-end`
 
 <p float="left">
   <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/react_original_logo_icon_146374.png" alt="React" style="display: inline-block; width: 30px; margin-right: 5px;">
@@ -25,7 +27,7 @@
 
 React, React-Hooks, React-Router, Styled-Components
 
-#### Back-end
+### `Back-end`
 
 <p float="left">
   <img src="https://cdn.icon-icons.com/icons2/2699/PNG/128/nodejs_logo_icon_169910.png" alt="Node.js" style="display: inline-block; width: 30px; margin-right: 5px;">
@@ -49,6 +51,8 @@ Node.js, Express, MySQL, Prisma, Postman, Jest, JWT, Bcrypt
 - [이성재](https://github.com/hanslee1) : 사이트 전체 범위에 대한 검색 기능, 검색 결과 페이지 및 TopNav & Button 컴포넌트 구현
 - [한승완](https://github.com/han0gu) : MyNetwork(인맥) & Jobs(채용공고) 페이지 및 Job Posting Card & Company Profile Card 컴포넌트 구현
 - [한지훈](https://github.com/JivenHan) : Feed(타임라인) 페이지 및 Floating Footer 컴포넌트 구현
+
+<br/>
 
 ### 🤝 Back-end Repository
 
