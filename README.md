@@ -10,32 +10,32 @@
 
 2021.10.25 ~ 2021.11.05 (12일)
 
-<br/>
-
 ### 🛠 기술
 
 ---
 
-### `Front-end`
+### ➡️ Front-end
 
 <p float="left">
-  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/react_original_logo_icon_146374.png" alt="React" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/2248/PNG/128/hook_icon_138483.png" alt="React-Hooks" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/649/PNG/128/sign_icon-icons.com_59775.png" alt="React-Router" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/2107/PNG/128/file_type_styled_icon_130142.png" alt="Styled-Components" style="display: inline-block; width: 30px; margin-right: 5px;">
+  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/react_original_logo_icon_146374.png" alt="React" style="display:inline-block; width:30px; margin-right:5px; margin-left:40px">
+  <img src="https://cdn.icon-icons.com/icons2/2248/PNG/128/hook_icon_138483.png" alt="React-Hooks" style="display:inline-block; width:30px; margin-right:5px;">
+  <img src="https://cdn.icon-icons.com/icons2/649/PNG/128/sign_icon-icons.com_59775.png" alt="React-Router" style="display:inline-block; width:30px; margin-right:5px;">
+  <img src="https://cdn.icon-icons.com/icons2/2107/PNG/128/file_type_styled_icon_130142.png" alt="Styled-Components" style="display:inline-block; width:30px; margin-right:5px;">
 </p>
 
 React, React-Hooks, React-Router, Styled-Components
 
-### `Back-end`
+</br>
+
+### ➡️ Back-end
 
 <p float="left">
-  <img src="https://cdn.icon-icons.com/icons2/2699/PNG/128/nodejs_logo_icon_169910.png" alt="Node.js" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/express_original_logo_icon_146527.png" alt="Express" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/mysql_original_wordmark_logo_icon_146417.png" alt="MySQL" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/2107/PNG/128/file_type_light_prisma_icon_130444.png" alt="Prisma" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/3053/PNG/128/postman_macos_bigsur_icon_189815.png" alt="Postman" style="display: inline-block; width: 30px; margin-right: 5px;">
-  <img src="https://cdn.icon-icons.com/icons2/2107/PNG/128/file_type_jest_snapshot_icon_130513.png" alt="Jest" style="display: inline-block; width: 30px; margin-right: 5px;">
+  <img src="https://cdn.icon-icons.com/icons2/2699/PNG/128/nodejs_logo_icon_169910.png" alt="Node.js" style="display: inline-block; width: 30px; margin-right: 5px; margin-left:40px">
+  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/express_original_logo_icon_146527.png" alt="Express" style="display:inline-block; width:30px; margin-right:5px;">
+  <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/mysql_original_wordmark_logo_icon_146417.png" alt="MySQL" style="display:inline-block; width:30px; margin-right:5px;">
+  <img src="https://cdn.icon-icons.com/icons2/2107/PNG/128/file_type_light_prisma_icon_130444.png" alt="Prisma" style="display:inline-block; width:30px; margin-right:5px;">
+  <img src="https://cdn.icon-icons.com/icons2/3053/PNG/128/postman_macos_bigsur_icon_189815.png" alt="Postman" style="display:inline-block; width:30px; margin-right:5px;">
+  <img src="https://cdn.icon-icons.com/icons2/2107/PNG/128/file_type_jest_snapshot_icon_130513.png" alt="Jest" style="display:inline-block; width:30px; margin-right:5px;">
 </p>
 
 Node.js, Express, MySQL, Prisma, Postman, Jest, JWT, Bcrypt
@@ -52,7 +52,14 @@ Node.js, Express, MySQL, Prisma, Postman, Jest, JWT, Bcrypt
 - [한승완](https://github.com/han0gu) : MyNetwork(인맥) & Jobs(채용공고) 페이지 및 Job Posting Card & Company Profile Card 컴포넌트 구현
 - [한지훈](https://github.com/JivenHan) : Feed(타임라인) 페이지 및 Floating Footer 컴포넌트 구현
 
-<br/>
+### 👨‍👩‍👧‍👦 Team Back-end
+
+---
+
+- [김민재](https://github.com/minjamie) : Repo 초기 세팅 및 Database Modeling 및 Feed API, Jobs API & Search API 구현
+- [김재원](https://github.com/jambottle) : SignUp/SignIn API 및 소셜 로그인 기능 구현
+- [김진성](https://github.com/jsung1103) : Prisma Schema 작성 및 Profile API 구현
+- [한승완](https://github.com/han0gu) : User 간의 친구 관계를 관리하는 CRUD API 구현
 
 ### 🤝 Back-end Repository
 
@@ -125,7 +132,7 @@ https://github.com/wecode-bootcamp-korea/fullstack2-2nd-Linked-IT-backend
 - 인맥 및 회사의 검색 결과가 각각 3개 이상인 경우에는 '결과 모두 보기' 버튼을 조건부 렌더링으로 구현
 - '결과 모두 보기' 버튼 클릭 시, 해당 결과에 대한 Pagination 구현
 
-<br/>
+</br>
 
 ### ※ References
 
