@@ -14,7 +14,7 @@
 
 ---
 
-### ➡️ Front-end
+#### `Front-end`
 
 <p float="left">
   <img src="https://cdn.icon-icons.com/icons2/2415/PNG/128/react_original_logo_icon_146374.png" alt="React" style="display:inline-block; width:30px; margin-right:5px; margin-left:40px">
@@ -25,9 +25,7 @@
 
 React, React-Hooks, React-Router, Styled-Components
 
-</br>
-
-### ➡️ Back-end
+#### `Back-end`
 
 <p float="left">
   <img src="https://cdn.icon-icons.com/icons2/2699/PNG/128/nodejs_logo_icon_169910.png" alt="Node.js" style="display: inline-block; width: 30px; margin-right: 5px; margin-left:40px">
@@ -39,8 +37,6 @@ React, React-Hooks, React-Router, Styled-Components
 </p>
 
 Node.js, Express, MySQL, Prisma, Postman, Jest, JWT, Bcrypt
-
-<br/>
 
 ### 👨‍👩‍👧‍👦 Team Front-end
 
@@ -132,7 +128,7 @@ https://github.com/wecode-bootcamp-korea/fullstack2-2nd-Linked-IT-backend
 - 인맥 및 회사의 검색 결과가 각각 3개 이상인 경우에는 '결과 모두 보기' 버튼을 조건부 렌더링으로 구현
 - '결과 모두 보기' 버튼 클릭 시, 해당 결과에 대한 Pagination 구현
 
-</br>
+<br/>
 
 ### ※ References
 
