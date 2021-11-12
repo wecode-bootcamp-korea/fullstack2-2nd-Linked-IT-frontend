@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FriendList from './FriendList';
 import TopNav from '../../components/TopNav/TopNav';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
+import API_ENDPOINT from '../../api';
 
 const USER_ID = 1; // API 미구현으로 인한 임시 로직
 
@@ -26,7 +27,7 @@ export default function Connections() {
   }, [isReloadNeeded]);
 
   const getFriendListByStatus = (userId, friendStatusId) => {
-    const url = `http://localhost:10000/friend/my?userId=${userId}&friendStatusId=${friendStatusId}`;
+    const url = `${API_ENDPOINT}/friend/my?userId=${userId}&friendStatusId=${friendStatusId}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {

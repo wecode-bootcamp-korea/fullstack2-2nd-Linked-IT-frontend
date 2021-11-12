@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 import isKorean from '../../utils/LanguageUtil';
 import modalUploadBtns from './data/modalUploadBtns';
+import API_ENDPOINT from '../../api';
 
 export default function PostModal({
   myProfileData,
@@ -51,7 +52,7 @@ export default function PostModal({
   }, []);
 
   const addPost = () => {
-    fetch('http://localhost:10000/post/create', {
+    fetch(`${API_ENDPOINT}/post/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -72,7 +73,7 @@ export default function PostModal({
   };
 
   const editPost = () => {
-    fetch('http://localhost:10000/post/update', {
+    fetch(`${API_ENDPOINT}/post/update`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

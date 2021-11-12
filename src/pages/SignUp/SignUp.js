@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import SignUpButton from './SignUpButton';
 import LinearFooter from '../../components/LinearFooter/LinearFooter';
+import API_ENDPOINT from '../../api';
 
 const validateInput = user => {
   const { lastName, firstName, email, password } = user;
@@ -49,7 +50,7 @@ export default function SignUp() {
     const { firstName, lastName, email, password } = user;
 
     // event.preventDefault();
-    fetch(`http://localhost:10000/user/signup`, {
+    fetch(`${API_ENDPOINT}/user/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

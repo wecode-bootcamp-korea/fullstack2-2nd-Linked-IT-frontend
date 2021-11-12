@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PostReplyList from './PostReplyList';
 import isKorean from './../../utils/LanguageUtil';
+import API_ENDPOINT from '../../api';
 
 export default function PostReply({ myProfileData, postData, setPostUpdate }) {
   const { firstName, lastName, userProfileUrl } = myProfileData;
@@ -25,7 +26,7 @@ export default function PostReply({ myProfileData, postData, setPostUpdate }) {
   };
 
   const addReply = () => {
-    fetch('http://localhost:10000/comment/create', {
+    fetch(`${API_ENDPOINT}/comment/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -47,7 +48,7 @@ export default function PostReply({ myProfileData, postData, setPostUpdate }) {
   };
 
   useEffect(() => {
-    fetch('http://localhost:10000/comment/')
+    fetch(`${API_ENDPOINT}/comment/`)
       .then(res => res.json())
       .then(res => setReplyList(res))
       .then(console.log('GET_REPLY_SECCESS'))

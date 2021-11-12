@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import SignInButton from '../SignIn/SignInButton';
 import GlobalFooter from '../../components/GlobalFooter/GlobalFooter';
+import API_ENDPOINT from '../../api';
 
 const validateInput = user => {
   const { email, password } = user;
@@ -42,7 +43,7 @@ export default function Home() {
     const { email, password } = user;
 
     // event.preventDefault();
-    fetch(`http://localhost:10000/user/signin`, {
+    fetch(`${API_ENDPOINT}/user/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
