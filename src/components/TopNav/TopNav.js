@@ -62,9 +62,7 @@ export default function TopNav() {
 
   // Test Code for Checking UserContext
   const { user, setUser } = useContext(UserContext);
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  useEffect(() => {}, [user]);
 
   // Function Code for Signing Out Event
   const setSignOut = () => {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';

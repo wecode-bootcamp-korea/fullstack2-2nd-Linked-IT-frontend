@@ -23,7 +23,7 @@ const validateInput = user => {
   const isValidPassword = password.match(validPassword) && password !== '';
 
   // Test Code for Checking Function
-  console.log(isValidLastName, isValidFirstName, isValidEmail, isValidPassword);
+  // console.log(isValidLastName, isValidFirstName, isValidEmail, isValidPassword);
 
   return isValidLastName && isValidFirstName && isValidEmail && isValidPassword;
 };
@@ -32,7 +32,7 @@ export default function SignUp() {
   // Test Code for Checking UserContext
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const handleInput = event => {
@@ -62,7 +62,7 @@ export default function SignUp() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 'SIGNUP_SUCCESSED') {
           alert('회원가입에 성공하였습니다!');
           history.push('/signin');

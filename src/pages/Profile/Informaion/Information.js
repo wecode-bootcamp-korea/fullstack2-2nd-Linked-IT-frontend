@@ -3,7 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import CareerCard from './CareerCard';
 import EducationCard from './EducationCard';
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 
 export default function Information(props) {
   const [cardData, setCardData] = useState([]);
