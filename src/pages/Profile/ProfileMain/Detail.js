@@ -16,7 +16,7 @@ export default function Detail(props) {
     schoolName,
   } = props.profile;
 
-  console.log(careers[0]);
+  // console.log(careers[0]);
   return (
     <StyledDetail>
       <StyledBasicInfo>

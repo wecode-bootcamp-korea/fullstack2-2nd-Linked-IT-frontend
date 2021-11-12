@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react/cjs/react.development';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import UserCard from '../../components/UserCard/UserCard';
 import Button from '../../components/Button/Button';

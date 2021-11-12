@@ -1,4 +1,4 @@
-import { useState } from 'react/cjs/react.development';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button/Button';
 import theme from '../../styles/theme';

@@ -25,7 +25,7 @@ export default function Home() {
   // Test Code for Checking UserContext
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const handleInput = event => {
@@ -54,7 +54,7 @@ export default function Home() {
     })
       .then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem('accessToken', res.access_token);
         if (res.access_token && res.status === 'SIGNIN_SUCCESSED') {
           alert('로그인에 성공하였습니다.');

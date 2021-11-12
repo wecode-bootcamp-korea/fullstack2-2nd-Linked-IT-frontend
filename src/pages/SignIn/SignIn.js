@@ -25,7 +25,7 @@ export default function SignIn() {
   // Test Code for Checking UserContext
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const handleInput = event => {

@@ -11,7 +11,7 @@ export default function Auth({ match }) {
   // Test Code for Checking UserContext
   const { user, setUser } = useContext(UserContext);
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   const history = useHistory();
