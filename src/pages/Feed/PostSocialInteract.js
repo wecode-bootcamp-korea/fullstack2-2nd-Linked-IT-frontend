@@ -23,15 +23,15 @@ export default function PostSocialInteract({
         <BtnWrap>
           <LikeBtnAndModal myProfileData={myProfileData} postData={postData} />
           <button onClick={handleReplyOepn}>
-            <img alt="reply" src="/Images/ico_reply.svg" />
+            <img alt="reply" src="/images/ico_reply.svg" />
             <span>댓글</span>
           </button>
           <button>
-            <img alt="share" src="/Images/ico_share.svg" />
+            <img alt="share" src="/images/ico_share.svg" />
             <span>공유</span>
           </button>
           <button>
-            <img alt="send" src="/Images/ico_send.svg" />
+            <img alt="send" src="/images/ico_send.svg" />
             <span>보내기</span>
           </button>
         </BtnWrap>

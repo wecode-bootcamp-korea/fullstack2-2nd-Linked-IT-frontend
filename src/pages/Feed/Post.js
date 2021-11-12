@@ -6,6 +6,7 @@ import PostProfile from './PostProfile';
 import PostContent from './PostContent';
 import PostSocialInteract from './PostSocialInteract';
 import PostModal from './PostModal';
+import API_ENDPOINT from '../../api';
 
 export default function Post({ myProfileData, postData, setPostUpdate }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -29,7 +30,7 @@ export default function Post({ myProfileData, postData, setPostUpdate }) {
   };
 
   const deletePost = () => {
-    fetch('http://localhost:10000/post/delete', {
+    fetch(`${API_ENDPOINT}/post/delete`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -68,7 +69,7 @@ export default function Post({ myProfileData, postData, setPostUpdate }) {
     <PostWrap>
       {myProfileData.id === postData.userId && (
         <EditBtn onClick={handleEditModal}>
-          <img alt="EditBtn" src="/Images/ico_etc.svg" />
+          <img alt="EditBtn" src="/images/ico_etc.svg" />
         </EditBtn>
       )}
       {isEditModalOpen && (

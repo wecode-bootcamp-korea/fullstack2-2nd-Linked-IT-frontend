@@ -97,14 +97,14 @@ export default function PostModal({
         <ModalHeader>
           <span>업데이트 쓰기</span>
           <button onClick={closeModal}>
-            <img alt="thinClose" src="/Images/ico_thinClose.svg" />
+            <img alt="thinClose" src="/images/ico_thinClose.svg" />
           </button>
         </ModalHeader>
         <SetPublic>
           <img alt="myProfileImg" src={userProfileUrl} />
           <span>{name}</span>
           <button>
-            <img alt="tallShort" src="/Images/ico_tallShort.svg" />
+            <img alt="tallShort" src="/images/ico_tallShort.svg" />
             <span>1촌만</span>
             <div>
               <FontAwesomeIcon icon={faSortDown} />
@@ -129,7 +129,7 @@ export default function PostModal({
               return <img key={idx} alt={el.alt} src={el.src} />;
             })}
           </ModalUploadBtns>
-          <TextBox alt="textBox" src="/Images/ico_textBox.svg" />
+          <TextBox alt="textBox" src="/images/ico_textBox.svg" />
           <EditPublic>1촌만</EditPublic>
           {activeUploadBtn ? (
             <AbledButton onClick={postData ? editPost : addPost}>
