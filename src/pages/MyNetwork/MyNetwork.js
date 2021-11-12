@@ -5,6 +5,8 @@ import Layer from './components/Layer';
 import StyledSection from './components/StyledSection';
 import TopNav from '../../components/TopNav/TopNav';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
+import API_ENDPOINT from '../../api';
+
 const TEMP_DATA = new Array(8).fill(0);
 
 const USER_ID = 1; // API 미구현으로 인한 임시 로직
@@ -25,7 +27,7 @@ export default function MyNetwork() {
   }, []);
 
   const getTotalFriendCount = () => {
-    const url = `http://localhost:10000/friend/${USER_ID}/totalCount`;
+    const url = `${API_ENDPOINT}/friend/${USER_ID}/totalCount`;
     fetch(url)
       .then(res => res.json())
       .then(data => setFriendCount(data))
@@ -43,7 +45,7 @@ export default function MyNetwork() {
   };
 
   const getFriendListByStatus = (userId, friendStatusId) => {
-    const url = `http://localhost:10000/friend/my?userId=${userId}&friendStatusId=${friendStatusId}`;
+    const url = `${API_ENDPOINT}/friend/my?userId=${userId}&friendStatusId=${friendStatusId}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {

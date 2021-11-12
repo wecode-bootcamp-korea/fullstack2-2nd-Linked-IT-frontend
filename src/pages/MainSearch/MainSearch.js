@@ -7,6 +7,7 @@ import UserCard from '../../components/UserCard/UserCard';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import CompanyProfileCard from '../../components/CompanyProfileCard/CompanyProfileCard';
 import Loader from '../../components/Loader/Loader';
+import API_ENDPOINT from '../../api';
 
 export default function MainSearch({ location }) {
   const [peopleList, setPeopleList] = useState([]);
@@ -17,13 +18,13 @@ export default function MainSearch({ location }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:10000/user${location.search}&limit=3`)
+    fetch(`${API_ENDPOINT}/user${location.search}&limit=3`)
       .then(res => res.json())
       .then(res => {
         setPeopleList(res);
       });
 
-    fetch(`http://localhost:10000/company/${location.search}&limit=3`)
+    fetch(`${API_ENDPOINT}/company/${location.search}&limit=3`)
       .then(res => res.json())
       .then(res => setCompanyList(res))
       .finally(() => setLoading(false));

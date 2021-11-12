@@ -1,7 +1,9 @@
+import API_ENDPOINT from '../../../api';
+
 const USER_ID = 1; // API 미구현으로 인한 임시 로직
 
 export const acceptFriendRequest = async friendId => {
-  const url = `http://localhost:10000/friend/`;
+  const url = `${API_ENDPOINT}/friend/`;
   const options = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },

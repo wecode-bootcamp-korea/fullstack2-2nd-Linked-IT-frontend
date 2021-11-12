@@ -4,6 +4,7 @@ import UserCard from '../../components/UserCard/UserCard';
 import Button from '../../components/Button/Button';
 import { sortArrayByName, searchUserByName } from './utils/TempUtil';
 import { acceptFriendRequest } from './utils/TempAPI';
+import API_ENDPOINT from '../../api';
 
 const USER_ID = 1; // API 미구현으로 인한 임시 로직
 
@@ -51,7 +52,7 @@ export default function FriendList(props) {
   const deleteFriend = friendId => {
     const result = window.confirm(confirmMsg);
     if (result) {
-      const url = `http://localhost:10000/friend/`;
+      const url = `${API_ENDPOINT}/friend/`;
       const options = {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },

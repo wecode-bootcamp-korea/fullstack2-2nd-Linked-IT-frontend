@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import UserCard from '../../components/UserCard/UserCard';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import Loader from '../../components/Loader/Loader';
+import API_ENDPOINT from '../../api';
 
 export default function PeopleSearch({ location }) {
   const [allPeopleList, setAllPeopleList] = useState([]);
@@ -19,7 +20,7 @@ export default function PeopleSearch({ location }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:10000/user${location.search}&limit=${1}`)
+    fetch(`${API_ENDPOINT}/user${location.search}&limit=${1}`)
       .then(res => res.json())
       .then(res => {
         const resultsCount = res[0].userCount;
@@ -36,9 +37,9 @@ export default function PeopleSearch({ location }) {
 
   useEffect(() => {
     fetch(
-      `http://localhost:10000/user${
-        location.search
-      }&limit=${postsPerPage}&offset=${(currentPage - 1) * postsPerPage}`
+      `${API_ENDPOINT}/user${location.search}&limit=${postsPerPage}&offset=${
+        (currentPage - 1) * postsPerPage
+      }`
     )
       .then(res => res.json())
       .then(res => setAllPeopleList(res));

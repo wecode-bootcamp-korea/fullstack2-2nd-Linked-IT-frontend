@@ -34,6 +34,8 @@ export default function CareerCard(props) {
     description,
   } = props.career;
 
+  console.log(employmentType, endYear);
+
   return (
     <StyledCareerCard
       onMouseEnter={idx ? showEditBtn : null}
@@ -53,12 +55,10 @@ export default function CareerCard(props) {
       </Logo>
       <InfoWrapper>
         <h3>{position}</h3>
-        <FirstLine>{`${companyName} • ${employmentType}`}</FirstLine>
+        <FirstLine>{`${companyName}   ${employmentType || ''}`}</FirstLine>
         <SecondLine>
           <span>{`${startYear}년 ${startMonth}월 ~`}</span>
-          {!isNaN(endYear) && endYear !== '0' && (
-            <span>{` ${endYear}년 ${endMonth}월`}</span>
-          )}
+          {endYear === '2021' && <span>{` ${endYear}년 ${endMonth}월`}</span>}
         </SecondLine>
         <ThirdLine>{`${country} ${city || ''}`}</ThirdLine>
         <FourthLine>{description}</FourthLine>

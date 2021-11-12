@@ -8,6 +8,7 @@ import TopNav from '../../components/TopNav/TopNav';
 import FloatingFooter from '../../components/FloatingFooter/FloatingFooter';
 import Loader from '../../components/Loader/Loader';
 import MY_PROFILE_DATA from './data/MyProfileData';
+import API_ENDPOINT from '../../api';
 
 const QUERY_LIMIT = 3;
 
@@ -30,7 +31,7 @@ export default function Feed() {
   const [element, setElement] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:10000/post/read?offset=0&limit=${postList.length}`)
+    fetch(`${API_ENDPOINT}/post/read?offset=0&limit=${postList.length}`)
       .then(res => res.json())
       .then(res => {
         setPostList(res);
@@ -42,9 +43,7 @@ export default function Feed() {
   }, [postUpdate]);
 
   useEffect(() => {
-    fetch(
-      `http://localhost:10000/post/read?offset=${postStart}&limit=${QUERY_LIMIT}`
-    )
+    fetch(`${API_ENDPOINT}/post/read?offset=${postStart}&limit=${QUERY_LIMIT}`)
       .then(res => res.json())
       .then(res => {
         getMorePost(res);

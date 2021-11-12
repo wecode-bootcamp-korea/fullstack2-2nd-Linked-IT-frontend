@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import LikeBtnAndModal from './LikeBtnAndModal';
 import PostReply from './PostReply';
@@ -17,7 +17,6 @@ export default function PostSocialInteract({
   return (
     <article>
       <Header>
-        <span>좋아요 {postData.likeCount}</span>
         <span>댓글 {postData.commentCount}</span>
       </Header>
       <Interact>

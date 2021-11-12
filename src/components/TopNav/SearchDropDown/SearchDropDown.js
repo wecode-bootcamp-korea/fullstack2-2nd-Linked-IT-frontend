@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { disableScroll } from '../../../utils/ModalFunc';
+import API_ENDPOINT from '../../../api';
 
 export default function SearchDropDown({
   searchInput,
@@ -16,7 +17,7 @@ export default function SearchDropDown({
   const searchHistory = JSON.parse(localStorage.getItem('searchHistory')); //렌더링 too much
   useEffect(() => {
     // console.log('FETCH');
-    fetch(`http://localhost:10000/search/?keyword=${searchInput}`)
+    fetch(`${API_ENDPOINT}/search/?keyword=${searchInput}`)
       .then(res => res.json())
       .then(res => {
         // console.log('RES:', res);

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import isKorean from '../../utils/LanguageUtil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import API_ENDPOINT from '../../api';
 
 export default function PostReplyList({
   replyData,
@@ -73,7 +74,7 @@ export default function PostReplyList({
   });
 
   const editReply = () => {
-    fetch('http://localhost:10000/comment/update', {
+    fetch(`${API_ENDPOINT}/comment/update`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -93,7 +94,7 @@ export default function PostReplyList({
   };
 
   const deleteReply = () => {
-    fetch('http://localhost:10000/comment/delete', {
+    fetch(`${API_ENDPOINT}/comment/delete`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

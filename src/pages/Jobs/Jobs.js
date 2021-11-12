@@ -4,6 +4,7 @@ import JobPostingDetail from './JobPostingDetail';
 import TopNav from '../../components/TopNav/TopNav';
 import Button from '../../components/Button/Button';
 import JobPostingCard from '../../components/JobPostingCard/JobPostingCard';
+import API_ENDPOINT from '../../api';
 
 export default function Jobs(props) {
   const { searchLocation = '대한민국', searchKeyword = 'React' } = props;
@@ -39,7 +40,7 @@ export default function Jobs(props) {
   const getListDataByPageNumber = pageNumber => {
     // const offset = (pageNumber - 1) * 10; // API 미구현
     // const limit = 10; // API 미구현
-    const url = `http://localhost:10000/jobs`;
+    const url = `${API_ENDPOINT}/jobs`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
@@ -63,7 +64,7 @@ export default function Jobs(props) {
   };
 
   const getDetailDataByPostingId = jobPostingId => {
-    const url = `http://localhost:10000/jobs/${jobPostingId}`;
+    const url = `${API_ENDPOINT}/${jobPostingId}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
