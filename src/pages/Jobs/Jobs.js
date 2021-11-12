@@ -64,7 +64,7 @@ export default function Jobs(props) {
   };
 
   const getDetailDataByPostingId = jobPostingId => {
-    const url = `${API_ENDPOINT}/${jobPostingId}`;
+    const url = `${API_ENDPOINT}/jobs/${jobPostingId}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {
