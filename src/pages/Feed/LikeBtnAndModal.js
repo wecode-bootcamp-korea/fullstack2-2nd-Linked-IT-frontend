@@ -31,7 +31,7 @@ export default function LikeBtnAndModal() {
       >
         <LikeIcon
           alt="thumbDefault"
-          src={isLike ? isLike : '/Images/ico_thumb.svg'}
+          src={isLike ? isLike : '/images/ico_thumb.svg'}
         />
         <span>추천</span>
       </Button>
